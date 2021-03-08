@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:textSize="21dp"
+            android:text="Run Simulations" />
+
+    <LinearLayout
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/example"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="1dp"
+            android:layout_marginStart="10dp"
+            android:textSize="16dp"
+            android:text="Example: ts th td ac ah ->" />
+
+        <TextView
+            style="@style/TextBlack"
+            android:id="@+id/exampleCards"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="40dp"
+            android:text="🂪🂺🃊🃑🂱" />
+
+    </LinearLayout>
+
+
+<!--        <TextView-->
+<!--            style="@style/TextBlack"-->
+<!--            android:id="@+id/exampleCardText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="left"-->
+<!--            android:text="example: ts th td ac ah -> 🂪 🂺	🃊 🃑 🂱\nexample: kh qc 7c 8c 9s -> 🂾 🃝 🃗 🃘 🂩" />-->
+
+        <EditText
+            android:id="@+id/editTextCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:inputType="textPersonName"
+            android:text="2s 2h 3d jc ah" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/cardsLayout"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/card1"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card1Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card1"
+                app:layout_constraintStart_toStartOf="@id/card1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card2Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card2"
+                app:layout_constraintStart_toStartOf="@id/card2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card3"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card3Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card3"
+                app:layout_constraintStart_toStartOf="@id/card3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card4"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card4Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card4"
+                app:layout_constraintStart_toStartOf="@id/card4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card5"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card5Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card5"
+                app:layout_constraintStart_toStartOf="@id/card5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/expectedHandValue"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="$0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/errorText"
+                style="@style/TextRed"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/seekbarHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="Number of trials:" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:tooltipText="Number of trial of Monte Carlo Simulation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:min="50"
+                android:progress="5000"
+                android:max="100000"
+                android:layout_weight="10" />
+
+            <TextView
+                android:id="@+id/seekbarValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="5000" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:text="Start" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:id="@+id/handList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</ScrollView>

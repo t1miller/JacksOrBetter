@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.main.MainFragment">
+
+        <TextView
+            style="@style/TextTitle"
+            android:id="@+id/stats_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Statistics" />
+
+        <TextView
+            style="@style/TextSubTitle"
+            android:id="@+id/hand_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stats_title"
+            android:text="Hand Stats:" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:name="com.example.jacksorbetter.stats.StatsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hand_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".stats.StatsFragment"
+            tools:listitem="@layout/item_hand_eval_count" />
+
+        <TextView
+            style="@style/TextSubTitle"
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list"
+            android:text="Money Stats:" />
+
+        <TextView
+            android:id="@+id/won"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/money"
+            android:text="Won:" />
+
+        <TextView
+            android:id="@+id/loss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/won"
+            android:text="Lost:" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loss"
+            android:text="Total:" />
+
+        <TextView
+            style="@style/TextSubTitle"
+            android:id="@+id/gameStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total"
+            android:text="Last Game:" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardsLayout1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gameStats"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/card1"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card1Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card1"
+                app:layout_constraintStart_toStartOf="@id/card1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card2Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card2"
+                app:layout_constraintStart_toStartOf="@id/card2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card3"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card3Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card3"
+                app:layout_constraintStart_toStartOf="@id/card3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card4"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card4Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card4"
+                app:layout_constraintStart_toStartOf="@id/card4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/card5"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/card5Hold"
+                style="@style/HoldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hold"
+                app:layout_constraintEnd_toEndOf="@id/card5"
+                app:layout_constraintStart_toStartOf="@id/card5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bet:"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardsLayout2"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardsLayout1"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/card12"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <ImageView
+                android:id="@+id/card22"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card12"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <ImageView
+                android:id="@+id/card32"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <ImageView
+                android:id="@+id/card42"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card32"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+
+            <ImageView
+                android:id="@+id/card52"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toEndOf="@id/card42"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback" />
+
+            <TextView
+                android:id="@+id/lastHandwon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Won:"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toEndOf="@+id/card52"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lastHandEval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eval:"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card52"
+                app:layout_constraintTop_toBottomOf="@id/lastHandwon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            style="@style/TextSubTitle"
+            android:id="@+id/strategyStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardsLayout2"
+            android:text="Strategy Stats:" />
+
+        <TextView
+            android:id="@+id/strategyYourAccuracy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/strategyStats"
+            android:text="Your Accuracy: " />
+
+        <TextView
+            android:id="@+id/strategyOptimalAccuracy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/strategyYourAccuracy"
+            android:text="Optimal Accuracy: " />
+
+        <TextView
+            android:id="@+id/strategyCorrectCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/strategyOptimalAccuracy"
+            android:text="Correct Count: " />
+
+        <TextView
+            android:id="@+id/strategyWrongCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/strategyCorrectCount"
+            android:text="Wrong Count: " />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

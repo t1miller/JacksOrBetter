@@ -1,0 +1,17 @@
+<resources>
+    <!-- Payout Table Preference -->
+    <string-array name="payout_table_type_entries">
+        <item>6/5 – 95.12%</item>
+        <item>7/5 – 96.17%</item>
+        <item>8/5 – 97.25%</item>
+        <item>9/5 – 98.33%</item>
+        <item>9/6 – 99.54%</item>
+    </string-array>
+
+
+<!--    <string-array name="payout_table_type_values">-->
+<!--        <item>reply</item>-->
+<!--        <item>reply_all</item>-->
+<!--    </string-array>-->
+
+</resources>

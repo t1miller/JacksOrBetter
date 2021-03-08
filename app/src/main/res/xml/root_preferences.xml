@@ -1,0 +1,63 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+<!--        <EditTextPreference-->
+<!--            app:key="signature"-->
+<!--            app:title="@string/signature_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
+
+        <SwitchPreferenceCompat
+            app:key="sound"
+            app:defaultValue="true"
+            app:summaryOff="Sound is off"
+            app:summaryOn="Sound is on"
+            app:title="Sound" />
+
+
+        <SeekBarPreference
+            android:max="15000"
+            app:defaultValue="4000"
+            app:key="montecarlo_trials"
+            app:min="500"
+            app:showSeekBarValue="true"
+            app:summary="@string/autohold_description"
+            app:title="Autohold Accuracy" />
+
+
+        <Preference
+            android:title="Share Stats"
+            android:key="share_stats"
+            android:summary="Share your stats via email blah blah"
+            />
+
+        <Preference
+            android:title="Reset Stats"
+            android:key="reset_stats"
+            android:summary="Resets your statistics"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/money_header">
+
+        <Preference
+            android:defaultValue="2000"
+            android:title="Reset Money"
+            android:key="reset_money"
+            android:summary="Resets your money to the default (2000)"
+            />
+
+        <ListPreference
+            app:defaultValue="9/6 – 99.54%"
+            app:entries="@array/payout_table_type_entries"
+            app:entryValues="@array/payout_table_type_entries"
+            app:key="payout_table"
+            app:title="@string/payout_table_title"
+            app:useSimpleSummaryProvider="true" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

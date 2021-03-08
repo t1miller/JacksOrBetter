@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:text="All 32 possible decisions w/ expected return" />
+
+                <TextView
+                    android:id="@+id/yourHand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="Your Hand:" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/card1"
+                            app:srcCompat="@drawable/ace_of_clubs"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/card2"
+                            app:srcCompat="@drawable/ace_of_clubs"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/card3"
+                            app:srcCompat="@drawable/ace_of_clubs"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/card4"
+                            app:srcCompat="@drawable/ace_of_clubs"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/card5"
+                            app:srcCompat="@drawable/ace_of_clubs"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/expectedHandValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="$0.0" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/bestHand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="Best Hands:" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:padding="5dp"
+                    android:id="@+id/handList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_yes"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="Dismiss" />
+
+        </LinearLayout>
+
+
+</ScrollView>
