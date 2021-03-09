@@ -8,7 +8,7 @@ import com.example.jacksorbetter.cardgame.Card
 import com.example.jacksorbetter.cardgame.Deck
 import com.example.jacksorbetter.cardgame.Evaluate
 import com.example.jacksorbetter.settings.SettingsUtils
-import com.example.jacksorbetter.stats.LastGame
+import com.example.jacksorbetter.stats.Game
 import com.example.jacksorbetter.stats.StatisticsManager
 import com.example.jacksorbetter.ui.main.CommonUiUtils.toFormattedStringThreeDecimals
 import kotlinx.coroutines.Dispatchers
@@ -57,10 +57,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         MutableLiveData(GameState.START)
     }
 
-    val cardFLipState: MutableLiveData<CardFlipState> = MutableLiveData()
+    val cardFLipState: MutableLiveData<CardFlipState> by lazy {
+        MutableLiveData(CardFlipState.FACE_DOWN)
+    }
 
-    private var cardsKept: BooleanArray = listOf(false, false, false, false, false, false).toBooleanArray()
+    private var cardsKept: BooleanArray = listOf(false, false, false, false, false).toBooleanArray()
     private var lastCardsKept: List<Card>? = null
+    private var originalHand: List<Card>? = null
 
 
     private fun updateMoney(money: Int) {
@@ -74,7 +77,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 //            StatisticsManager.addStatistic(0, money-oldAmount, null, null)
         }
         // todo update stats when user win losses bonus round
-
 
         totalMoney.value = money
     }
@@ -105,7 +107,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         Deck.newDeck()
         hand.value = Deck.draw5()
         gameState.value = GameState.DEAL
-        cardsKept = listOf(false, false, false, false, false, false).toBooleanArray()
+        cardsKept = listOf(false, false, false, false, false).toBooleanArray()
     }
 
     fun collect() {
@@ -127,13 +129,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val toteMoney = getMoney() + money
         wonLostMoney.value = money
         updateMoney(toteMoney)
+        if(money > 0) {
+            // we already added the winnnings from the hand
+            StatisticsManager.updateTotalWon(money/2)
+        } else {
+            StatisticsManager.updateTotalWon(money)
+        }
     }
 
     fun evaluateHand(cardsToKeep: BooleanArray, cards: List<Card>) {
 
         cardsKept = cardsToKeep
         lastCardsKept = cards
-        val originalHand = hand.value?.toList()
+        originalHand = hand.value?.toList()
         if(cardsToKeep.toList().contains(false)) {
             val tempHand = mutableListOf<Card>()
             for (i in 0 until 5) {
@@ -150,7 +158,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val evaluation = Evaluate.analyzeHand(hand.value ?: emptyList())
         updateLastEvaluatedHand(evaluation)
 
-        StatisticsManager.addStatistic(LastGame(bet.value, PayOutHelper.calculatePayout(getApplication(), bet.value, evaluation), evaluation.readableName, originalHand, cards, hand.value))
+        StatisticsManager.addStatistic(Game(bet.value, PayOutHelper.calculatePayout(getApplication(), bet.value, evaluation), evaluation.readableName, originalHand, cards, hand.value))
 
         if (evaluation == Evaluate.Hand.NOTHING) {
             collect()
@@ -166,6 +174,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun lastKeptCards() : List<Card>? {
         return lastCardsKept
+    }
+
+    fun getOriginalHand() : List<Card>? {
+        return originalHand
     }
 
     fun getBestHand(numTrials: Int) {

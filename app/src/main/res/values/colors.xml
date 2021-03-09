@@ -16,6 +16,8 @@
     <color name="colorLightBlack">#191919</color>
     <color name="colorLightGrey">#d3d3d3</color>
     <color name="colorForestGreen">#228c22</color>
+    <color name="colorDarkGreen">#124429</color>
+    <color name="colorDarkDarkGreen">#013220</color>
 
 
 </resources>

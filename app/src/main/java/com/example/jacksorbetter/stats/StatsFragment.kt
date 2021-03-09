@@ -42,9 +42,16 @@ class StatsFragment : Fragment() {
         val lastHandWon = view.findViewById<TextView>(R.id.lastHandwon)
         val lastHandEval = view.findViewById<TextView>(R.id.lastHandEval)
 
-//        wonText.text = "Won: ${StatisticsManager.getStatistics()?.won}"
-//        lossText.text = "Loss: ${StatisticsManager.getStatistics()?.lost}"
-//        totalText.text = "Total: ${(StatisticsManager.getStatistics()?.lost ?: 0) + (StatisticsManager.getStatistics()?.won ?: 0)}"
+        val accuracyText = view.findViewById<TextView>(R.id.strategyYourAccuracy)
+        val correctText = view.findViewById<TextView>(R.id.strategyCorrectCount)
+        val wrongText = view.findViewById<TextView>(R.id.strategyWrongCount)
+
+//        val totalCount = (StatisticsManager.getStatistics()?.correctCount ?: 0) + (StatisticsManager.getStatistics()?.wrongCount ?: 0)
+//        val accuracy = if (totalCount > 0) (StatisticsManager.getStatistics()?.correctCount ?: 0).div(totalCount.toDouble()) else 0.0
+
+        accuracyText.text = getString(R.string.your_accuracy, StatisticsManager.getAccuracy())
+        correctText.text = getString(R.string.correct_count, StatisticsManager.getStatistics()?.correctCount)
+        wrongText.text = getString(R.string.wrong_count, StatisticsManager.getStatistics()?.wrongCount)
 
         wonText.text = getString(R.string.won, StatisticsManager.getStatistics()?.totalWon)
         lossText.text = getString(R.string.loss, StatisticsManager.getStatistics()?.totalLost)

@@ -299,16 +299,8 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/strategyStats"
-            android:text="Your Accuracy: " />
+            android:text="Accuracy: " />
 
-        <TextView
-            android:id="@+id/strategyOptimalAccuracy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/strategyYourAccuracy"
-            android:text="Optimal Accuracy: " />
 
         <TextView
             android:id="@+id/strategyCorrectCount"
@@ -316,7 +308,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/strategyOptimalAccuracy"
+            app:layout_constraintTop_toBottomOf="@id/strategyYourAccuracy"
             android:text="Correct Count: " />
 
         <TextView

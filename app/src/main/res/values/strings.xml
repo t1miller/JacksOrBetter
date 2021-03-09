@@ -4,13 +4,16 @@
     <color name="white">#FFFFFF</color>
 
     <!-- Preferences -->
-    <string name="messages_header">Messages</string>
+    <string name="general_header">General</string>
     <string name="money_header">Money</string>
     <string name="payout_table_title">Payout Table</string>
     <string name="reset_money">Reset Money</string>
-    <string name="autohold_description">Increasing the number increases the <b>Autohold</b> accuracy but also increases the decision time. (Default 4,000)</string>
+    <string name="autohold_description">Increasing the number increases the <b>Autohold</b> accuracy but also increases the decision time. (Default 5,000)</string>
+    <string name="training_strict_description">Increasing the number increases the strictness when comparing your hand to the best hand. Sometimes differences in expected values between hands is negligible</string>
 
+    <!--    Main Fragment -->
     <string name="collect_button">Collect</string>
+    <string name="training_expected_diff">Difference: $%.3f</string>
     <string name="deal_button">Deal</string>
     <string name="tap_card_to_hold">Tap card to hold</string>
 
@@ -30,9 +33,7 @@
     <string name="total">Total: %d</string>
     <string name="bet">Bet: %d</string>
     <string name="eval">Eval: %s</string>
-
-    <string name="your_accuracy">Your Accuracy: %.3f</string>
-    <string name="optimal_accuracy">Your Accuracy: %.3f</string>
+    <string name="your_accuracy">Accuracy: %.2f\%%</string>
     <string name="correct_count">Correct Count: %d</string>
     <string name="wrong_count">Wrong Count: %d</string>
 

@@ -15,10 +15,15 @@ import java.io.File
 object StatisticsManager {
     private const val filename = "/Statistics.txt"
 
+    private const val NUM_PAST_HANDS_LOGS = 1000
+
     private val fullFileName = PokerApplication.applicationContext().filesDir.absolutePath + filename
 
     private var statistics: Statistics? = null
+
     private val INITIALIZE = Statistics(
+        0,
+        0,
         0,
         0,
         mutableListOf(
@@ -34,12 +39,9 @@ object StatisticsManager {
         EvalCount(Evaluate.Hand.NOTHING.readableName,0)
         ),
         mutableListOf(),
-        LastGame(0,0, null, null, null, null)
-        )
-
-//    init {
-//        loadStatisticsFromDisk()
-//    }
+        Game(0,0, null, null, null, null),
+        Game(0,0, null, null, null, null)
+    )
 
     fun readStatisticsFromDisk() {
         statistics = fromFile()
@@ -54,7 +56,7 @@ object StatisticsManager {
         statistics = INITIALIZE
     }
 
-    fun addStatistic(lastGame: LastGame?) {
+    fun addStatistic(lastGame: Game?) {
         updateLastGame(lastGame)
 
         // todo this is way too much writing to disk
@@ -62,7 +64,7 @@ object StatisticsManager {
     }
 
 
-    private fun updateLastGame(lastGame: LastGame?) {
+    private fun updateLastGame(lastGame: Game?) {
         if(lastGame == null) return
         if(lastGame.bet == null) return
         if(lastGame.won == null) return
@@ -74,12 +76,17 @@ object StatisticsManager {
         statistics?.let { stat ->
             stat.lastGame = lastGame
             stat.hands.add(lastGame.handFinal)
-
-            if(lastGame.won > 0){
-                stat.totalWon = stat.totalWon + lastGame.won
-            } else {
-                stat.totalLost = stat.totalLost + lastGame.won
+            if(stat.hands.size > NUM_PAST_HANDS_LOGS){
+                // no bloated logs
+                stat.hands = stat.hands.drop(100).toMutableList()
             }
+
+//            if(lastGame.won > 0){
+//                stat.totalWon = stat.totalWon + lastGame.won
+//            } else {
+//                stat.totalLost = stat.totalLost + lastGame.won
+//            }
+            updateTotalWon(lastGame.won)
 
             stat.evalCounts.forEach {
                 if(it.evalType == lastGame.eval) {
@@ -87,6 +94,16 @@ object StatisticsManager {
                 }
             }
             Timber.d("Updating statistic:\ntotal won: ${stat.totalWon}\ntotal lost: ${stat.totalLost}\nhands: ${stat.hands}\neval counts: ${stat.evalCounts}")
+        }
+    }
+
+    fun updateTotalWon(money: Int) {
+        statistics?.let {
+            if(money > 0){
+                it.totalWon = it.totalWon + money
+            } else {
+                it.totalLost = it.totalLost + money
+            }
         }
     }
 
@@ -110,12 +127,30 @@ object StatisticsManager {
         return statistics
     }
 
+    fun increaseCorrectCount() {
+        statistics?.correctCount = (statistics?.correctCount ?: 0) + 1
+    }
+
+    fun increaseIncorrectCount() {
+        statistics?.wrongCount = (statistics?.wrongCount ?: 0) + 1
+    }
+
+    fun getAccuracy() : Double{
+        val totalCount = (statistics?.correctCount ?: 0) + (statistics?.wrongCount ?: 0)
+        return if (totalCount > 0) (statistics?.correctCount ?: 0).div(totalCount.toDouble())*100.0 else 0.0
+
+    }
+
+//    fun checkIfBestHand(oldGame: Game, bestGame: Game) {
+//        //todo
+//    }
+
     private fun Statistics.toJSON() : String{
         val gson = GsonBuilder().setPrettyPrinting().create()
         return gson.toJson(this)  // json string
     }
 
-    private fun String.toStatistics() : Statistics{
+    private fun String.toStatistics() : Statistics?{
 //        val gson = GsonBuilder().setPrettyPrinting().create()
         return Gson().fromJson<Statistics>(this, Statistics::class.java)
     }
@@ -152,12 +187,14 @@ object StatisticsManager {
 }
 
 data class Statistics(
+    var correctCount: Int,
+    var wrongCount: Int,
     var totalWon: Int,
     var totalLost: Int,
     val evalCounts: MutableList<EvalCount>,
     var hands: MutableList<List<Card>>,
-    var lastGame: LastGame?
-
+    var lastGame: Game?,
+    val bestGame: Game?
 )
 
 data class EvalCount(
@@ -165,7 +202,7 @@ data class EvalCount(
     var count: Int
 )
 
-data class LastGame(
+data class Game(
     val bet: Int?,
     val won: Int?,
     val eval: String?,

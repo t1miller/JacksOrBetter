@@ -11,6 +11,7 @@ import com.example.jacksorbetter.simulator.SimulatorFragment
 import com.example.jacksorbetter.stats.StatisticsManager
 import com.example.jacksorbetter.stats.StatsFragment
 import com.example.jacksorbetter.ui.main.MainFragment
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setContentView(R.layout.main_activity)
+        MobileAds.initialize(this) {}
+
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

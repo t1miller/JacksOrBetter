@@ -60,7 +60,7 @@ object StatDialogUtils {
         recyclerView.setHasFixedSize(true)
 
         Timber.d("showing stat dialog")
-        Timber.d(handStats.joinToString { "hand: ${it.recommendedHand.joinToString { its->its.toString() }}\n" })
+//        Timber.d(handStats.joinToString { "hand: ${it.recommendedHand.joinToString { its->its.toString() }}\n" })
         dialog.show()
     }
 }

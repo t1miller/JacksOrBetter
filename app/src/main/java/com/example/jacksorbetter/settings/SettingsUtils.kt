@@ -8,10 +8,12 @@ import com.example.jacksorbetter.ui.main.PayOutHelper
 object SettingsUtils {
 
     object Defaults{
-        const val MONEY = 2000
-        const val MONTE_CARLO_TRIALS = 4000
+        const val MONEY = 4000
+        const val MONTE_CARLO_TRIALS = 5000
         const val SOUND = true
+        const val SHEEP_MODE = false
         const val PAYOUT_TABLE = "9/6 – 99.54%"
+        const val TRAINING_STRICTNESS = 20
     }
 
     object Keys{
@@ -22,6 +24,8 @@ object SettingsUtils {
         const val SHARE_STATS = "share_stats"
         const val TOTAL_MONEY = "money"
         const val SOUND = "sound"
+        const val SHEEP_MODE = "sheep_mode"
+        const val TRAINING_STRICTNESS = "training_strictness"
     }
 
     fun getNumTrials(context: Context?) : Int{
@@ -29,6 +33,22 @@ object SettingsUtils {
         return preferences.getInt(
             Keys.MONTE_CARLO_TRIALS,
             Defaults.MONTE_CARLO_TRIALS
+        )
+    }
+
+    fun resetNumTrials(context: Context?) {
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        with (preferences.edit()) {
+            putInt(Keys.MONTE_CARLO_TRIALS, Defaults.MONTE_CARLO_TRIALS)
+            apply()
+        }
+    }
+
+    fun getStrictness(context: Context?) : Int{
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getInt(
+            Keys.TRAINING_STRICTNESS,
+            Defaults.TRAINING_STRICTNESS
         )
     }
 
@@ -48,14 +68,17 @@ object SettingsUtils {
         )
     }
 
+    fun isSheepModeEnabled(context: Context) : Boolean{
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getBoolean(
+            Keys.SHEEP_MODE,
+            Defaults.SHEEP_MODE
+        )
+    }
+
     fun resetMoney(context: Context) {
         setMoney(Defaults.MONEY, context)
     }
-
-//    fun resetStats(context: Context) {
-////        setMoney(Defaults.MONEY, context)
-//        Toast.makeText(context, "TODO", Toast.LENGTH_LONG).show()
-//    }
 
     fun getMoney(context: Context) : Int {
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

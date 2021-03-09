@@ -48,15 +48,6 @@
 
     </LinearLayout>
 
-
-<!--        <TextView-->
-<!--            style="@style/TextBlack"-->
-<!--            android:id="@+id/exampleCardText"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="left"-->
-<!--            android:text="example: ts th td ac ah -> 🂪 🂺	🃊 🃑 🂱\nexample: kh qc 7c 8c 9s -> 🂾 🃝 🃗 🃘 🂩" />-->
-
         <EditText
             android:id="@+id/editTextCard"
             android:layout_width="match_parent"

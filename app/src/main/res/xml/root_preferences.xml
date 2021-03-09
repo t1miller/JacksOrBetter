@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/general_header">
 
 <!--        <EditTextPreference-->
 <!--            app:key="signature"-->
@@ -16,15 +16,31 @@
             app:title="Sound" />
 
 
+        <SwitchPreferenceCompat
+            app:dependency="sound"
+            app:key="sheep_mode"
+            app:defaultValue="false"
+            app:summaryOff="Sheep mode is off"
+            app:summaryOn="Sheep mode is on"
+            app:title="Sheep Mode" />
+
         <SeekBarPreference
             android:max="15000"
-            app:defaultValue="4000"
+            app:defaultValue="5000"
             app:key="montecarlo_trials"
             app:min="500"
             app:showSeekBarValue="true"
             app:summary="@string/autohold_description"
             app:title="Autohold Accuracy" />
 
+        <SeekBarPreference
+            android:max="20"
+            app:defaultValue="10"
+            app:key="training_strictness"
+            app:min="0"
+            app:showSeekBarValue="true"
+            app:summary="@string/training_strict_description"
+            app:title="Training Strictness" />
 
         <Preference
             android:title="Share Stats"

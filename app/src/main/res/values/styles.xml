@@ -35,6 +35,47 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="HoldTextViewGreen" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Hold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:background">@drawable/rounded_corner_green_view</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="HoldTextViewGreenLegend" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Hold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:background">@drawable/rounded_corner_green_view</item>
+    </style>
+
+    <style name="HoldTextViewRed" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Hold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/rounded_corner_red_view</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="HoldTextViewRedLegend" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Hold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:background">@drawable/rounded_corner_red_view</item>
+    </style>
+
     <style name="TextWhite" parent="@android:style/Widget.TextView">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">bold</item>
@@ -57,6 +98,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+<!--    <style name="TextRedSmall" parent="@android:style/Widget.TextView">-->
+<!--        <item name="android:textColor">@color/colorRed</item>-->
+<!--        <item name="android:textStyle">bold</item>-->
+<!--        <item name="android:textSize">13sp</item>-->
+<!--    </style>-->
 
     <style name="TextBlack" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/colorBlack</item>

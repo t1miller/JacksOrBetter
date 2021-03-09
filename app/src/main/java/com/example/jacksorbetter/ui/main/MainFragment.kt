@@ -17,9 +17,13 @@ import com.example.jacksorbetter.cardgame.Evaluate
 import com.wajahatkarim3.easyflipview.EasyFlipView
 import com.example.jacksorbetter.handstatui.StatDialogUtils
 import com.example.jacksorbetter.settings.SettingsUtils
+import com.example.jacksorbetter.stats.StatisticsManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import timber.log.Timber
 import java.util.*
+import kotlin.math.abs
 
 
 class MainFragment : Fragment() {
@@ -43,6 +47,12 @@ class MainFragment : Fragment() {
     private lateinit var helpText: TextView
 
     private lateinit var statsLayout: ConstraintLayout
+
+    private lateinit var trainingLayout: ConstraintLayout
+
+    private lateinit var adView: AdView
+
+    private lateinit var trainingExpectedDiffText: TextView
 
     private lateinit var optimalReturnText: TextView
 
@@ -74,16 +84,15 @@ class MainFragment : Fragment() {
 
     private var cardLayouts: MutableList<EasyFlipView> = mutableListOf()
 
+    private var trainingCardViews: MutableList<ImageView> = mutableListOf()
+
     private var cardViews: MutableList<ImageView> = mutableListOf()
 
     private var cardsHoldOverlay: MutableList<TextView> = mutableListOf()
 
-//    private var flipStatus = CardFlipStatus.NOT_FLIPPING
+    private var trainingCardsWrongOverlay: MutableList<TextView> = mutableListOf()
 
-//    enum class CardFlipStatus {
-//        NOT_FLIPPING,
-//        FLIPPING
-//    }
+    private var trainingCardsCorrectOverlay: MutableList<TextView> = mutableListOf()
 
     private var isMidFlip = false
 
@@ -112,20 +121,40 @@ class MainFragment : Fragment() {
         yourReturnText = view.findViewById(R.id.yourExpectedValue)
         statsLayout = view.findViewById(R.id.statsUi)
         explainDecisionButton = view.findViewById(R.id.explainDecision)
+        trainingLayout = view.findViewById(R.id.cardLayoutTraining)
+        trainingExpectedDiffText = view.findViewById(R.id.trainingExpectedDiff)
+        adView = view.findViewById(R.id.adView)
+        adView.loadAd(AdRequest.Builder().build())
 
         cardLayouts.add(view.findViewById(R.id.card1layout))
         cardLayouts.add(view.findViewById(R.id.card2layout))
         cardLayouts.add(view.findViewById(R.id.card3layout))
         cardLayouts.add(view.findViewById(R.id.card4layout))
         cardLayouts.add(view.findViewById(R.id.card5layout))
-        cardLayouts.add(view.findViewById(R.id.card6layout))
-
 
         cardViews.add(view.findViewById(R.id.cardfront1))
         cardViews.add(view.findViewById(R.id.cardfront2))
         cardViews.add(view.findViewById(R.id.cardfront3))
         cardViews.add(view.findViewById(R.id.cardfront4))
         cardViews.add(view.findViewById(R.id.cardfront5))
+
+        trainingCardViews.add(view.findViewById(R.id.card1training))
+        trainingCardViews.add(view.findViewById(R.id.card2training))
+        trainingCardViews.add(view.findViewById(R.id.card3training))
+        trainingCardViews.add(view.findViewById(R.id.card4training))
+        trainingCardViews.add(view.findViewById(R.id.card5training))
+
+        trainingCardsWrongOverlay.add(view.findViewById(R.id.card1HoldWrong))
+        trainingCardsWrongOverlay.add(view.findViewById(R.id.card2HoldWrong))
+        trainingCardsWrongOverlay.add(view.findViewById(R.id.card3HoldWrong))
+        trainingCardsWrongOverlay.add(view.findViewById(R.id.card4HoldWrong))
+        trainingCardsWrongOverlay.add(view.findViewById(R.id.card5HoldWrong))
+
+        trainingCardsCorrectOverlay.add(view.findViewById(R.id.card1HoldCorrect))
+        trainingCardsCorrectOverlay.add(view.findViewById(R.id.card2HoldCorrect))
+        trainingCardsCorrectOverlay.add(view.findViewById(R.id.card3HoldCorrect))
+        trainingCardsCorrectOverlay.add(view.findViewById(R.id.card4HoldCorrect))
+        trainingCardsCorrectOverlay.add(view.findViewById(R.id.card5HoldCorrect))
 
         cardsHoldOverlay.add(view.findViewById(R.id.card1Hold))
         cardsHoldOverlay.add(view.findViewById(R.id.card2Hold))
@@ -156,6 +185,8 @@ class MainFragment : Fragment() {
         }
 
         dealButton.setOnClickListener {
+            disableDealButtonUi()
+            dismissTrainingModeScreenUi()
             when (viewModel.gameState.value) {
                 MainViewModel.GameState.START -> {
                     viewModel.newGame()
@@ -174,6 +205,7 @@ class MainFragment : Fragment() {
                     viewModel.collect()
                     viewModel.gameState.value = MainViewModel.GameState.START
                     viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_DOWN
+
                 }
                 MainViewModel.GameState.BONUS -> {
                     viewModel.gameState.value = MainViewModel.GameState.START
@@ -186,6 +218,7 @@ class MainFragment : Fragment() {
 
         doubleButton.setOnClickListener {
             viewModel.gameState.value = MainViewModel.GameState.BONUS
+            dismissTrainingModeScreenUi()
         }
 
         doubleRedButton.setOnClickListener {
@@ -199,18 +232,33 @@ class MainFragment : Fragment() {
         }
 
         autoHold.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked && viewModel.gameState.value == MainViewModel.GameState.DEAL) {
-                clearHoldUi()
-                helpText.visibility = View.VISIBLE
-                viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
+            if(training.isChecked && isChecked) {
+                Toast.makeText(requireContext(), "Disable Training First", Toast.LENGTH_LONG).show()
+                autoHold.isChecked = false
+            } else {
+                if(isChecked && viewModel.gameState.value == MainViewModel.GameState.DEAL) {
+                    clearHoldUi()
+                    helpText.visibility = View.VISIBLE
+                    viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
+                }
             }
         }
 
         showStats.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked) {
-                statsLayout.visibility = View.VISIBLE
+            if(training.isChecked && isChecked){
+                Toast.makeText(requireContext(), "Disable Training First", Toast.LENGTH_LONG).show()
+                showStats.isChecked = false
             } else {
-                statsLayout.visibility = View.GONE
+                statsLayout.visibility = if(isChecked) View.VISIBLE else View.GONE
+            }
+        }
+
+        training.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+                // no cheating in training mode
+                showStats.isChecked = false
+                autoHold.isChecked = false
+                SettingsUtils.resetNumTrials(requireContext())
             }
         }
 
@@ -242,9 +290,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        setupFlipListener()
-        populatePayoutTable()
 
+
+        populatePayoutTable()
         return view
     }
 
@@ -266,14 +314,19 @@ class MainFragment : Fragment() {
             }
         })
 
-
         viewModel.lastEvaluatedHand.observe(viewLifecycleOwner, Observer { evalHand ->
             evalHand?.let {
                 updateHandEvalUi(evalHand)
                 updateHighlightedRowUi(evalHand)
-
-                // todo play sound
                 SoundManager.playSound(requireContext(), evalHand)
+
+                // todo training mode
+                if(training.isChecked) {
+                    // validate users hand vs ai hand
+                    viewModel.aiDecision.value?.let {
+                        showTrainingModeScreenUi(it.sortedRankedHands, getCardsToKeep(), viewModel.getOriginalHand() ?: emptyList())
+                    }
+                }
             }
         })
 
@@ -304,10 +357,52 @@ class MainFragment : Fragment() {
         })
     }
 
+    private fun showTrainingModeScreenUi(sortedRankedHands: List<Pair<List<Card>, Double>>, cardsToKeep: List<Card>, fullHand: List<Card>) {
+        val bestEV = sortedRankedHands.first().second
+        val yourEV = sortedRankedHands.find { it.first.toSet() == cardsToKeep.toSet() }?.second ?: -1.0
+
+//        if(sortedRankedHands.find { it.first.toSet() == cardsToKeep.toSet() } == null) {
+//            Timber.e("Error, couldn't find ${cardsToKeep} in ${sortedRankedHands}")
+//        }
+
+        val strictnessPercent = SettingsUtils.getStrictness(requireContext())
+        val lowerBound = bestEV - abs(bestEV)*strictnessPercent/100
+        val diffEV = abs(bestEV - yourEV)
+
+        Timber.d("Training mode:\nthreshold:${strictnessPercent}\nbest ev: ${bestEV}\nyour ev:${yourEV}\nlowerBound:${lowerBound}")
+
+        if (yourEV < lowerBound) {
+            // your hand is far from optimal
+            // show training screen
+            StatisticsManager.increaseIncorrectCount()
+            trainingLayout.visibility = View.VISIBLE
+            trainingExpectedDiffText.text = getString(R.string.training_expected_diff,diffEV)
+
+            for(i in 0..4) {
+                CardUiUtils.showCards(trainingCardViews, fullHand)
+                if(getCardsToKeepBooleanArray()[i]){
+                    trainingCardsWrongOverlay[i].visibility = View.VISIBLE
+                }
+
+                if(fullHand[i] in sortedRankedHands.first().first) {
+                    trainingCardsCorrectOverlay[i].visibility = View.VISIBLE
+                }
+            }
+        } else {
+            StatisticsManager.increaseCorrectCount()
+        }
+    }
+
+    private fun dismissTrainingModeScreenUi() {
+        for (i in 0..4){
+            trainingCardsWrongOverlay[i].visibility = View.INVISIBLE
+            trainingCardsCorrectOverlay[i].visibility = View.INVISIBLE
+        }
+        trainingLayout.visibility = View.INVISIBLE
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-
-        //todo is this correct?
         SoundManager.release()
     }
 
@@ -319,6 +414,14 @@ class MainFragment : Fragment() {
     private fun enableBetChangingUi() {
         betMaxButton.isEnabled = true
         betOneButton.isEnabled = true
+    }
+
+    private fun disableDealButtonUi(){
+        dealButton.isEnabled = false
+    }
+
+    private fun enableDealButtonUi(){
+        dealButton.isEnabled = true
     }
 
     private fun updateUi(state: MainViewModel.GameState) {
@@ -509,23 +612,17 @@ class MainFragment : Fragment() {
         helpText.text = getString(R.string.bonus_title)
         cardViews[2].setImageResource(R.drawable.cardback)
         for (i in 0..4) {
-            if(i == 2){
-                cardLayouts[2].flipTheView()
-            } else {
+            if(i != 2){
                 cardViews[i].visibility = View.GONE
+            } else {
+                cardLayouts[i].isAutoFlipBack = false
+                cardLayouts[i].flipTheView()
             }
         }
     }
 
-//    private fun resetCardVisibiltyUi() {
-//        cardViews.forEach {
-//            it.visibility = View.VISIBLE
-//        }
-//    }
-
     private fun getCardsToKeepBooleanArray() : BooleanArray {
         val cardsHeld = cardsHoldOverlay.map { it.visibility == View.VISIBLE }.toMutableList()
-        cardsHeld.add(false) // hacky :(
         return cardsHeld.toBooleanArray()
     }
     
@@ -537,117 +634,47 @@ class MainFragment : Fragment() {
         return filteredHand ?: emptyList()
     }
 
-//    private fun showAiCardsToHold(bestHand: List<Card>) {
-//        viewModel.hand.value?.let {
-//            for ((idx, card) in it.withIndex()) {
-//                if (bestHand.contains(card)) {
-//                    cardsHoldOverlay[idx].visibility = View.VISIBLE
-//                }
-//            }
-//        }
-//    }
-
-//    private fun isFlipping(): Boolean {
-////        for (layout in cardLayouts) {
-////            if (layout.animation != null && !layout.animation.hasEnded()) {
-////                return true
-////            }
-////        }
-////        return false
-//        return  flipStatus == CardFlipStatus.FLIPPING
-//    }
-
-    private fun setupFlipListener() {
-        for (i in 0..4) {
-            cardLayouts[i].setOnFlipListener { easyFlipView, newCurrentSide ->
-                Timber.d("Flipping done ${easyFlipView.tag}")
-            }
-        }
-    }
-
-//    private fun flip(state: MainViewModel.CardFlipState, cards: List<Card>) {
-//        SoundManager.playSound(requireActivity(), SoundManager.SoundType.FLIP)
-//        Timber.d("Flip State: %s", state)
-//
-//        isMidFlip = true
-//
-//        when(state) {
-//            MainViewModel.CardFlipState.FACE_DOWN -> {
-//                for (i in 0..4) {
-//                    cardLayouts[i].flipTheView()
-//                }
-//            }
-//            MainViewModel.CardFlipState.FACE_UP -> {
-//                for (i in 0..4) {
-//                    if(!viewModel.getKeptCardIndeces()[i]) {
-//                        cardViews[i].setImageResource(CardUiUtils.cardToImage(cards[i]))
-//                        cardLayouts[i].flipTheView()
-//                    }
-//                }
-//            }
-//            MainViewModel.CardFlipState.FULL_FLIP -> {
-//                /**
-//                 * Hacky - had to add a 6th invisible view :(
-//                 * */
-//                var numCardsFlipped = 0
-//                for ((i,card) in cardLayouts.withIndex()) {
-//                    if(!viewModel.getKeptCardIndeces()[i]) {
-//                        card.flipTheView()
-//                    }
-//                    card.setOnFlipListener { _, _ ->
-//                        numCardsFlipped += 1
-//                        if(numCardsFlipped == (viewModel.getKeptCardIndeces().count { !it })) {
-//                            viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_UP
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     private fun flip(state: MainViewModel.CardFlipState, cards: List<Card>) {
         SoundManager.playSound(requireActivity(), SoundManager.SoundType.FLIP)
         Timber.d("Flip State: %s", state)
 
         isMidFlip = true
 
-
-//        for (i in 0..4) {
-//            cardLayouts[i].setOnFlipListener { easyFlipView, newCurrentSide ->
-//                Timber.d("Flipper: ${newCurrentSide.name}")
-//            }
-//        }
-//
-
         when(state) {
             MainViewModel.CardFlipState.FACE_DOWN -> {
                 for (i in 0..4) {
+                    cardLayouts[i].isAutoFlipBack = false
                     cardLayouts[i].flipTheView()
-//                    cardLayouts[i].setOnFlipListener { _, _ ->
-//                        flipStatus = CardFlipStatus.NOT_FLIPPING
-//                    }
+                    cardLayouts[i].setOnFlipListener { _, _ ->
+                        enableDealButtonUi()
+                    }
                 }
             }
             MainViewModel.CardFlipState.FACE_UP -> {
                 for (i in 0..4) {
+                    cardLayouts[i].isAutoFlipBack = false
                     if(!viewModel.getKeptCardIndeces()[i]) {
                         cardViews[i].setImageResource(CardUiUtils.cardToImage(cards[i]))
                         cardLayouts[i].flipTheView()
-//                        cardLayouts[i].setOnFlipListener { _, _ ->
-//                            flipStatus = CardFlipStatus.NOT_FLIPPING
-//                        }
+                        cardLayouts[i].setOnFlipListener { _, _ ->
+                            enableDealButtonUi()
+                        }
                     }
                 }
             }
             MainViewModel.CardFlipState.FULL_FLIP -> {
-                /**
-                 * Hacky - had to add a 6th invisible view :(
-                 * */
-                for ((i,card) in cardLayouts.withIndex()) {
-                    if(!viewModel.getKeptCardIndeces()[i]) {
-                        card.isAutoFlipBack = true
-                        card.autoFlipBackTime = 200
-                        card.flipTheView()
+                for (i in 0..4) {
+                    cardLayouts[i].isAutoFlipBack = true
+                    if (!viewModel.getKeptCardIndeces()[i]) {
+                        cardLayouts[i].autoFlipBackTime = 50
+                        cardLayouts[i].flipTheView()
+                        cardLayouts[i].setOnFlipListener { _, newCurrentSide ->
+                            if (newCurrentSide == EasyFlipView.FlipState.BACK_SIDE) {
+                                cardViews[i].setImageResource(CardUiUtils.cardToImage(cards[i]))
+                            } else {
+                                enableDealButtonUi()
+                            }
+                        }
                     }
                 }
             }
