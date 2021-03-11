@@ -1117,9 +1117,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-7137320034166109~7526825949">
+        ads:adSize="LARGE_BANNER"
+        ads:adUnitId="ca-app-pub-7137320034166109/9607206136">
     </com.google.android.gms.ads.AdView>
+
 
     <!--    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" FAKE ONE -->
     <!--    ads:adUnitId="ca-app-pub-7137320034166109~7526825949" REAL ONE -->

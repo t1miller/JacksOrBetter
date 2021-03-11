@@ -10,9 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7137320034166109~7526825949"/>
         <activity
             android:screenOrientation="portrait"
             android:name="com.poker.jacksorbetter.MainActivity">
@@ -33,6 +30,10 @@
                 android:resource="@xml/provider_paths" />
 
         </provider>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7137320034166109~7526825949"/>
 
     </application>
 
