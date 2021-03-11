@@ -6,7 +6,7 @@
     android:id="@+id/cardbacklayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".ui.main.MainFragment">
+    tools:context="com.poker.jacksorbetter.main.MainFragment">
 
 
 <ImageView

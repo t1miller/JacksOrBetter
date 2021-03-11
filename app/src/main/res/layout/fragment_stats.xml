@@ -12,7 +12,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.main.MainFragment">
+        tools:context="com.poker.jacksorbetter.main.MainFragment">
 
         <TextView
             style="@style/TextTitle"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/hand_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".stats.StatsFragment"
+            tools:context="com.poker.jacksorbetter.stats.StatsFragment"
             tools:listitem="@layout/item_hand_eval_count" />
 
         <TextView

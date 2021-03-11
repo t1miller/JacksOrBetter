@@ -45,7 +45,7 @@
         <Preference
             android:title="Share Stats"
             android:key="share_stats"
-            android:summary="Share your stats via email blah blah"
+            android:summary="Share your statistics"
             />
 
         <Preference
@@ -59,10 +59,9 @@
     <PreferenceCategory app:title="@string/money_header">
 
         <Preference
-            android:defaultValue="2000"
             android:title="Reset Money"
             android:key="reset_money"
-            android:summary="Resets your money to the default (2000)"
+            android:summary="Resets your money to the default (4000)"
             />
 
         <ListPreference

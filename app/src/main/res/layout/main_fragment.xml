@@ -7,8 +7,7 @@
     android:background="@color/colorBlue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
-
+    tools:context="com.poker.jacksorbetter.main.MainFragment">
 
     <TableLayout
         android:padding="5dp"
@@ -31,47 +30,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Royal Flush: " />
+                android:text="@string/royal_flush" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="250" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="500" />
+                android:layout_gravity="end"
+                 />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="750" />
+                android:layout_gravity="end"
+                 />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="1000" />
+                android:layout_gravity="end"
+                 />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="4000" />
+                android:layout_gravity="end"
+                />
         </TableRow>
 
         <TableRow
@@ -83,47 +81,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Straight Flush: " />
+                android:text="@string/straight_flush" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="50" />
+                android:layout_gravity="end"
+                 />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="100" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="150" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="200" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="250" />
+                android:layout_gravity="end"/>
 
         </TableRow>
 
@@ -136,47 +130,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Four of A Kind: " />
+                android:text="@string/four_of_a_kind" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="25" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="50" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="75" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="100" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="125" />
+                android:layout_gravity="end"/>
         </TableRow>
 
         <TableRow
@@ -188,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Full House: " />
+                android:text="@string/full_house" />
 
 
             <TextView
@@ -196,40 +185,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="9" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="18" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="27" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="36" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="45" />
+                android:layout_gravity="end" />
         </TableRow>
 
         <TableRow
@@ -241,7 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Flush: " />
+                android:text="@string/flush" />
 
 
             <TextView
@@ -249,40 +233,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="6" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="12" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="18" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="24" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="30" />
+                android:layout_gravity="end"/>
         </TableRow>
 
         <TableRow
@@ -294,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Straight: " />
+                android:text="@string/straight" />
 
 
             <TextView
@@ -302,40 +281,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="4" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="8" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="12" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="16" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="20" />
+                android:layout_gravity="end"/>
         </TableRow>
 
         <TableRow
@@ -347,47 +321,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Three of A Kind: " />
+                android:text="@string/three_of_a_kind" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="3" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="6" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="9" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="12" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="15" />
+                android:layout_gravity="end" />
         </TableRow>
 
         <TableRow
@@ -399,7 +368,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Two Pairs: " />
+                android:text="@string/two_pairs" />
 
 
             <TextView
@@ -407,40 +376,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="2" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="4" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="6" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="8" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="10" />
+                android:layout_gravity="end" />
         </TableRow>
 
         <TableRow
@@ -452,7 +416,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="Jacks or Better: " />
+                android:text="@string/jacks_or_better" />
 
 
             <TextView
@@ -460,51 +424,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="1" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="2" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="3" />
+                android:layout_gravity="end" />
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="4" />
+                android:layout_gravity="end"/>
 
             <TextView
                 style="@style/TableRowTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:layout_gravity="right"
-                android:text="5" />
+                android:layout_gravity="end"/>
         </TableRow>
 
     </TableLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardLayoutTrainingCorrect"
+        android:layout_width="305dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:background="@color/colorDarkBlue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/trainingcorrect"
+            style="@style/TextRedGreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/correct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardLayoutTraining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:visibility="invisible"
-        android:background="@color/colorDarkGreen"
+        android:background="@color/colorDarkBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/payoutTable"
@@ -517,7 +503,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Wrong"
+            android:text="@string/wrong"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -549,7 +535,7 @@
                 style="@style/HoldTextViewGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card1training"
                 app:layout_constraintStart_toStartOf="@id/card1training"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -559,7 +545,7 @@
                 style="@style/HoldTextViewRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card1training"
                 app:layout_constraintStart_toStartOf="@id/card1training"
                 app:layout_constraintTop_toBottomOf="@id/card1HoldCorrect" />
@@ -578,7 +564,7 @@
                 style="@style/HoldTextViewGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card2training"
                 app:layout_constraintStart_toStartOf="@id/card2training"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -588,7 +574,7 @@
                 style="@style/HoldTextViewRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card2training"
                 app:layout_constraintStart_toStartOf="@id/card2training"
                 app:layout_constraintTop_toBottomOf="@id/card2HoldCorrect" />
@@ -606,7 +592,7 @@
                 style="@style/HoldTextViewGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card3training"
                 app:layout_constraintStart_toStartOf="@id/card3training"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -616,7 +602,7 @@
                 style="@style/HoldTextViewRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card3training"
                 app:layout_constraintStart_toStartOf="@id/card3training"
                 app:layout_constraintTop_toBottomOf="@id/card3HoldCorrect" />
@@ -635,7 +621,7 @@
                 style="@style/HoldTextViewGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card4training"
                 app:layout_constraintStart_toStartOf="@id/card4training"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -645,7 +631,7 @@
                 style="@style/HoldTextViewRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card4training"
                 app:layout_constraintStart_toStartOf="@id/card4training"
                 app:layout_constraintTop_toBottomOf="@id/card4HoldCorrect" />
@@ -664,7 +650,7 @@
                 style="@style/HoldTextViewGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card5training"
                 app:layout_constraintStart_toStartOf="@id/card5training"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -674,7 +660,7 @@
                 style="@style/HoldTextViewRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card5training"
                 app:layout_constraintStart_toStartOf="@id/card5training"
                 app:layout_constraintTop_toBottomOf="@id/card5HoldCorrect" />
@@ -686,8 +672,7 @@
                 app:layout_constraintTop_toBottomOf="@id/card5training"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="expected value" />
+                android:layout_marginBottom="5dp" />
 
             <LinearLayout
                 android:id="@+id/legendLayout"
@@ -706,7 +691,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Right" />
+                    android:text="@string/right" />
 
                 <TextView
                     style="@style/HoldTextViewRedLegend"
@@ -714,7 +699,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Wrong" />
+                    android:text="@string/wrong" />
 
             </LinearLayout>
 
@@ -740,11 +725,18 @@
             android:id="@+id/totalMoney"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="Money: $420"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/TextWhite"
+            android:id="@+id/bet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totalMoney" />
 
         <TextView
             style="@style/TextWhite"
@@ -752,8 +744,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/totalMoney"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -763,10 +753,8 @@
             android:id="@+id/handEval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             app:layout_constraintStart_toEndOf="@id/winlose"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
 
@@ -779,7 +767,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:text="Guess the color?"
+        android:text="@string/guess_the_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currentGameText"
@@ -968,7 +956,7 @@
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Red"
+            android:text="@string/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/doubleDownBlack"
             app:layout_constraintTop_toTopOf="parent" />
@@ -979,7 +967,7 @@
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Black"
+            android:text="@string/black"
             app:layout_constraintStart_toEndOf="@id/doubleDownRed"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -1000,7 +988,7 @@
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bet 1"
+            android:text="@string/bet_one_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -1010,7 +998,7 @@
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bet Max"
+            android:text="@string/bet_max_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/betone"
             app:layout_constraintTop_toTopOf="parent" />
@@ -1022,7 +1010,7 @@
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Double"
+            android:text="@string/double_button"
             app:layout_constraintStart_toEndOf="@id/betmax"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -1032,7 +1020,7 @@
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deal"
+            android:text="@string/deal_button"
             app:layout_constraintStart_toEndOf="@id/doubleDown"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -1055,7 +1043,6 @@
             android:id="@+id/yourExpectedValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your ER: 0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -1064,7 +1051,6 @@
             android:id="@+id/optimalExpectedValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Optimal ER: 0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/yourExpectedValue" />
 
@@ -1073,7 +1059,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="Explain"
+            android:text="@string/button_explain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -1098,7 +1084,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="Autohold" />
+            android:text="@string/autohold" />
 
 
         <CheckBox
@@ -1108,7 +1094,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="Hand Stats"/>
+            android:text="@string/hand_stats"/>
 
         <CheckBox
             android:id="@+id/trainingMode"
@@ -1116,7 +1102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Training"/>
+            android:text="@string/training"/>
 
     </LinearLayout>
 
@@ -1131,11 +1117,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        ads:adSize="LARGE_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7137320034166109~7526825949">
     </com.google.android.gms.ads.AdView>
 
-<!--    ads:adUnitId="ca-app-pub-7137320034166109/9607206136" REAL ONE-->
+    <!--    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" FAKE ONE -->
+    <!--    ads:adUnitId="ca-app-pub-7137320034166109~7526825949" REAL ONE -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
