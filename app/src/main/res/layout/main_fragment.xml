@@ -1131,20 +1131,21 @@
 
     </LinearLayout>
 
-<!--    <com.google.android.gms.ads.AdView-->
-<!--        xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/checkboxLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:id="@+id/adView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        ads:adSize="LARGE_BANNER"-->
-<!--        ads:adUnitId="ca-app-pub-7137320034166109/9607206136">-->
-<!--    </com.google.android.gms.ads.AdView>-->
+    <TextView
+        android:visibility="invisible"
+        style="@style/TopTitleText"
+        android:id="@+id/winningHandText"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="60dp"
+        android:paddingEnd="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/winninng_gradient"
+        app:layout_constraintBottom_toBottomOf="@id/hand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/hand" />
 
         <FrameLayout
             android:id="@+id/ad_view_container"

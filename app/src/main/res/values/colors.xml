@@ -18,5 +18,8 @@
     <color name="colorForestGreen">#228c22</color>
     <color name="colorDarkGreen">#124429</color>
     <color name="colorDarkDarkGreen">#013220</color>
+    <color name="colorLightTurquoise">#aa40e0d0</color>
+    <color name="colorTurquoise">#aa00292a</color>
+    <color name="colorPurple">#b19cd9</color>
 
 </resources>

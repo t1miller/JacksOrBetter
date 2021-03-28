@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Evaluate
-import com.poker.jacksorbetter.main.CardUiUtils
+import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 
 /**
  * A fragment representing a list of Items.

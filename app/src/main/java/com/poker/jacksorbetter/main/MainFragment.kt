@@ -12,15 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.poker.jacksorbetter.R
-import com.poker.jacksorbetter.cardgame.Card
-import com.poker.jacksorbetter.cardgame.Evaluate
+import com.poker.jacksorbetter.cardgame.*
+import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
+import com.poker.jacksorbetter.cardgame.ui.PayTableUiUtils
 import com.wajahatkarim3.easyflipview.EasyFlipView
 import com.poker.jacksorbetter.handstatui.StatDialogUtils
 import com.poker.jacksorbetter.settings.SettingsUtils
 import com.poker.jacksorbetter.stats.StatisticsManager
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.poker.jacksorbetter.cardgame.AdHelper
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import timber.log.Timber
 import java.util.*
@@ -55,13 +53,13 @@ class MainFragment : Fragment() {
 
     private lateinit var trainingCorrectLayout: ConstraintLayout
 
-    private lateinit var adView: AdView
-
     private lateinit var trainingExpectedDiffText: TextView
 
     private lateinit var optimalReturnText: TextView
 
     private lateinit var yourReturnText: TextView
+
+    private lateinit var winningHandText: TextView
 
     private lateinit var doubleDownButtons: View
 
@@ -86,8 +84,6 @@ class MainFragment : Fragment() {
     private lateinit var showStats: CheckBox
 
     private lateinit var training: CheckBox
-
-    private lateinit var cardBack: ImageView
 
     private var cardLayouts: MutableList<EasyFlipView> = mutableListOf()
 
@@ -132,7 +128,7 @@ class MainFragment : Fragment() {
         trainingLayout = view.findViewById(R.id.cardLayoutTraining)
         trainingCorrectLayout = view.findViewById(R.id.cardLayoutTrainingCorrect)
         trainingExpectedDiffText = view.findViewById(R.id.trainingExpectedDiff)
-        cardBack = view.findViewById(R.id.cardback1)
+        winningHandText = view.findViewById(R.id.winningHandText)
 
         cardLayouts.add(view.findViewById(R.id.card1layout))
         cardLayouts.add(view.findViewById(R.id.card2layout))
@@ -304,6 +300,7 @@ class MainFragment : Fragment() {
         }
 
         populatePayoutTable()
+//        PayTableUiUtils.initBlinkAnimation(requireContext(),tableLayout)
         CardUiUtils.showCardBacks(cardBackViews)
         AdHelper.setupAd(requireActivity(), view, "ca-app-pub-7137320034166109/9607206136")
         return view
@@ -333,8 +330,8 @@ class MainFragment : Fragment() {
                 updateHandEvalUi(evalHand)
                 updateHighlightedRowUi(evalHand)
                 SoundManager.playSound(requireContext(), evalHand)
+                updateWinningTextUi(evalHand)
 
-                // todo training mode
                 if(training.isChecked) {
                     // validate users hand vs ai hand
                     viewModel.aiDecision.value?.let {
@@ -448,6 +445,8 @@ class MainFragment : Fragment() {
                 clearHandEvalUi()
                 clearWinningCardsUi()
                 showNormalButtonsUi()
+                clearWinningTextUi()
+                PayTableUiUtils.unblink(tableLayout)
             }
             MainViewModel.GameState.DEAL -> {
                 showHelpText()
@@ -464,11 +463,13 @@ class MainFragment : Fragment() {
                 showBonusAndCollect()
                 updateWonLostMoneyUi(PayOutHelper.calculatePayout(context, viewModel.bet.value ?: 1, viewModel.lastEvaluatedHand.value)) // show money won although user hasnnt collected yet (they might double)
                 showWinningCardsUi()
+                PayTableUiUtils.blinkRow(requireContext(), tableLayout,viewModel.lastEvaluatedHand.value?.ordinal)
             }
             MainViewModel.GameState.BONUS -> {
                 clearWinningCardsUi()
                 showDoubleCardUi()
                 showRedAndBlack()
+                clearWinningTextUi()
             }
         }
     }
@@ -521,6 +522,7 @@ class MainFragment : Fragment() {
     private fun showNormalButtonsUi() {
         enableBetChangingUi()
         dealButton.text = getString(R.string.deal_button)
+        dealButton.isEnabled = true
         doubleButton.isEnabled = false
 
         normalButtons.visibility = View.VISIBLE
@@ -702,5 +704,15 @@ class MainFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun updateWinningTextUi(first: Evaluate.Hand) {
+        winningHandText.visibility = View.VISIBLE
+        winningHandText.text = first.readableName
+    }
+
+    private fun clearWinningTextUi() {
+        winningHandText.visibility = View.INVISIBLE
+        winningHandText.text = ""
     }
 }

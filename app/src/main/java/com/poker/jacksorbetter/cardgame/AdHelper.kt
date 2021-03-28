@@ -37,7 +37,6 @@ object AdHelper {
         val density = outMetrics.density
 
         val adWidth = (widthPixels / density).toInt()
-
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth)
     }
 }

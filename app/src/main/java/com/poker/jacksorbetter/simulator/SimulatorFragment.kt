@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.handstatui.HandStatAdapter
-import com.poker.jacksorbetter.main.CardUiUtils
+import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 import com.poker.jacksorbetter.main.CommonUiUtils.toFormattedStringThreeDecimals
 import com.poker.jacksorbetter.main.MainViewModel
 

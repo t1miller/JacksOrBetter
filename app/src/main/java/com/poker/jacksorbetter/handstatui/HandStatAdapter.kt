@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Card
-import com.poker.jacksorbetter.main.CardUiUtils
+import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 
 
 class HandStatAdapter(private val context: Context, private val mStats: MutableList<HandStat>): RecyclerView.Adapter<HandStatAdapter.ViewHolder>() {
