@@ -100,9 +100,7 @@ object Evaluate {
 
     fun getWinningCards(hand: List<Card>?): List<Boolean> {
         if(hand == null) return listOf(false, false, false, false, false)
-        val handEval =
-            analyzeHand(hand)
-        return when (handEval) {
+        return when (analyzeHand(hand)) {
             Hand.ROYAL_FLUSH,
             Hand.STRAIGHT_FLUSH,
             Hand.FULL_HOUSE,

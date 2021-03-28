@@ -18,13 +18,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // hide action bar
-//        supportActionBar?.hide()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         setContentView(R.layout.main_activity)
         MobileAds.initialize(this) {}
-
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

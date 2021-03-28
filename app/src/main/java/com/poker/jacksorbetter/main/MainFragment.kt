@@ -98,8 +98,6 @@ class MainFragment : Fragment() {
 
     private var trainingCardsCorrectOverlay: MutableList<TextView> = mutableListOf()
 
-    private var isMidFlip = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
@@ -643,8 +641,6 @@ class MainFragment : Fragment() {
     private fun flip(state: MainViewModel.CardFlipState, cards: List<Card>) {
         SoundManager.playSound(requireActivity(), SoundManager.SoundType.FLIP)
         Timber.d("Flip State: %s", state)
-
-        isMidFlip = true
 
         when(state) {
             MainViewModel.CardFlipState.FACE_DOWN -> {
