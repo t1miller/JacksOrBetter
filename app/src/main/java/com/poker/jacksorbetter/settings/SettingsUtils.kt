@@ -1,13 +1,23 @@
 package com.poker.jacksorbetter.settings
 
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.Toast
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.main.PayOutHelper
+import timber.log.Timber
 
 object SettingsUtils {
 
     object Defaults{
+        const val CHOOSE_CARDBACK = 0
         const val MONEY = 4000
         const val MONTE_CARLO_TRIALS = 5000
         const val SOUND = true
@@ -22,11 +32,28 @@ object SettingsUtils {
         const val RESET_MONEY = "reset_money"
         const val RESET_STATS = "reset_stats"
         const val SHARE_STATS = "share_stats"
+        const val CHOOSE_CARDBACK = "choose_cardback"
         const val TOTAL_MONEY = "money"
         const val SOUND = "sound"
         const val SHEEP_MODE = "sheep_mode"
         const val TRAINING_STRICTNESS = "training_strictness"
     }
+
+    object CardBacks{
+        val cardbacks = listOf(
+            R.drawable.card_back_default,
+            R.drawable.card_back_electric,
+            R.drawable.card_back_flower,
+            R.drawable.card_back_foot,
+            R.drawable.card_back_gay,
+            R.drawable.card_back_olympics,
+            R.drawable.card_back_pinstriped,
+            R.drawable.card_back_red,
+            R.drawable.card_back_t_rex,
+            R.drawable.cardback_empty
+        )
+    }
+
 
     fun getNumTrials(context: Context?) : Int{
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -98,5 +125,54 @@ object SettingsUtils {
                 PayOutHelper.PAY_TABLE_TYPES._9_6_99
             }
         }
+    }
+
+    fun setCardBack(position: Int, context: Context) {
+        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        with(preferences.edit()) {
+            putInt(Keys.CHOOSE_CARDBACK, position)
+            apply()
+        }
+    }
+
+    fun getCardBack(context: Context) : Int {
+        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        val position = preferences.getInt(
+            Keys.CHOOSE_CARDBACK,
+            Defaults.CHOOSE_CARDBACK
+        )
+        return CardBacks.cardbacks[position]
+    }
+
+    fun showChangeCardBackDialog(context: Context)  {
+
+        val dialog = Dialog(context)
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.change_card_dialog_layout)
+
+        val yesBtn = dialog.findViewById(R.id.btn_yes) as Button
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        val recyclerView = dialog.findViewById(R.id.recyclerView) as RecyclerView
+        val adapter = CardBackAdapter(object : CardTapped {
+            override fun onCardTapped(position: Int) {
+                setCardBack(position, context)
+                dialog.dismiss()
+                Toast.makeText(context, "cardback selected", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+
+        Timber.d("showing cardback dialog")
+        dialog.show()
+        val window: Window? = dialog.window
+        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 }

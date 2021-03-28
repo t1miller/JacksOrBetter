@@ -2,7 +2,7 @@ package com.poker.jacksorbetter.cardgame
 
 import java.util.*
 
-class Card(var face: Int, var suit: Char) {
+class Card(var rank: Int, var suit: Char) {
 
 
     enum class ParseError(val humanReadableError: String) {
@@ -53,17 +53,17 @@ class Card(var face: Int, var suit: Char) {
 
     @Override
     override fun toString(): String {
-        return "${FACES.toCharArray()[face-2]}${suit}"
+        return "${FACES.toCharArray()[rank-2]}${suit}"
     }
 
     @Override
     override fun equals(other: Any?): Boolean =
         (other is Card) &&
-                face == other.face &&
+                rank == other.rank &&
                 suit == other.suit
 
     override fun hashCode(): Int {
-        var result = face
+        var result = rank
         result = 31 * result + suit.hashCode()
         return result
     }

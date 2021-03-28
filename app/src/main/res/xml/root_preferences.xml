@@ -3,10 +3,11 @@
 
     <PreferenceCategory app:title="@string/general_header">
 
-<!--        <EditTextPreference-->
-<!--            app:key="signature"-->
-<!--            app:title="@string/signature_title"-->
-<!--            app:useSimpleSummaryProvider="true" />-->
+        <Preference
+            android:title="Choose Cardback"
+            android:key="choose_cardback"
+            android:summary="Choose a custom cardback"
+            />
 
         <SwitchPreferenceCompat
             app:key="sound"

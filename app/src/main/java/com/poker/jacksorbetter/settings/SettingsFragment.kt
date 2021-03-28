@@ -48,6 +48,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val cardBack: Preference? = findPreference(SettingsUtils.Keys.CHOOSE_CARDBACK)
+        cardBack?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            SettingsUtils.showChangeCardBackDialog(requireContext())
+            Toast.makeText(requireContext(),"Cardback changed", Toast.LENGTH_LONG).show()
+            true
+        }
+
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 }

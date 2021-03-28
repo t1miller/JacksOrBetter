@@ -20,6 +20,7 @@ import com.poker.jacksorbetter.settings.SettingsUtils
 import com.poker.jacksorbetter.stats.StatisticsManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.poker.jacksorbetter.cardgame.AdHelper
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import timber.log.Timber
 import java.util.*
@@ -86,11 +87,15 @@ class MainFragment : Fragment() {
 
     private lateinit var training: CheckBox
 
+    private lateinit var cardBack: ImageView
+
     private var cardLayouts: MutableList<EasyFlipView> = mutableListOf()
 
     private var trainingCardViews: MutableList<ImageView> = mutableListOf()
 
     private var cardViews: MutableList<ImageView> = mutableListOf()
+
+    private var cardBackViews: MutableList<ImageView> = mutableListOf()
 
     private var cardsHoldOverlay: MutableList<TextView> = mutableListOf()
 
@@ -127,8 +132,7 @@ class MainFragment : Fragment() {
         trainingLayout = view.findViewById(R.id.cardLayoutTraining)
         trainingCorrectLayout = view.findViewById(R.id.cardLayoutTrainingCorrect)
         trainingExpectedDiffText = view.findViewById(R.id.trainingExpectedDiff)
-        adView = view.findViewById(R.id.adView)
-        adView.loadAd(AdRequest.Builder().build())
+        cardBack = view.findViewById(R.id.cardback1)
 
         cardLayouts.add(view.findViewById(R.id.card1layout))
         cardLayouts.add(view.findViewById(R.id.card2layout))
@@ -141,6 +145,12 @@ class MainFragment : Fragment() {
         cardViews.add(view.findViewById(R.id.cardfront3))
         cardViews.add(view.findViewById(R.id.cardfront4))
         cardViews.add(view.findViewById(R.id.cardfront5))
+
+        cardBackViews.add(view.findViewById<View>(R.id.back1).findViewById(R.id.cardback1))
+        cardBackViews.add(view.findViewById<View>(R.id.back2).findViewById(R.id.cardback1))
+        cardBackViews.add(view.findViewById<View>(R.id.back3).findViewById(R.id.cardback1))
+        cardBackViews.add(view.findViewById<View>(R.id.back4).findViewById(R.id.cardback1))
+        cardBackViews.add(view.findViewById<View>(R.id.back5).findViewById(R.id.cardback1))
 
         trainingCardViews.add(view.findViewById(R.id.card1training))
         trainingCardViews.add(view.findViewById(R.id.card2training))
@@ -293,9 +303,9 @@ class MainFragment : Fragment() {
             }
         }
 
-
-
         populatePayoutTable()
+        CardUiUtils.showCardBacks(cardBackViews)
+        AdHelper.setupAd(requireActivity(), view, "ca-app-pub-7137320034166109/9607206136")
         return view
     }
 
@@ -614,7 +624,7 @@ class MainFragment : Fragment() {
 
     private fun showDoubleCardUi() {
         helpText.text = getString(R.string.bonus_title)
-        cardViews[2].setImageResource(R.drawable.cardback)
+        cardViews[2].setImageResource(SettingsUtils.getCardBack(requireContext()))
         for (i in 0..4) {
             if(i != 2){
                 cardViews[i].visibility = View.GONE

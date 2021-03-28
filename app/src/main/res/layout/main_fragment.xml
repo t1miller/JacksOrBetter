@@ -528,7 +528,7 @@
                 android:layout_height="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/card2training"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card1HoldCorrect"
@@ -557,7 +557,7 @@
                 android:layout_height="80dp"
                 app:layout_constraintStart_toEndOf="@id/card1training"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card2HoldCorrect"
@@ -585,7 +585,7 @@
                 android:layout_height="80dp"
                 app:layout_constraintStart_toEndOf="@id/card2training"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card3HoldCorrect"
@@ -614,7 +614,7 @@
                 android:layout_height="80dp"
                 app:layout_constraintStart_toEndOf="@id/card3training"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card4HoldCorrect"
@@ -643,7 +643,7 @@
                 android:layout_height="80dp"
                 app:layout_constraintStart_toEndOf="@id/card4training"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card5HoldCorrect"
@@ -797,7 +797,12 @@
             app:flipFrom="front">
 
             <!-- Back Layout Goes Here -->
-            <include layout="@layout/card_layout_back"/>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back1"
+                layout="@layout/card_layout_back"
+                />
 
             <!-- Front Layout Goes Here -->
             <include layout="@layout/card_layout_front"/>
@@ -828,7 +833,12 @@
             >
 
             <!-- Back Layout Goes Here -->
-            <include layout="@layout/card_layout_back"/>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back2"
+                layout="@layout/card_layout_back"
+                />
 
             <!-- Front Layout Goes Here -->
             <include layout="@layout/card_layout_front_two"/>
@@ -860,7 +870,12 @@
             >
 
             <!-- Back Layout Goes Here -->
-            <include layout="@layout/card_layout_back"/>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back3"
+                layout="@layout/card_layout_back"
+                />
 
             <!-- Front Layout Goes Here -->
             <include layout="@layout/card_layout_front_three"/>
@@ -891,7 +906,12 @@
             >
 
             <!-- Back Layout Goes Here -->
-            <include layout="@layout/card_layout_back"/>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back4"
+                layout="@layout/card_layout_back"
+                />
 
             <!-- Front Layout Goes Here -->
             <include layout="@layout/card_layout_front_four"/>
@@ -922,7 +942,12 @@
             >
 
             <!-- Back Layout Goes Here -->
-            <include layout="@layout/card_layout_back"/>
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/back5"
+                layout="@layout/card_layout_back"
+                />
 
             <!-- Front Layout Goes Here -->
             <include layout="@layout/card_layout_front_five"/>
@@ -1106,24 +1131,30 @@
 
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        app:layout_constraintTop_toBottomOf="@id/checkboxLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="5dp"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="LARGE_BANNER"
-        ads:adUnitId="ca-app-pub-7137320034166109/9607206136">
-    </com.google.android.gms.ads.AdView>
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/checkboxLayout"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        ads:adSize="LARGE_BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-7137320034166109/9607206136">-->
+<!--    </com.google.android.gms.ads.AdView>-->
 
-
-    <!--    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" FAKE ONE -->
-    <!--    ads:adUnitId="ca-app-pub-7137320034166109~7526825949" REAL ONE -->
+        <FrameLayout
+            android:id="@+id/ad_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,141 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:viewportWidth="240"
+    android:viewportHeight="336"
+    android:width="225dp"
+    android:height="315dp">
+    <group
+        android:translateX="120"
+        android:translateY="168">
+        <path
+            android:pathData="M-107.5 -167.5H107.5A12 12 0 0 1 119.5 -155.5V155.5A12 12 0 0 1 107.5 167.5H-107.5A12 12 0 0 1 -119.5 155.5V-155.5A12 12 0 0 1 -107.5 -167.5Z"
+            android:fillColor="#FFFFFF"
+            android:strokeColor="#000000"
+            android:strokeWidth="1" />
+        <group
+            android:translateX="-35"
+            android:translateY="-35">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                    android:fillColor="#000000" />
+            </group>
+        </group>
+        <group
+            android:translateX="-114.4"
+            android:translateY="-156">
+            <group
+                android:scaleX="0.032"
+                android:scaleY="0.032"
+                android:translateX="16"
+                android:translateY="16">
+                <path
+                    android:pathData="M170 -460L-175 -460L-210 -115C-210 -115 -200 -200 0 -200C100 -200 255 -80 255 120C255 320 180 460 -20 460C-220 460 -255 285 -255 285"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="80"
+                    android:strokeLineCap="square"
+                    android:strokeMiterLimit="1.5" />
+            </group>
+        </group>
+        <group
+            android:translateX="-111.784"
+            android:translateY="-119">
+            <group
+                android:scaleX="0.0223075"
+                android:scaleY="0.0223075"
+                android:translateX="13.3845"
+                android:translateY="13.3845">
+                <path
+                    android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                    android:fillColor="#000000" />
+            </group>
+        </group>
+        <group
+            android:translateX="-87.501"
+            android:translateY="-135.501">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                    android:fillColor="#000000" />
+            </group>
+        </group>
+        <group
+            android:translateX="17.501"
+            android:translateY="-135.501">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                    android:fillColor="#000000" />
+            </group>
+        </group>
+        <group
+            android:rotation="180">
+            <group
+                android:translateX="-114.4"
+                android:translateY="-156">
+                <group
+                    android:scaleX="0.032"
+                    android:scaleY="0.032"
+                    android:translateX="16"
+                    android:translateY="16">
+                    <path
+                        android:pathData="M170 -460L-175 -460L-210 -115C-210 -115 -200 -200 0 -200C100 -200 255 -80 255 120C255 320 180 460 -20 460C-220 460 -255 285 -255 285"
+                        android:strokeColor="#000000"
+                        android:strokeWidth="80"
+                        android:strokeLineCap="square"
+                        android:strokeMiterLimit="1.5" />
+                </group>
+            </group>
+            <group
+                android:translateX="-111.784"
+                android:translateY="-119">
+                <group
+                    android:scaleX="0.0223075"
+                    android:scaleY="0.0223075"
+                    android:translateX="13.3845"
+                    android:translateY="13.3845">
+                    <path
+                        android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                        android:fillColor="#000000" />
+                </group>
+            </group>
+            <group
+                android:translateX="-87.501"
+                android:translateY="-135.501">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                        android:fillColor="#000000" />
+                </group>
+            </group>
+            <group
+                android:translateX="17.501"
+                android:translateY="-135.501">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -500C100 -250 355 -100 355 185A150 150 0 0 1 55 185A10 10 0 0 0 35 185C35 385 85 400 130 500L-130 500C-85 400 -35 385 -35 185A10 10 0 0 0 -55 185A150 150 0 0 1 -355 185C-355 -100 -100 -250 0 -500Z"
+                        android:fillColor="#000000" />
+                </group>
+            </group>
+        </group>
+    </group>
+</vector>

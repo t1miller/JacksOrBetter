@@ -30,9 +30,9 @@ object Evaluate {
     }
 
     private fun isStraight(cards: List<Card>): Boolean {
-        val sorted = cards.sortedBy { it.face }
-        if (sorted[0].face + 4 == sorted[4].face) return true
-        if (sorted[4].face == 14 && sorted[0].face == 2 && sorted[3].face == 5) return true
+        val sorted = cards.sortedBy { it.rank }
+        if (sorted[0].rank + 4 == sorted[4].rank) return true
+        if (sorted[4].rank == 14 && sorted[0].rank == 2 && sorted[3].rank == 5) return true
         return false
     }
 
@@ -44,15 +44,15 @@ object Evaluate {
 
     private fun checkIfFlushIsRoyalFlush(cards: List<Card>): Boolean {
         // 10 + 11 + 12 + 13 + 14 = 60
-        return cards.sumBy { it.face } == 60
+        return cards.sumBy { it.rank } == 60
     }
 
     fun isPairJackOrBetter(cards: List<Card>) : Boolean {
         for (card1 in cards) {
             for (card2 in cards){
                 if (card1 != card2 &&
-                    card1.face == card2.face &&
-                    card1.face > 10 ) {
+                    card1.rank == card2.rank &&
+                    card1.rank > 10 ) {
                     return true
                 }
             }
@@ -61,7 +61,7 @@ object Evaluate {
     }
 
     fun analyzeHand(hand: List<Card>): Hand {
-        val groups = hand.groupBy { it.face }
+        val groups = hand.groupBy { it.rank }
         when (groups.size) {
             2 -> {
                 if (groups.any { it.value.size == 4 }) return Hand.FOUR_OF_A_KIND
@@ -122,10 +122,10 @@ object Evaluate {
         val repeatedList = mutableListOf(false, false, false, false, false)
         for (i in 0..4) {
             for (j in 0..4) {
-                if (i != j && hand[i].face == hand[j].face){
-                    val repeatedFace = hand[i].face
+                if (i != j && hand[i].rank == hand[j].rank){
+                    val repeatedFace = hand[i].rank
                     for ((k,c) in hand.withIndex()) {
-                        repeatedList[k] = c.face == repeatedFace
+                        repeatedList[k] = c.rank == repeatedFace
                     }
                 }
             }
@@ -148,7 +148,7 @@ object Evaluate {
 
     private fun hasPair(card: Card, hand: List<Card>) : Boolean {
         for (i in 0..4) {
-            if (card.face == hand[i].face && card != hand[i]) {
+            if (card.rank == hand[i].rank && card != hand[i]) {
                 return true
             }
         }

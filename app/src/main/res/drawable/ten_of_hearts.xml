@@ -1,0 +1,206 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:viewportWidth="240"
+    android:viewportHeight="336"
+    android:width="225dp"
+    android:height="315dp">
+    <group
+        android:translateX="120"
+        android:translateY="168">
+        <path
+            android:pathData="M-107.5 -167.5H107.5A12 12 0 0 1 119.5 -155.5V155.5A12 12 0 0 1 107.5 167.5H-107.5A12 12 0 0 1 -119.5 155.5V-155.5A12 12 0 0 1 -107.5 -167.5Z"
+            android:fillColor="#FFFFFF"
+            android:strokeColor="#000000"
+            android:strokeWidth="1" />
+        <group
+            android:translateX="-114.4"
+            android:translateY="-156">
+            <group
+                android:scaleX="0.032"
+                android:scaleY="0.032"
+                android:translateX="16"
+                android:translateY="16">
+                <path
+                    android:pathData="M-260 430L-260 -430M-50 0L-50 -310A150 150 0 0 1 250 -310L250 310A150 150 0 0 1 -50 310Z"
+                    android:strokeColor="#FF0000"
+                    android:strokeWidth="80"
+                    android:strokeLineCap="square"
+                    android:strokeMiterLimit="1.5" />
+            </group>
+        </group>
+        <group
+            android:translateX="-111.784"
+            android:translateY="-119">
+            <group
+                android:scaleX="0.0223075"
+                android:scaleY="0.0223075"
+                android:translateX="13.3845"
+                android:translateY="13.3845">
+                <path
+                    android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                    android:fillColor="#FF0000" />
+            </group>
+        </group>
+        <group
+            android:translateX="-87.501"
+            android:translateY="-135.501">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                    android:fillColor="#FF0000" />
+            </group>
+        </group>
+        <group
+            android:translateX="17.501"
+            android:translateY="-135.501">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                    android:fillColor="#FF0000" />
+            </group>
+        </group>
+        <group
+            android:translateX="-87.501"
+            android:translateY="-68.5">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                    android:fillColor="#FF0000" />
+            </group>
+        </group>
+        <group
+            android:translateX="17.501"
+            android:translateY="-68.5">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                    android:fillColor="#FF0000" />
+            </group>
+        </group>
+        <group
+            android:translateX="-35"
+            android:translateY="-102">
+            <group
+                android:scaleX="0.05833333"
+                android:scaleY="0.05833333"
+                android:translateX="35"
+                android:translateY="35">
+                <path
+                    android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                    android:fillColor="#FF0000" />
+            </group>
+        </group>
+        <group
+            android:rotation="180">
+            <group
+                android:translateX="-114.4"
+                android:translateY="-156">
+                <group
+                    android:scaleX="0.032"
+                    android:scaleY="0.032"
+                    android:translateX="16"
+                    android:translateY="16">
+                    <path
+                        android:pathData="M-260 430L-260 -430M-50 0L-50 -310A150 150 0 0 1 250 -310L250 310A150 150 0 0 1 -50 310Z"
+                        android:strokeColor="#FF0000"
+                        android:strokeWidth="80"
+                        android:strokeLineCap="square"
+                        android:strokeMiterLimit="1.5" />
+                </group>
+            </group>
+            <group
+                android:translateX="-111.784"
+                android:translateY="-119">
+                <group
+                    android:scaleX="0.0223075"
+                    android:scaleY="0.0223075"
+                    android:translateX="13.3845"
+                    android:translateY="13.3845">
+                    <path
+                        android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                        android:fillColor="#FF0000" />
+                </group>
+            </group>
+            <group
+                android:translateX="-87.501"
+                android:translateY="-135.501">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                        android:fillColor="#FF0000" />
+                </group>
+            </group>
+            <group
+                android:translateX="17.501"
+                android:translateY="-135.501">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                        android:fillColor="#FF0000" />
+                </group>
+            </group>
+            <group
+                android:translateX="-87.501"
+                android:translateY="-68.5">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                        android:fillColor="#FF0000" />
+                </group>
+            </group>
+            <group
+                android:translateX="17.501"
+                android:translateY="-68.5">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                        android:fillColor="#FF0000" />
+                </group>
+            </group>
+            <group
+                android:translateX="-35"
+                android:translateY="-102">
+                <group
+                    android:scaleX="0.05833333"
+                    android:scaleY="0.05833333"
+                    android:translateX="35"
+                    android:translateY="35">
+                    <path
+                        android:pathData="M0 -300C0 -400 100 -500 200 -500C300 -500 400 -400 400 -250C400 0 0 400 0 500C0 400 -400 0 -400 -250C-400 -400 -300 -500 -200 -500C-100 -500 0 -400 -0 -300Z"
+                        android:fillColor="#FF0000" />
+                </group>
+            </group>
+        </group>
+    </group>
+</vector>

@@ -3,8 +3,10 @@ package com.poker.jacksorbetter.main
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Card
+import com.poker.jacksorbetter.settings.SettingsUtils
 
 object CardUiUtils {
 
@@ -16,7 +18,7 @@ object CardUiUtils {
 
     fun showCardBacks(cardViews: List<ImageView>?) {
         cardViews?.forEach {
-            it.setImageResource(R.drawable.cardback)
+            it.setImageResource(SettingsUtils.getCardBack(PokerApplication.applicationContext()))
         }
     }
 
@@ -35,8 +37,8 @@ object CardUiUtils {
     }
 
     fun cardToImage(card: Card?) : Int{
-        if(card == null) return R.drawable.cardback
-        return when(card.face) {
+        if(card == null) return R.drawable.card_back_default
+        return when(card.rank) {
             2 -> {
                 when(card.suit) {
                     's' -> {
@@ -211,16 +213,16 @@ object CardUiUtils {
             11 -> {
                 when(card.suit) {
                     's' -> {
-                        R.drawable.jack_of_spades2
+                        R.drawable.jack_of_spades
                     }
                     'h' -> {
-                        R.drawable.jack_of_hearts2
+                        R.drawable.jack_of_hearts
                     }
                     'd' -> {
-                        R.drawable.jack_of_diamonds2
+                        R.drawable.jack_of_diamonds
                     }
                     'c' -> {
-                        R.drawable.jack_of_clubs2
+                        R.drawable.jack_of_clubs
                     }
                     else -> {
                         -1
@@ -230,16 +232,16 @@ object CardUiUtils {
             12 -> {
                 when(card.suit) {
                     's' -> {
-                        R.drawable.queen_of_spades2
+                        R.drawable.queen_of_spades
                     }
                     'h' -> {
-                        R.drawable.queen_of_hearts2
+                        R.drawable.queen_of_hearts
                     }
                     'd' -> {
-                        R.drawable.queen_of_diamonds2
+                        R.drawable.queen_of_diamonds
                     }
                     'c' -> {
-                        R.drawable.queen_of_clubs2
+                        R.drawable.queen_of_clubs
                     }
                     else -> {
                         -1
@@ -249,16 +251,16 @@ object CardUiUtils {
             13 -> {
                 when(card.suit) {
                     's' -> {
-                        R.drawable.king_of_spades2
+                        R.drawable.king_of_spades
                     }
                     'h' -> {
-                        R.drawable.king_of_hearts2
+                        R.drawable.king_of_hearts
                     }
                     'd' -> {
-                        R.drawable.king_of_diamonds2
+                        R.drawable.king_of_diamonds
                     }
                     'c' -> {
-                        R.drawable.king_of_clubs2
+                        R.drawable.king_of_clubs
                     }
                     else -> {
                         -1
@@ -268,7 +270,7 @@ object CardUiUtils {
             14 -> {
                 when(card.suit) {
                     's' -> {
-                        R.drawable.ace_of_spades2
+                        R.drawable.ace_of_spades
                     }
                     'h' -> {
                         R.drawable.ace_of_hearts
@@ -285,9 +287,8 @@ object CardUiUtils {
                 }
             }
             else -> {
-                -1
+                SettingsUtils.getCardBack(PokerApplication.applicationContext())
             }
         }
-
     }
 }

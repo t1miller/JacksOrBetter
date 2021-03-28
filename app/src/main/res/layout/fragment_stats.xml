@@ -110,7 +110,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card1Hold"
@@ -129,7 +129,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card1"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card2Hold"
@@ -148,7 +148,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card2"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card3Hold"
@@ -167,7 +167,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card3"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card4Hold"
@@ -186,7 +186,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card4"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/card5Hold"
@@ -227,7 +227,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <ImageView
                 android:id="@+id/card22"
@@ -235,7 +235,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card12"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <ImageView
                 android:id="@+id/card32"
@@ -243,7 +243,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <ImageView
                 android:id="@+id/card42"
@@ -251,7 +251,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card32"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
 
             <ImageView
@@ -260,7 +260,7 @@
                 android:layout_height="60dp"
                 app:layout_constraintStart_toEndOf="@id/card42"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/cardback" />
+                app:srcCompat="@drawable/card_back_default" />
 
             <TextView
                 android:id="@+id/lastHandwon"

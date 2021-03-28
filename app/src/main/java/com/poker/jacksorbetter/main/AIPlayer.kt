@@ -58,7 +58,7 @@ object AIPlayer {
         val evals = mutableListOf<HandRank>()
         while (trial < numTrials) {
             val tempHand = Deck.draw5Random(hand.toMutableList())
-            val tempHandPC = tempHand.map { card -> PokerCard(Rank(card.face), Suit.parse(card.suit)) }.toTypedArray()
+            val tempHandPC = tempHand.map { card -> PokerCard(Rank(card.rank), Suit.parse(card.suit)) }.toTypedArray()
 
             val eval = HandEvaluator.evaluateSpecificHand(tempHandPC)
             evals.add(eval)
