@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.cardgame
+package com.poker.jacksorbetter.cardgame.ui
 
 import android.app.Activity
 import android.util.DisplayMetrics

@@ -95,7 +95,7 @@ object AIPlayer {
             HandRank.ONE_PAIR -> {
                 // todo this has to be done. A better way is
                 // to put this logic in HandEvaluator.java
-                if (Evaluate.isPairJackOrBetter(hand)) {
+                if (Evaluate.isPairJacksOrBetter(hand)) {
                     Evaluate.Hand.JACKS_OR_BETTER
                 } else {
                     Evaluate.Hand.NOTHING

@@ -47,12 +47,12 @@ object Evaluate {
         return cards.sumBy { it.rank } == 60
     }
 
-    fun isPairJackOrBetter(cards: List<Card>) : Boolean {
+    fun isPairJacksOrBetter(cards: List<Card>) : Boolean {
         for (card1 in cards) {
             for (card2 in cards){
                 if (card1 != card2 &&
                     card1.rank == card2.rank &&
-                    card1.rank > 10 ) {
+                    card1.rank >= 11 ) {
                     return true
                 }
             }
@@ -71,7 +71,7 @@ object Evaluate {
                 if (groups.any { it.value.size == 3 }) return Hand.THREE_OF_A_KIND
                 return Hand.TWO_PAIRS
             }
-            4 -> return if (isPairJackOrBetter(
+            4 -> return if (isPairJacksOrBetter(
                     hand
                 )
             ) {

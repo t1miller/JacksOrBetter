@@ -46,9 +46,6 @@ class StatsFragment : Fragment() {
         val correctText = view.findViewById<TextView>(R.id.strategyCorrectCount)
         val wrongText = view.findViewById<TextView>(R.id.strategyWrongCount)
 
-//        val totalCount = (StatisticsManager.getStatistics()?.correctCount ?: 0) + (StatisticsManager.getStatistics()?.wrongCount ?: 0)
-//        val accuracy = if (totalCount > 0) (StatisticsManager.getStatistics()?.correctCount ?: 0).div(totalCount.toDouble()) else 0.0
-
         accuracyText.text = getString(R.string.your_accuracy, StatisticsManager.getAccuracy())
         correctText.text = getString(R.string.correct_count, StatisticsManager.getStatistics()?.correctCount)
         wrongText.text = getString(R.string.wrong_count, StatisticsManager.getStatistics()?.wrongCount)

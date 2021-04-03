@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.*
+import com.poker.jacksorbetter.cardgame.ui.AdHelper
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 import com.poker.jacksorbetter.cardgame.ui.PayTableUiUtils
 import com.wajahatkarim3.easyflipview.EasyFlipView
@@ -298,9 +299,8 @@ class MainFragment : Fragment() {
                 }
             }
         }
-
+        
         populatePayoutTable()
-//        PayTableUiUtils.initBlinkAnimation(requireContext(),tableLayout)
         CardUiUtils.showCardBacks(cardBackViews)
         AdHelper.setupAd(requireActivity(), view, "ca-app-pub-7137320034166109/9607206136")
         return view
