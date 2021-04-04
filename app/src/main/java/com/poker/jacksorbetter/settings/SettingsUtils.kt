@@ -21,6 +21,9 @@ object SettingsUtils {
         const val MONEY = 4000
         const val MONTE_CARLO_TRIALS = 5000
         const val SOUND = true
+        const val SOUND_FLIP = true
+        const val SOUND_LOSE = true
+        const val SOUND_BONUS = true
         const val SHEEP_MODE = false
         const val PAYOUT_TABLE = "9/6 – 99.54%"
         const val TRAINING_STRICTNESS = 20
@@ -35,6 +38,9 @@ object SettingsUtils {
         const val CHOOSE_CARDBACK = "choose_cardback"
         const val TOTAL_MONEY = "money"
         const val SOUND = "sound"
+        const val SOUND_LOSE = "sound_lose"
+        const val SOUND_FLIP = "sound_flip"
+        const val SOUND_BONUS = "sound_bonus"
         const val SHEEP_MODE = "sheep_mode"
         const val TRAINING_STRICTNESS = "training_strictness"
     }
@@ -142,6 +148,30 @@ object SettingsUtils {
             Defaults.CHOOSE_CARDBACK
         )
         return CardBacks.cardbacks[position]
+    }
+
+    fun isLoseSoundEnabled(context: Context) : Boolean{
+        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getBoolean(
+            Keys.SOUND_LOSE,
+            Defaults.SOUND_LOSE
+        )
+    }
+
+    fun isFlipSoundEnabled(context: Context) : Boolean{
+        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getBoolean(
+            Keys.SOUND_FLIP,
+            Defaults.SOUND_FLIP
+        )
+    }
+
+    fun isBonusSoundEnabled(context: Context) : Boolean{
+        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getBoolean(
+            Keys.SOUND_BONUS,
+            Defaults.SOUND_BONUS
+        )
     }
 
     fun showChangeCardBackDialog(context: Context)  {

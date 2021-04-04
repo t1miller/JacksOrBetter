@@ -299,7 +299,7 @@ class MainFragment : Fragment() {
                 }
             }
         }
-        
+
         populatePayoutTable()
         CardUiUtils.showCardBacks(cardBackViews)
         AdHelper.setupAd(requireActivity(), view, "ca-app-pub-7137320034166109/9607206136")
@@ -651,8 +651,9 @@ class MainFragment : Fragment() {
     }
 
     private fun flip(state: MainViewModel.CardFlipState, cards: List<Card>) {
-        SoundManager.playSound(requireActivity(), SoundManager.SoundType.FLIP)
-        Timber.d("Flip State: %s", state)
+        if(SettingsUtils.isFlipSoundEnabled(requireContext())){
+            SoundManager.playSound(requireActivity(), SoundManager.SoundType.FLIP)
+        }
 
         when(state) {
             MainViewModel.CardFlipState.FACE_DOWN -> {

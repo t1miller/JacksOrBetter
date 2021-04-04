@@ -79,15 +79,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         val oldAmount = getMoney()
         if(money > oldAmount) {
-            if (isBonus) {
+            if (isBonus && SettingsUtils.isBonusSoundEnabled(getApplication())) {
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.ROOSTER_CROWING)
             } else {
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.COLLECTING_COINS)
             }
         } else {
-            if(isBonus){
+            if(isBonus && SettingsUtils.isBonusSoundEnabled(getApplication())){
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.SAD_TROMBONE_4_WOMP)
-            } else {
+            } else if(SettingsUtils.isLoseSoundEnabled(getApplication())) {
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.SAD_TROMBONE_3_WOMP)
             }
         }

@@ -25,6 +25,39 @@
             app:summaryOn="Sheep mode is on"
             app:title="Sheep Mode" />
 
+<!--        <SwitchPreferenceCompat-->
+<!--            app:dependency="sound"-->
+<!--            app:key="sound_win"-->
+<!--            app:defaultValue="true"-->
+<!--            app:summaryOff="Win sound off"-->
+<!--            app:summaryOn="Win sound is on"-->
+<!--            app:title="Win Sound" />-->
+
+
+        <SwitchPreferenceCompat
+            app:dependency="sound"
+            app:key="sound_lose"
+            app:defaultValue="true"
+            app:summaryOff="Lose sound is off"
+            app:summaryOn="Lose sound is on"
+            app:title="Lose Sound" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sound"
+            app:key="sound_flip"
+            app:defaultValue="true"
+            app:summaryOff="Card Flip sound is off"
+            app:summaryOn="Card Flip sound is on"
+            app:title="Flip Sound" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sound"
+            app:key="sound_bonus"
+            app:defaultValue="true"
+            app:summaryOff="Bonus sounds are off"
+            app:summaryOn="Bonus sounds are on"
+            app:title="Bonus Sound" />
+
         <SeekBarPreference
             android:max="15000"
             app:defaultValue="5000"
