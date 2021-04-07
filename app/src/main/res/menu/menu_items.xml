@@ -5,19 +5,24 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/simulations"
-        android:title="Simulations"
+        android:title="@string/simulations"
         app:showAsAction="ifRoom"/>
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/stats"
-        android:title="Statistics"
+        android:title="@string/statistics"
+        app:showAsAction="never"/>
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/about"
+        android:title="@string/about"
         app:showAsAction="never"/>
 
 
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/settings"
-        android:title="Settings"
+        android:title="@string/settings"
         app:showAsAction="never"/>
 
 </menu>

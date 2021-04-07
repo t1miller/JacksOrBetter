@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
+import java.lang.Math.abs
 
 /**
  * A fragment representing a list of Items.
@@ -51,7 +52,7 @@ class StatsFragment : Fragment() {
         wrongText.text = getString(R.string.wrong_count, StatisticsManager.getStatistics()?.wrongCount)
 
         wonText.text = getString(R.string.won, StatisticsManager.getStatistics()?.totalWon)
-        lossText.text = getString(R.string.loss, StatisticsManager.getStatistics()?.totalLost)
+        lossText.text = getString(R.string.loss, abs(StatisticsManager.getStatistics()?.totalLost ?: 0))
         totalText.text = getString(R.string.total, (StatisticsManager.getStatistics()?.totalWon ?: 0) + (StatisticsManager.getStatistics()?.totalLost ?: 0))
 
 
@@ -81,8 +82,12 @@ class StatsFragment : Fragment() {
         CardUiUtils.highlightHeldCards(cardHeldViews, StatisticsManager.getStatistics()?.lastGame?.handOriginal, StatisticsManager.getStatistics()?.lastGame?.heldCards)
         CardUiUtils.showCards(cardViewsAfterDiscard, StatisticsManager.getStatistics()?.lastGame?.handFinal)
         lastHandBet.text = getString(R.string.bet,StatisticsManager.getStatistics()?.lastGame?.bet ?: 0)
-        lastHandWon.text = getString(R.string.won,StatisticsManager.getStatistics()?.lastGame?.won ?: 0)
         lastHandEval.text = getString(R.string.eval,StatisticsManager.getStatistics()?.lastGame?.eval ?: "")
+        if(StatisticsManager.getStatistics()?.lastGame?.won ?: 0 >= 0){
+            lastHandWon.text = getString(R.string.won,StatisticsManager.getStatistics()?.lastGame?.won ?: 0)
+        } else {
+            lastHandWon.text = getString(R.string.loss,abs(StatisticsManager.getStatistics()?.lastGame?.won ?: 0))
+        }
 
         return view
     }

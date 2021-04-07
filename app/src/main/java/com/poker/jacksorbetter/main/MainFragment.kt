@@ -13,11 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.*
+import com.poker.jacksorbetter.cardgame.dialog.ResetMoneyDialog
 import com.poker.jacksorbetter.cardgame.ui.AdHelper
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 import com.poker.jacksorbetter.cardgame.ui.PayTableUiUtils
 import com.wajahatkarim3.easyflipview.EasyFlipView
 import com.poker.jacksorbetter.handstatui.StatDialogUtils
+import com.poker.jacksorbetter.settings.SettingsFragment
 import com.poker.jacksorbetter.settings.SettingsUtils
 import com.poker.jacksorbetter.stats.StatisticsManager
 import kotlinx.android.synthetic.main.main_fragment.view.*
@@ -26,7 +28,7 @@ import java.util.*
 import kotlin.math.abs
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -196,20 +198,28 @@ class MainFragment : Fragment() {
         }
 
         dealButton.setOnClickListener {
-            disableDealButtonUi()
+//            disableDealButtonUi()
             dismissTrainingModeScreenUi()
             when (viewModel.gameState.value) {
                 MainViewModel.GameState.START -> {
-                    viewModel.newGame()
-                    viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_UP
+                    if((viewModel.bet.value ?: 1) > (viewModel.totalMoney.value ?: 0)){
+                        ResetMoneyDialog.showDialog(requireContext(), this)
+                    } else {
+                        viewModel.newGame()
+                        viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_UP
+                    }
                 }
                 MainViewModel.GameState.DEAL -> {
                     viewModel.evaluateHand(getCardsToKeepBooleanArray(), getCardsToKeep())
                 }
                 MainViewModel.GameState.EVALUATE_NO_BONUS -> {
-                    viewModel.gameState.value = MainViewModel.GameState.START
-                    viewModel.newGame()
-                    viewModel.cardFLipState.value = MainViewModel.CardFlipState.FULL_FLIP
+                    if((viewModel.bet.value ?: 1) > (viewModel.totalMoney.value ?: 0)){
+                        ResetMoneyDialog.showDialog(requireContext(), this)
+                    } else {
+                        viewModel.gameState.value = MainViewModel.GameState.START
+                        viewModel.newGame()
+                        viewModel.cardFLipState.value = MainViewModel.CardFlipState.FULL_FLIP
+                    }
                 }
                 MainViewModel.GameState.EVALUATE_WITH_BONUS -> {
                     // user is opting out of double down
@@ -218,9 +228,13 @@ class MainFragment : Fragment() {
                     viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_DOWN
                 }
                 MainViewModel.GameState.BONUS -> {
-                    viewModel.gameState.value = MainViewModel.GameState.START
-                    viewModel.newGame()
-                    viewModel.cardFLipState.value = MainViewModel.CardFlipState.FULL_FLIP
+                    if((viewModel.bet.value ?: 1) > (viewModel.totalMoney.value ?: 0)){
+                        ResetMoneyDialog.showDialog(requireContext(), this)
+                    } else {
+                        viewModel.gameState.value = MainViewModel.GameState.START
+                        viewModel.newGame()
+                        viewModel.cardFLipState.value = MainViewModel.CardFlipState.FULL_FLIP
+                    }
                 }
                 else -> {}
             }
@@ -242,34 +256,21 @@ class MainFragment : Fragment() {
         }
 
         autoHold.setOnCheckedChangeListener { _, isChecked ->
-            if(training.isChecked && isChecked) {
-                Toast.makeText(requireContext(), "Disable Training First", Toast.LENGTH_LONG).show()
-                autoHold.isChecked = false
-            } else {
-                if(isChecked && viewModel.gameState.value == MainViewModel.GameState.DEAL) {
-                    clearHoldUi()
-                    helpText.visibility = View.VISIBLE
-                    viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
-                }
+
+            if(isChecked && viewModel.gameState.value == MainViewModel.GameState.DEAL) {
+                clearHoldUi()
+                helpText.visibility = View.VISIBLE
+                viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
             }
+
         }
 
         showStats.setOnCheckedChangeListener { _, isChecked ->
-            if(training.isChecked && isChecked){
-                Toast.makeText(requireContext(), "Disable Training First", Toast.LENGTH_LONG).show()
-                showStats.isChecked = false
-            } else {
-                statsLayout.visibility = if(isChecked) View.VISIBLE else View.GONE
-            }
+            statsLayout.visibility = if(isChecked) View.VISIBLE else View.GONE
         }
 
         training.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                // no cheating in training mode
-                showStats.isChecked = false
-                autoHold.isChecked = false
-                SettingsUtils.resetNumTrials(requireContext())
-            }
+            SettingsUtils.resetNumTrials(requireContext())
         }
 
         explainDecisionButton.setOnClickListener {
@@ -299,7 +300,7 @@ class MainFragment : Fragment() {
                 }
             }
         }
-
+        SettingsUtils.setMoney(5, requireContext())
         populatePayoutTable()
         CardUiUtils.showCardBacks(cardBackViews)
         AdHelper.setupAd(requireActivity(), view, "ca-app-pub-7137320034166109/9607206136")
@@ -427,13 +428,6 @@ class MainFragment : Fragment() {
         betOneButton.isEnabled = true
     }
 
-    private fun disableDealButtonUi(){
-        dealButton.isEnabled = false
-    }
-
-    private fun enableDealButtonUi(){
-        dealButton.isEnabled = true
-    }
 
     private fun updateUi(state: MainViewModel.GameState) {
         Timber.d("UI State: %s", state)
@@ -497,6 +491,7 @@ class MainFragment : Fragment() {
     private fun showBonusAndCollect() {
         dealButton.text = getString(R.string.collect_button)
         doubleButton.isEnabled = true
+        dealButton.isEnabled = true
     }
 
     private fun showRedAndBlack() {
@@ -532,7 +527,7 @@ class MainFragment : Fragment() {
 
     private fun updateWonLostMoneyUi(wonLost: Int) {
         if (wonLost < 0) {
-            wonLostText.text = getString(R.string.loss, wonLost)
+            wonLostText.text = getString(R.string.loss, abs(wonLost))
         } else {
             wonLostText.text = getString(R.string.won, wonLost)
         }
@@ -555,11 +550,19 @@ class MainFragment : Fragment() {
     }
 
     private fun updateOptimalExpectedValue(expectedReturn: Double) {
-        optimalReturnText.text = getString(R.string.stats_optimal_return, expectedReturn)
+        if(expectedReturn >= 0){
+            optimalReturnText.text = getString(R.string.stats_optimal_return_pos, expectedReturn)
+        } else {
+            optimalReturnText.text = getString(R.string.stats_optimal_return_neg, abs(expectedReturn))
+        }
     }
 
     private fun updateYourExpectedValue(expectedReturn: Double) {
-        yourReturnText.text = getString(R.string.stats_your_return, expectedReturn)
+        if(expectedReturn >= 0){
+            yourReturnText.text = getString(R.string.stats_your_return_pos, expectedReturn)
+        } else {
+            yourReturnText.text = getString(R.string.stats_your_return_neg, abs(expectedReturn))
+        }
     }
 
     private fun updateHighlightedColumnUi() {
@@ -661,7 +664,7 @@ class MainFragment : Fragment() {
                     cardLayouts[i].isAutoFlipBack = false
                     cardLayouts[i].flipTheView()
                     cardLayouts[i].setOnFlipListener { _, _ ->
-                        enableDealButtonUi()
+//                        enableDealButtonUi()
                     }
                 }
             }
@@ -672,7 +675,7 @@ class MainFragment : Fragment() {
                         cardViews[i].setImageResource(CardUiUtils.cardToImage(cards[i]))
                         cardLayouts[i].flipTheView()
                         cardLayouts[i].setOnFlipListener { _, _ ->
-                            enableDealButtonUi()
+//                            enableDealButtonUi()
                         }
                     }
                 }
@@ -681,13 +684,13 @@ class MainFragment : Fragment() {
                 for (i in 0..4) {
                     cardLayouts[i].isAutoFlipBack = true
                     if (!viewModel.getKeptCardIndeces()[i]) {
-                        cardLayouts[i].autoFlipBackTime = 50
+                        cardLayouts[i].autoFlipBackTime = 0
                         cardLayouts[i].flipTheView()
                         cardLayouts[i].setOnFlipListener { _, newCurrentSide ->
                             if (newCurrentSide == EasyFlipView.FlipState.BACK_SIDE) {
                                 cardViews[i].setImageResource(CardUiUtils.cardToImage(cards[i]))
                             }
-                            enableDealButtonUi()
+//                            enableDealButtonUi()
                         }
                     }
                 }
@@ -715,5 +718,11 @@ class MainFragment : Fragment() {
     private fun clearWinningTextUi() {
         winningHandText.visibility = View.INVISIBLE
         winningHandText.text = ""
+    }
+
+    override fun setMoney(amount: Int) {
+        viewModel.totalMoney.value = amount
+        SettingsUtils.setMoney(amount, requireContext())
+        Toast.makeText(requireContext(),"Money set: $$amount", Toast.LENGTH_LONG).show()
     }
 }

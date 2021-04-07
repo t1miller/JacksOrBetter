@@ -21,5 +21,7 @@
     <color name="colorLightTurquoise">#aa40e0d0</color>
     <color name="colorTurquoise">#aa00292a</color>
     <color name="colorPurple">#b19cd9</color>
+    <color name="lightGrey">#616161</color>
+    <color name="lightLightGrey">#DADADA</color>
 
 </resources>

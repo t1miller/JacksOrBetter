@@ -3,6 +3,12 @@
     <color name="yellow">#FFCC00</color>
     <color name="white">#FFFFFF</color>
 
+    <string name="simulations">Simulations</string>
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
+    <string name="statistics">Statistics</string>
+
+
     <!-- Preferences -->
     <string name="general_header">General</string>
     <string name="money_header">Money</string>
@@ -31,12 +37,15 @@
     <string name="bonus_title">Guess the color?</string>
 
     <!--   Hand stats  -->
-    <string name="stats_optimal_return">Optimal Return: %.3f</string>
-    <string name="stats_your_return">Your Return: %.3f</string>
+    <string name="stats_optimal_return_pos">Optimal Return: +$%.3f</string>
+    <string name="stats_optimal_return_neg">Optimal Return: -$%.3f</string>
+    <string name="stats_your_return_pos">Your Return: +$%.3f</string>
+    <string name="stats_your_return_neg">Your Return: -$%.3f</string>
+
 
     <!--    Stat fragment screen  -->
-    <string name="loss">Loss: $%d</string>
-    <string name="won">Won: $%d</string>
+    <string name="loss">Loss: -$%d</string>
+    <string name="won">Won: +$%d</string>
     <string name="total">Total: $%d</string>
     <string name="bet">Bet: $%d</string>
     <string name="eval">Eval: %s</string>
@@ -63,9 +72,19 @@
     <string name="red">Red</string>
     <string name="black">Black</string>
 
+    <!--   About -->
+    <string name="other_apps">My Other Apps:</string>
+    <string name="about_feedback_title">Feedback:</string>
+    <string name="about_feedback">Found a bug? Have a cool idea? Want a new statistic feature? Email me, I love feedback/suggestions!</string>
+    <string name="email_me">Email Me</string>
+    <string name="about_three_card_poker">Jacks or Better is the most popular video poker variant. </string>
 
 
-
+    <!--    Dialog Reset Money -->
+    <string name="select_money">Select how much you want</string>
+    <string name="five_thousand">$5,000</string>
+    <string name="thousand">$1,000</string>
+    <string name="ten_thousand">$10,000</string>
 
 
 

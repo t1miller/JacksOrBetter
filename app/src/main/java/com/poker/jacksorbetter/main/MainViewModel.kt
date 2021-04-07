@@ -68,17 +68,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun updateTotalMoney(newAmount: Int, isBonus: Boolean) {
 
-        var money = newAmount
-        if(money < 0) {
-            // no money, top off their money for them
-            SettingsUtils.resetMoney(getApplication())
-            money = SettingsUtils.Defaults.MONEY // reset cached money value too
-        } else {
-            SettingsUtils.setMoney(newAmount, getApplication())
-        }
-
+//        if(money < 0) {
+//            // no money, top off their money for them
+//            SettingsUtils.resetMoney(getApplication())
+//            money = SettingsUtils.Defaults.MONEY // reset cached money value too
+//        } else {
+//            SettingsUtils.setMoney(newAmount, getApplication())
+//        }
+        SettingsUtils.setMoney(newAmount, getApplication())
         val oldAmount = getMoney()
-        if(money > oldAmount) {
+        if(newAmount > oldAmount) {
             if (isBonus && SettingsUtils.isBonusSoundEnabled(getApplication())) {
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.ROOSTER_CROWING)
             } else {
@@ -91,7 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.SAD_TROMBONE_3_WOMP)
             }
         }
-        totalMoney.value = money
+        totalMoney.value = newAmount
     }
 
     private fun updateLastEvaluatedHand(handEval: Evaluate.Hand) {

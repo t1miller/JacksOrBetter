@@ -792,7 +792,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:flipOnTouch="false"
             app:flipEnabled="true"
-            app:flipDuration="250"
+            app:flipDuration="200"
             app:flipType="horizontal"
             app:flipFrom="front">
 
@@ -827,7 +827,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:flipOnTouch="false"
             app:flipEnabled="true"
-            app:flipDuration="250"
+            app:flipDuration="200"
             app:flipType="horizontal"
             app:flipFrom="front"
             >
@@ -864,7 +864,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:flipOnTouch="false"
             app:flipEnabled="true"
-            app:flipDuration="250"
+            app:flipDuration="200"
             app:flipType="horizontal"
             app:flipFrom="front"
             >
@@ -900,7 +900,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:flipOnTouch="false"
             app:flipEnabled="true"
-            app:flipDuration="250"
+            app:flipDuration="200"
             app:flipType="horizontal"
             app:flipFrom="front"
             >
@@ -936,7 +936,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:flipOnTouch="false"
             app:flipEnabled="true"
-            app:flipDuration="250"
+            app:flipDuration="200"
             app:flipType="horizontal"
             app:flipFrom="front"
             >

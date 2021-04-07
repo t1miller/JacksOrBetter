@@ -8,10 +8,11 @@ import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.poker.jacksorbetter.R
+import com.poker.jacksorbetter.cardgame.dialog.ResetMoneyDialog
 import com.poker.jacksorbetter.stats.StatisticsManager
 
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButton{
 
     companion object {
         val NAME = SettingsFragment::class.java.simpleName
@@ -29,8 +30,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val resetMoneyButton: Preference? = findPreference(SettingsUtils.Keys.RESET_MONEY)
         resetMoneyButton?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            Toast.makeText(context, "Money reset to ${SettingsUtils.Defaults.MONEY}", Toast.LENGTH_LONG).show()
-            SettingsUtils.resetMoney(requireContext())
+            ResetMoneyDialog.showDialog(requireContext(), this)
             true
         }
 
@@ -57,5 +57,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun setMoney(amount: Int) {
+        SettingsUtils.setMoney(amount, requireContext())
+        Toast.makeText(requireContext(),"Money set: $$amount", Toast.LENGTH_LONG).show()
     }
 }

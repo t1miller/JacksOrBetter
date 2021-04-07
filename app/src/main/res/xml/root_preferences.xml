@@ -37,7 +37,7 @@
         <SwitchPreferenceCompat
             app:dependency="sound"
             app:key="sound_lose"
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:summaryOff="Lose sound is off"
             app:summaryOn="Lose sound is on"
             app:title="Lose Sound" />
@@ -95,7 +95,7 @@
         <Preference
             android:title="Reset Money"
             android:key="reset_money"
-            android:summary="Resets your money to the default (4000)"
+            android:summary="Resets your money"
             />
 
         <ListPreference

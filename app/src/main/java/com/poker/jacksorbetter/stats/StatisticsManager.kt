@@ -3,11 +3,12 @@ package com.poker.jacksorbetter.stats
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
-import com.poker.jacksorbetter.PokerApplication
+import com.poker.jacksorbetter.main.PokerApplication
 import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.poker.jacksorbetter.BuildConfig
 import timber.log.Timber
 import java.io.File
 
@@ -105,7 +106,7 @@ object StatisticsManager {
 
         val statURI = FileProvider.getUriForFile(
             context,
-            context.applicationContext.packageName.toString() + ".provider",
+            BuildConfig.APPLICATION_ID + ".provider",
             File(fullFileName)
         )
 
@@ -115,6 +116,7 @@ object StatisticsManager {
         sharingIntent.putExtra(Intent.EXTRA_STREAM, statURI)
         context.startActivity(Intent.createChooser(sharingIntent, "share file with"))
     }
+
 
     fun getStatistics() : Statistics?{
         return statistics

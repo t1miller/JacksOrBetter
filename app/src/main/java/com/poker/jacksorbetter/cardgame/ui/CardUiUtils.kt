@@ -3,7 +3,7 @@ package com.poker.jacksorbetter.cardgame.ui
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.poker.jacksorbetter.PokerApplication
+import com.poker.jacksorbetter.main.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.settings.SettingsUtils
