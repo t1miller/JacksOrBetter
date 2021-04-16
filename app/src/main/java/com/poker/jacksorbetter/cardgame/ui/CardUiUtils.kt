@@ -1,14 +1,28 @@
 package com.poker.jacksorbetter.cardgame.ui
 
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.poker.jacksorbetter.main.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.settings.SettingsUtils
+import kotlin.random.Random
 
 object CardUiUtils {
+
+    fun startShimmer(context: Context, shimmerLayouts: MutableList<ShimmerFrameLayout>) {
+        if(SettingsUtils.getCardBack(context) == R.drawable.card_back_gold) {
+            for (shimmer in shimmerLayouts){
+                shimmer.baseAlpha = 0.9F// opacity of non shimmer part of image
+//                shimmer.intensity = 0.1F
+                shimmer.duration = Random.nextInt(900, 1400)
+                shimmer.startShimmerAnimation()
+            }
+        }
+    }
 
     fun showCards(cardViews: List<ImageView>?, fullHand: List<Card>?) {
         fullHand?.forEachIndexed { index, card ->

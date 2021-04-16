@@ -7,12 +7,14 @@
     <color name="colorYellow">#FFFF00</color>
     <color name="colorLightYellow">#FDFD96</color>
     <color name="colorDarkBlue">#000066</color>
+    <color name="colorDarkBlueTransparent">#AA000066</color>
     <color name="colorBlue">#003399</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorLightRed">#FF7E82</color>
     <color name="colorGrey">#7f7f7f</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="black">#FF000000</color>
     <color name="colorLightBlack">#191919</color>
     <color name="colorLightGrey">#d3d3d3</color>
     <color name="colorForestGreen">#228c22</color>
@@ -23,5 +25,8 @@
     <color name="colorPurple">#b19cd9</color>
     <color name="lightGrey">#616161</color>
     <color name="lightLightGrey">#DADADA</color>
+    <color name="orange">#FF5E13</color>
+    <color name="red">#D6001C</color>
+    <color name="goldenYellow">#FFE078</color>
 
 </resources>

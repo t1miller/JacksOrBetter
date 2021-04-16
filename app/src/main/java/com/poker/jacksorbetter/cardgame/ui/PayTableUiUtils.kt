@@ -8,23 +8,27 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
 import com.poker.jacksorbetter.R
+import com.poker.jacksorbetter.cardgame.Evaluate
+import com.poker.jacksorbetter.main.PayOutHelper
 
 
 object PayTableUiUtils {
 
 
-//    fun initBlinkAnimation(context: Context, tableLayout: TableLayout) {
-//        val animBlink = AnimationUtils.loadAnimation(context, R.anim.blink)
-//        for(row in tableLayout.children){
-//            for (rowElement in (row as TableRow).children) {
-//                val rowTextView = rowElement as TextView
-//                rowTextView.animation = animBlink
-//            }
-//        }
-//    }
+    fun populatePayTable(tableLayout: TableLayout, type: PayOutHelper.PAY_TABLE_TYPES) {
+        for ((i, row) in tableLayout.children.withIndex()) {
+            val payRowValues = PayOutHelper.getPayTableRow(type, i)
+            for((j, tv) in (row as TableRow).children.withIndex()){
+                if(j != 0) {
+                    (tv as TextView).text = payRowValues[j - 1].toString()
+                } else {
+                    (tv as TextView).text = Evaluate.Hand.values()[i].paytableName
+                }
+            }
+        }
+    }
 
     fun animateWinningTextViewFont(
-        context: Context,
         tableLayout: TableLayout,
         rowIndex: Int?,
         bet: Int = 1

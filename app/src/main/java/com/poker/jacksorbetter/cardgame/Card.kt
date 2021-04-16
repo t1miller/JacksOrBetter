@@ -54,7 +54,11 @@ class Card(var rank: Int, var suit: Char) {
     @Override
     override fun toString(): String {
         if(rank < 2 || rank > 14) return ""
-        return "${FACES.toCharArray()[rank-2]}${suit}"
+        return try {
+            "${FACES.toCharArray()[rank - 2]}${suit}"
+        } catch (e: Exception){
+            ""
+        }
     }
 
     @Override

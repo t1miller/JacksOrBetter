@@ -53,7 +53,12 @@ class StatsFragment : Fragment() {
 
         wonText.text = getString(R.string.won, StatisticsManager.getStatistics()?.totalWon)
         lossText.text = getString(R.string.loss, abs(StatisticsManager.getStatistics()?.totalLost ?: 0))
-        totalText.text = getString(R.string.total, (StatisticsManager.getStatistics()?.totalWon ?: 0) + (StatisticsManager.getStatistics()?.totalLost ?: 0))
+        val total = (StatisticsManager.getStatistics()?.totalWon ?: 0) + (StatisticsManager.getStatistics()?.totalLost ?: 0)
+        if(total >= 0) {
+            totalText.text = getString(R.string.total, total)
+        } else {
+            totalText.text = getString(R.string.total_neg, abs(total))
+        }
 
 
         val cardViewsOriginal = mutableListOf<ImageView>()

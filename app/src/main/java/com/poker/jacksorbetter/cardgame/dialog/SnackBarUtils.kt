@@ -1,4 +1,4 @@
-package com.poker.threecardpoker.cardgame.dialog
+package com.poker.jacksorbetter.cardgame.dialog
 
 import android.view.View
 import android.widget.TextView

@@ -4,6 +4,14 @@
     <PreferenceCategory app:title="@string/general_header">
 
         <Preference
+            android:title="Sign in"
+            android:key="sign_in"/>
+
+        <Preference
+            android:title="Sign out"
+            android:key="sign_out"/>
+
+        <Preference
             android:title="Choose Cardback"
             android:key="choose_cardback"
             android:summary="Choose a custom cardback"
@@ -24,23 +32,6 @@
             app:summaryOff="Sheep mode is off"
             app:summaryOn="Sheep mode is on"
             app:title="Sheep Mode" />
-
-<!--        <SwitchPreferenceCompat-->
-<!--            app:dependency="sound"-->
-<!--            app:key="sound_win"-->
-<!--            app:defaultValue="true"-->
-<!--            app:summaryOff="Win sound off"-->
-<!--            app:summaryOn="Win sound is on"-->
-<!--            app:title="Win Sound" />-->
-
-
-        <SwitchPreferenceCompat
-            app:dependency="sound"
-            app:key="sound_lose"
-            app:defaultValue="false"
-            app:summaryOff="Lose sound is off"
-            app:summaryOn="Lose sound is on"
-            app:title="Lose Sound" />
 
         <SwitchPreferenceCompat
             app:dependency="sound"
@@ -67,14 +58,14 @@
             app:summary="@string/autohold_description"
             app:title="Autohold Accuracy" />
 
-        <SeekBarPreference
-            android:max="20"
-            app:defaultValue="10"
-            app:key="training_strictness"
-            app:min="0"
-            app:showSeekBarValue="true"
-            app:summary="@string/training_strict_description"
-            app:title="Training Strictness" />
+<!--        <SeekBarPreference-->
+<!--            android:max="20"-->
+<!--            app:defaultValue="10"-->
+<!--            app:key="training_strictness"-->
+<!--            app:min="0"-->
+<!--            app:showSeekBarValue="true"-->
+<!--            app:summary="@string/training_strict_description"-->
+<!--            app:title="Training Strictness" />-->
 
         <Preference
             android:title="Share Stats"

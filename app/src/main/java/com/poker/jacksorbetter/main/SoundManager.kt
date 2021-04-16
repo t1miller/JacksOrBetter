@@ -26,8 +26,6 @@ object SoundManager {
         MEDIUM_WIN,
         MEDIUM_WIN_SHEEP,
         CHIME,
-        SAD_TROMBONE_3_WOMP,
-        SAD_TROMBONE_4_WOMP,
         CHICKEN_DINNER,
         CHICKEN_SHUFFLING,
         ROOSTER_CROWING,
@@ -49,8 +47,6 @@ object SoundManager {
         soundTypeToId[SoundType.MEDIUM_WIN] = soundPool?.load(context, R.raw.medium_win,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.MEDIUM_WIN_SHEEP] = soundPool?.load(context, R.raw.medium_win_sheep,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.CHIME] = soundPool?.load(context, R.raw.chime,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.SAD_TROMBONE_3_WOMP] = soundPool?.load(context, R.raw.sad_trombone_3_womps,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.SAD_TROMBONE_4_WOMP] = soundPool?.load(context, R.raw.sad_trombone_4_womps_type2,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.CHICKEN_DINNER] = soundPool?.load(context, R.raw.chicken_dinner,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.CHICKEN_SHUFFLING] = soundPool?.load(context, R.raw.chicken_shuffling,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.ROOSTER_CROWING] = soundPool?.load(context, R.raw.rooster_crowing,1) ?: DEFAULT_ID

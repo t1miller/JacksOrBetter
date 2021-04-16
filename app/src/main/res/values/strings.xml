@@ -28,11 +28,19 @@
     <string name="autohold">Autohold</string>
     <string name="hand_stats">Hand Stats</string>
     <string name="training">Training</string>
+    <string name="training_optimal_expected">Optimal Expected: %s</string>
+    <string name="training_your_expected">Your Expected: %s</string>
+    <string name="training_all_choices">All Choices</string>
+    <string name="training_correct_count">Correct: %d</string>
+    <string name="training_wrong_count">Wrong: %d</string>
+    <string name="training_accuracy">Accuracy: %.2f%%</string>
+    <string name="training_wrong">Wrong</string>
+    <string name="training_correct">Correct</string>
 
     <string name="tap_card_to_hold">Tap card to hold</string>
 
     <!--   Bonus round stuff   -->
-    <string name="bonus_correct_guess">Chicken Dinner!</string>
+    <string name="bonus_correct_guess">Winner!</string>
     <string name="bonus_wrong_guess">Wrong Guess!</string>
     <string name="bonus_title">Guess the color?</string>
 
@@ -47,21 +55,23 @@
     <string name="loss">Loss: -$%d</string>
     <string name="won">Won: +$%d</string>
     <string name="total">Total: $%d</string>
+    <string name="total_neg">Total: -$%d</string>
     <string name="bet">Bet: $%d</string>
     <string name="eval">Eval: %s</string>
-    <string name="your_accuracy">Accuracy: %.2f\%%</string>
+    <string name="your_accuracy">Accuracy: %.2f%%</string>
     <string name="correct_count">Correct Count: %d</string>
     <string name="wrong_count">Wrong Count: %d</string>
+    <string name="reset"><u>Reset</u></string>
 
-    <string name="royal_flush">Royal Flush: </string>
-    <string name="straight_flush">Straight Flush: </string>
-    <string name="four_of_a_kind">Four of A Kind: </string>
-    <string name="full_house">Full House: </string>
-    <string name="flush">Flush: </string>
-    <string name="straight">Straight: </string>
-    <string name="three_of_a_kind">Three of A Kind: </string>
-    <string name="two_pairs">Two Pairs: </string>
-    <string name="jacks_or_better">Jacks or Better: </string>
+<!--    <string name="royal_flush">Royal Flush.....</string>-->
+<!--    <string name="straight_flush">Straight Flush.....</string>-->
+<!--    <string name="four_of_a_kind">Four of A Kind.....</string>-->
+<!--    <string name="full_house">Full House.....</string>-->
+<!--    <string name="flush">Flush: </string>-->
+<!--    <string name="straight">Straight: </string>-->
+<!--    <string name="three_of_a_kind">Three of A Kind: </string>-->
+<!--    <string name="two_pairs">Two Pairs: </string>-->
+<!--    <string name="jacks_or_better">Jacks or Better: </string>-->
 
     <string name="right">Right</string>
     <string name="wrong">Wrong</string>
@@ -77,7 +87,7 @@
     <string name="about_feedback_title">Feedback:</string>
     <string name="about_feedback">Found a bug? Have a cool idea? Want a new statistic feature? Email me, I love feedback/suggestions!</string>
     <string name="email_me">Email Me</string>
-    <string name="about_three_card_poker">Jacks or Better is the most popular video poker variant. </string>
+    <string name="about_jacks_poker">Jacks or Better is the most popular video poker variant. </string>
 
 
     <!--    Dialog Reset Money -->
@@ -86,6 +96,21 @@
     <string name="thousand">$1,000</string>
     <string name="ten_thousand">$10,000</string>
 
+    <!--  Highscore Fragment -->
+    <string name="log_in">Log In</string>
+    <string name="signed_in">Signed In</string>
+    <string name="highscore_id">CgkIqLmFopAZEAIQAQ</string>
+    <string name="app_id">863359818920</string>
+    <string name="dev_settings">Dev Settings</string>
+    <string name="no_highscore_results">No High Scores</string>
+    <string name="battle_with_the_best">Sign in to submit high scores!</string>
+    <string name="highscores">High Scores</string>
+
+
+    <!--    Dialog Golden God-->
+    <string name="golden_god_highscore">High Score</string>
+    <string name="golden_god_highscore_desc">#1 Global High Score</string>
+    <string name="golden_god_desc">You are a Golden God and should be treated as such. You\'ve unlocked the golden card back. (You can change card backs in settings)</string>
 
 
 </resources>

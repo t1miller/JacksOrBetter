@@ -9,6 +9,10 @@ import com.poker.jacksorbetter.cardgame.Evaluate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.poker.jacksorbetter.BuildConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
 
@@ -44,17 +48,31 @@ object StatisticsManager {
         Game(0,0, null, null, null, null)
     )
 
+
     fun readStatisticsFromDisk() {
-        statistics = fromFile()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                statistics = fromFile()
+            }
+        }
     }
 
     fun writeStatisticsToDisk() {
-        statistics?.toFile()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                statistics?.toFile()
+            }
+        }
     }
 
     fun deleteStatisticsOnDisk() {
-        deleteFile()
-        statistics = INITIALIZE
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                deleteFile()
+                statistics = INITIALIZE
+                writeStatisticsToDisk()
+            }
+        }
     }
 
     fun addStatistic(lastGame: Game?) {

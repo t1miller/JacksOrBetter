@@ -80,6 +80,15 @@ object PayOutHelper {
             Evaluate.Hand.NOTHING to listOf(-1, -2, -3, -4, -5))
     )
 
+    fun getPayTableRow(payTableType: PAY_TABLE_TYPES, index: Int) : List<Int> {
+        val hand = Evaluate.Hand.values()[index]
+        return getPayTableRow(payTableType, hand)
+    }
+
+    private fun getPayTableRow(payTableType: PAY_TABLE_TYPES, eval: Evaluate.Hand) : List<Int> {
+        return payoutMap[payTableType]?.get(eval) ?: listOf(0,0,0,0,0)
+    }
+
     fun calculatePayout(context: Context?, bet: Int?, evalHand: Evaluate.Hand?) : Int {
         if(bet == null) return -1
         return payoutMap[SettingsUtils.getPayoutTable(context)]?.get(evalHand)?.get(bet-1) ?: -1*bet

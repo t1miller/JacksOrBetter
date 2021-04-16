@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:gravity="start"
             android:keepScreenOn="true"
-            android:text="@string/about_three_card_poker"
+            android:text="@string/about_jacks_poker"
             />
 
 

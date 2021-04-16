@@ -1,20 +1,19 @@
-
 package com.poker.jacksorbetter.cardgame
 
 
 object Evaluate {
 
-    enum class Hand(val readableName: String){
-        ROYAL_FLUSH("Royal flush"),
-        STRAIGHT_FLUSH("Straight flush"),
-        FOUR_OF_A_KIND("Four of a kind"),
-        FULL_HOUSE("Full house"),
-        FLUSH("Flush"),
-        STRAIGHT("Straight"),
-        THREE_OF_A_KIND("Three of a kind"),
-        TWO_PAIRS("Two pairs"),
-        JACKS_OR_BETTER("Jacks or better"),
-        NOTHING("Nothing");
+    enum class Hand(val readableName: String, val paytableName: String){
+        ROYAL_FLUSH("Royal Flush", "Royal Flush..........."),
+        STRAIGHT_FLUSH("Straight Flush","Straight Flush......."),
+        FOUR_OF_A_KIND("Four of a Kind", "Four of a Kind......."),
+        FULL_HOUSE("Full House", "Full House............"),
+        FLUSH("Flush", "Flush....................."),
+        STRAIGHT("Straight", "Straight................."),
+        THREE_OF_A_KIND("Three of a Kind", "Three of a Kind....."),
+        TWO_PAIRS("Two pairs", "Two pairs.............."),
+        JACKS_OR_BETTER("Jacks or Better", "Jacks or Better....."),
+        NOTHING("Nothing", "Nothing...");
         // Dont change order
 
         companion object {
@@ -154,48 +153,4 @@ object Evaluate {
         }
         return false
     }
-
-//    fun testEval(){
-//        // generate a bunch of hands
-//        val evals = mutableListOf<Hand>()
-//        for(i in 0..100000) {
-//            evals.add(
-//                analyzeHand(
-//                    Deck.draw5Random(mutableListOf())
-//                )
-//            )
-//        }
-//        val evalCounts = evals.groupingBy { it }.eachCount()
-//        Timber.d("$evalCounts")
-//    }
-//
-//    fun testIsWinninngCards(){
-//        val royalflush = mutableListOf<Card>()
-//        for (i in 10..14) {
-//            royalflush.add(Card(i,'s'))
-//        }
-//
-//        val straightflush = royalflush.toMutableList()
-//        straightflush[4].face = 9
-//
-//        val straight = straightflush.toMutableList()
-//        straight[2].suit = 's'
-//
-//        val flush = straightflush.toMutableList()
-//        flush[0].face = 2
-//
-//        val fullhouse = listOf(Card(10,'h'), Card(10,'d'), Card(10,'c'), Card(3,'s'), Card(3,'c'))
-//
-//        val fourofakind = fullhouse.toMutableList()
-//        fourofakind[3].face = 2
-//
-//        val twoPair = fullhouse.toMutableList()
-//        twoPair[2].face = 8
-//
-//        val jacksorbetter = twoPair.toMutableList()
-//        jacksorbetter[2].face = 9
-//
-//        val nothing = jacksorbetter.toMutableList()
-//        nothing[0].face = 11
-//    }
 }

@@ -4,18 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
+import com.poker.jacksorbetter.main.PokerApplication
+
 
 interface CardTapped {
     fun onCardTapped(position: Int)
 }
 
-class CardBackAdapter(private val cardTapped: CardTapped): RecyclerView.Adapter<CardBackAdapter.ViewHolder>() {
+class CardBackAdapter(private val cardTapped: CardTapped, private val isGoldenGod: Boolean): RecyclerView.Adapter<CardBackAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         val cardback = itemView.findViewById<ImageView>(R.id.card1)
+        val lock = itemView.findViewById<ImageView>(R.id.lock)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,9 +32,22 @@ class CardBackAdapter(private val cardTapped: CardTapped): RecyclerView.Adapter<
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val image = SettingsUtils.CardBacks.cardbacks[position]
         viewHolder.cardback.setImageResource(image)
-        viewHolder.cardback.setOnTouchListener { _, event ->
-            cardTapped.onCardTapped(position)
-            true
+
+        if(position != itemCount - 1 || SettingsUtils.isGoldenGod(PokerApplication.applicationContext())){
+            viewHolder.lock.visibility = View.GONE
+        }
+
+
+        viewHolder.cardback.setOnClickListener {
+            if (position == itemCount - 1 && !isGoldenGod){
+                Toast.makeText(
+                    PokerApplication.applicationContext(),
+                    "Golden Gods only",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                cardTapped.onCardTapped(position)
+            }
         }
     }
 
@@ -41,27 +58,4 @@ class CardBackAdapter(private val cardTapped: CardTapped): RecyclerView.Adapter<
     override fun getItemViewType(position: Int): Int {
         return position
     }
-
-//    fun dimImageView(imageView: ImageView) {
-//        imageView.setColorFilter(
-//            ContextCompat.getColor(
-//                context,
-//                R.color.colorGrey
-//            ), android.graphics.PorterDuff.Mode.MULTIPLY
-//        );
-//    }
-//
-//    fun unDimImageView(imageView: ImageView) {
-//        imageView.setColorFilter(null)
-//    }
-
-//    fun updateData(sortedHands: List<Pair<List<Card>, Double>>?, fullHand: List<Card>?) {
-//        if(fullHand == null || sortedHands == null){
-//            return
-//        }
-//        val handStat = sortedHands.map { HandStat(it.first, fullHand, it.second) }
-//        mStats.clear()
-//        mStats.addAll(handStat)
-//        notifyDataSetChanged()
-//    }
 }

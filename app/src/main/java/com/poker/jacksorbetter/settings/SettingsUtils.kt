@@ -26,10 +26,12 @@ object SettingsUtils {
         const val SOUND_BONUS = true
         const val SHEEP_MODE = false
         const val PAYOUT_TABLE = "9/6 – 99.54%"
-        const val TRAINING_STRICTNESS = 20
+        const val GOLDEN_GOD = false
     }
 
     object Keys{
+        const val SIGN_OUT = "sign_out"
+        const val SIGN_IN = "sign_in"
         const val MONTE_CARLO_TRIALS = "montecarlo_trials"
         const val PAYOUT_TABLE = "payout_table"
         const val RESET_MONEY = "reset_money"
@@ -42,7 +44,7 @@ object SettingsUtils {
         const val SOUND_FLIP = "sound_flip"
         const val SOUND_BONUS = "sound_bonus"
         const val SHEEP_MODE = "sheep_mode"
-        const val TRAINING_STRICTNESS = "training_strictness"
+        const val GOLDEN_GOD = "golden_god"
     }
 
     object CardBacks{
@@ -56,7 +58,8 @@ object SettingsUtils {
             R.drawable.card_back_pinstriped,
             R.drawable.card_back_red,
             R.drawable.card_back_t_rex,
-            R.drawable.cardback_empty
+            R.drawable.cardback_empty,
+            R.drawable.card_back_gold
         )
     }
 
@@ -75,14 +78,6 @@ object SettingsUtils {
             putInt(Keys.MONTE_CARLO_TRIALS, Defaults.MONTE_CARLO_TRIALS)
             apply()
         }
-    }
-
-    fun getStrictness(context: Context?) : Int{
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getInt(
-            Keys.TRAINING_STRICTNESS,
-            Defaults.TRAINING_STRICTNESS
-        )
     }
 
     fun setMoney(money: Int, context: Context) {
@@ -109,9 +104,9 @@ object SettingsUtils {
         )
     }
 
-    fun resetMoney(context: Context) {
-        setMoney(Defaults.MONEY, context)
-    }
+//    fun resetMoney(context: Context) {
+//        setMoney(Defaults.MONEY, context)
+//    }
 
     fun getMoney(context: Context) : Int {
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -174,6 +169,23 @@ object SettingsUtils {
         )
     }
 
+    fun setGoldenGod(context: Context, isGoldenGold: Boolean) : Boolean {
+        if(isGoldenGold){
+            setCardBack(CardBacks.cardbacks.size - 1, context)
+        }
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        with(preferences.edit()) {
+            putBoolean(Keys.GOLDEN_GOD, isGoldenGold)
+            apply()
+        }
+        return preferences.getBoolean(Keys.GOLDEN_GOD, Defaults.GOLDEN_GOD)
+    }
+
+    fun isGoldenGod(context: Context) : Boolean {
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getBoolean(Keys.GOLDEN_GOD, Defaults.GOLDEN_GOD)
+    }
+
     fun showChangeCardBackDialog(context: Context)  {
 
         val dialog = Dialog(context)
@@ -194,7 +206,7 @@ object SettingsUtils {
                 dialog.dismiss()
                 Toast.makeText(context, "cardback selected", Toast.LENGTH_LONG).show()
             }
-        })
+        }, isGoldenGod(context))
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
