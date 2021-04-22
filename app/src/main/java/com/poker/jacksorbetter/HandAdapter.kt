@@ -25,6 +25,7 @@ enum class State {
     CARD_BACK,
     HOLD,
     FLIP,
+    FLIP_NO_ANIMATION
 }
 
 
@@ -44,7 +45,7 @@ class HandAdapter(
         fun onComplete()
     }
 
-    fun delayShowCard(cardView: ImageView, card: Card, delay: Long) {
+    private fun delayShowCard(cardView: ImageView, card: Card, delay: Long) {
         val handler = Handler(Looper.getMainLooper())
         Timer().schedule(delay){
             handler.post(Runnable {
@@ -53,7 +54,7 @@ class HandAdapter(
         }
     }
 
-    fun delayShowEval(evalLayout: ConstraintLayout, delay: Long) {
+    private fun delayShowEval(evalLayout: ConstraintLayout, delay: Long) {
         val handler = Handler(Looper.getMainLooper())
         Timer().schedule(delay){
             handler.post(Runnable {
@@ -87,6 +88,7 @@ class HandAdapter(
                 CardUiUtils.showCardBacks(cardFronts)
                 holder.handEvalLayout.visibility = View.INVISIBLE
                 itemCount = 0
+                hold = mutableListOf()
             }
             State.HOLD -> {
                 CardUiUtils.showCardBacks(cardFronts)
@@ -97,9 +99,10 @@ class HandAdapter(
                 }
             }
             State.FLIP -> {
-                val delayPerHand = 1000 / ( itemCount + 1).toLong()
+                val delayPerHand = if(getItemCount() != 0 ) 1000 / getItemCount() else 1000
                 val delayPerCard = delayPerHand/5
                 CardUiUtils.showCardBacks(cardFronts)
+                Timber.d("FLIP hold = $hold")
                 item.forEachIndexed { index, it ->
                     if (it in hold) {
                         CardUiUtils.showCard(cardFronts[index], it)
@@ -119,6 +122,28 @@ class HandAdapter(
                     }"
                     holder.handEval.text = evals[position].readableName
                     delayShowEval(holder.handEvalLayout, delayPerHand * position.toLong() + delayPerCard * 5)
+                }
+                if(itemCount == getItemCount()){
+                    callback.onComplete()
+                    state = State.FLIP_NO_ANIMATION
+                }
+            }
+            State.FLIP_NO_ANIMATION -> {
+                CardUiUtils.showCardBacks(cardFronts)
+                item.forEachIndexed { index, it ->
+                    CardUiUtils.showCard(cardFronts[index], it)
+                }
+
+                if (position < evals.size && evals[position] != Evaluate.Hand.NOTHING) {
+                    holder.handEvalPay.text = "${
+                        PayOutHelper.calculatePayout(
+                            PokerApplication.applicationContext(), bet, evals.get(
+                                position
+                            )
+                        )
+                    }"
+                    holder.handEval.text = evals[position].readableName
+                    holder.handEvalLayout.visibility = View.VISIBLE
                 }
                 if(itemCount == getItemCount()){
                     callback.onComplete()
@@ -150,7 +175,6 @@ class HandAdapter(
         handEvalPay: TextView,
         handEvalLayout: ConstraintLayout
     ) {
-        Timber.d("resize text, list size $itemCount")
         when(getItemCount()){
             0,1 -> {
                 handEval.textSize = 16F
@@ -187,7 +211,6 @@ class HandAdapter(
     }
 
     private fun resizeImage(imageViews: List<ImageView>) {
-        Timber.d("resize image, list size ${itemCount}")
         for((i, imageView) in imageViews.withIndex()) {
             when (getItemCount()) {
                 0,1 -> {
@@ -227,7 +250,13 @@ class HandAdapter(
 
     fun unhold() {
         state = State.FLIP
+//        state = if(getItemCount() >= 10) {
+//            State.FLIP_NO_ANIMATION
+//        } else {
+//            State.FLIP
+//        }
 //        hold = mutableListOf()
+        // todo this might create a bug, shouldnt hold be reset
         notifyDataSetChanged()
     }
 
@@ -236,9 +265,6 @@ class HandAdapter(
         notifyDataSetChanged()
     }
 
-//    fun getState() : State {
-//        return state
-//    }
 
     fun setBetAmount(b: Int) {
         this.bet = b

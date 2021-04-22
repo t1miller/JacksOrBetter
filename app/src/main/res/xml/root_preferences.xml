@@ -53,7 +53,7 @@
             app:key="crazy_mode"
             app:defaultValue="false"
             app:summaryOff="Maximum hands is 10"
-            app:summaryOn="Maximum hands is 20"
+            app:summaryOn="Maximum hands is... Infinity. Yay have fun."
             app:title="Crazy Mode" />
 
         <SeekBarPreference

@@ -24,19 +24,34 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/list"-->
+<!--        android:name="com.poker.jacksorbetter.HandFragment"-->
+<!--        android:layout_marginBottom="4dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:scrollbars="none"-->
+<!--        tools:context=".HandFragment"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/paylist"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        tools:listitem="@layout/fragment_hand_item" >-->
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:name="com.poker.jacksorbetter.HandFragment"
-        android:layout_marginBottom="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        tools:context=".HandFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHeight_max="200dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/paylist"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/fragment_hand_item" >
+        app:layout_constraintTop_toBottomOf="@+id/paylist">
+
     </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
