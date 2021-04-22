@@ -1,11 +1,13 @@
 package com.poker.jacksorbetter.main
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.Deck
+import com.poker.jacksorbetter.cardgame.Deck2
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.poker.jacksorbetter.settings.SettingsUtils
 import com.poker.jacksorbetter.stats.Game
@@ -41,7 +43,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         MutableLiveData(DEFAULT_BET)
     }
 
-    val hand: MutableLiveData<MutableList<Card>> = MutableLiveData()
+    val numberOfHands: MutableLiveData<Int> by lazy {
+        MutableLiveData(1)
+    }
+
+    var otherDecks: MutableList<Deck2>? = null
+
+    val bonusHand: MutableLiveData<MutableList<Card>> = MutableLiveData()
+
+    val hands: MutableLiveData<MutableList<MutableList<Card>>> = MutableLiveData()
+
+    val handEvals: MutableLiveData<MutableList<Evaluate.Hand>> = MutableLiveData(mutableListOf())
 
     var aiDecision : MutableLiveData<AIDecision> = MutableLiveData()
 
@@ -59,6 +71,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val cardFLipState: MutableLiveData<CardFlipState> by lazy {
         MutableLiveData(CardFlipState.FACE_DOWN)
+    }
+
+    val cardsHeld: MutableLiveData<MutableList<Card>> by lazy {
+        MutableLiveData(mutableListOf<Card>())
     }
 
     private var cardsKept: BooleanArray = listOf(false, false, false, false, false).toBooleanArray()
@@ -80,7 +96,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         totalMoney.value = newAmount
     }
 
-    private fun updateLastEvaluatedHand(handEval: Evaluate.Hand) {
+    private fun updateLastEvaluatedHand(handEval: Evaluate.Hand?) {
         lastEvaluatedHand.value = handEval
     }
 
@@ -88,12 +104,32 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return totalMoney.value ?: SettingsUtils.getMoney(getApplication())
     }
 
+    fun incrementHands() {
+        val currentHands = numberOfHands.value ?: 1
+        if(currentHands < 10 || SettingsUtils.isCrazyMode(getApplication())){
+            numberOfHands.value = currentHands + 1
+        } else {
+            Toast.makeText(getApplication(), "Maximum: 10 hands", Toast.LENGTH_LONG).show()
+        }
+        Timber.d("incrementHands() hand ${hands.value}")
+    }
+
+    fun decreaseHands() {
+        val currentHands = numberOfHands.value ?: 1
+        if(currentHands > 1){
+            numberOfHands.value = currentHands - 1
+        } else {
+            Toast.makeText(getApplication(), "Minimum: 1 hand", Toast.LENGTH_LONG).show()
+        }
+        Timber.d("decreaseHands() ${hands.value}")
+    }
+
     fun incrementBet() {
         val currentBet = bet.value
         if (currentBet == null || currentBet == 5) {
             bet.value = 1
         } else {
-            bet.value = currentBet + 1
+            bet.value = (currentBet + 1)
         }
     }
 
@@ -102,61 +138,80 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun newGame() {
-        Deck.newDeck()
-        hand.value = Deck.draw5()
+        val deck = Deck2(null)
+        val hand = deck.draw5()
+        hands.value = MutableList(numberOfHands.value?:1){ hand }
+        otherDecks = MutableList(numberOfHands.value?:1){ Deck2(deck.getCards()) }
+        otherDecks?.forEach { it.shuffle() }
         gameState.value = GameState.DEAL
         cardsKept = listOf(false, false, false, false, false).toBooleanArray()
     }
 
     fun collect() {
-        val money = PayOutHelper.calculatePayout(getApplication(), bet.value, lastEvaluatedHand.value)
-        val toteMoney = getMoney() + money
-        wonLostMoney.value = money
+        val payout = calculatePayout()
+        Timber.d("payout $payout")
+        val toteMoney = getMoney() + payout
+        wonLostMoney.value = payout
         updateTotalMoney(toteMoney, false)
 
         // done w/ game get statistics for game (NON BONUS flow)
-        StatisticsManager.addStatistic(Game(bet.value, money, lastEvaluatedHand.value?.readableName, originalHand, lastCardsKept, hand.value))
+        StatisticsManager.addStatistic(Game(bet.value, payout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
     }
 
+    fun calculatePayout() : Int{
+        var payout = 0
+        hands.value?.forEachIndexed { index, _ ->
+            payout += PayOutHelper.calculatePayout(getApplication(), bet.value, handEvals.value?.get(index))
+        }
+        return payout
+    }
     /**
      *  C[2] is the index of the card to guess
      */
     fun collectBonus(isGuessRed: Boolean) {
         Deck.newDeck()
-        hand.value = Deck.draw5()
+        bonusHand.value = Deck.draw5()
 
-        val tempPot = PayOutHelper.calculatePayout(getApplication(), bet.value, lastEvaluatedHand.value)
-        val money = PayOutHelper.calculateBonusPayout(tempPot, hand.value?.get(2), isGuessRed)
-        val toteMoney = getMoney() + money
-        wonLostMoney.value = money
+        val payout = calculatePayout()
+        val totalPayout = PayOutHelper.calculateBonusPayout(payout, hands.value?.get(0)?.get(2), isGuessRed)
+        val toteMoney = getMoney() + totalPayout
+        wonLostMoney.value = totalPayout
         updateTotalMoney(toteMoney,true)
 
         // done w/ game get statistics for game (BONUS flow)
-        StatisticsManager.addStatistic(Game(bet.value, money, lastEvaluatedHand.value?.readableName, originalHand, lastCardsKept, hand.value))
+        StatisticsManager.addStatistic(Game(bet.value, totalPayout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
     }
 
     fun evaluateHand(cardsToKeep: BooleanArray, cards: List<Card>) {
 
         cardsKept = cardsToKeep
         lastCardsKept = cards
-        originalHand = hand.value?.toList()
-        if(cardsToKeep.toList().contains(false)) {
-            val tempHand = mutableListOf<Card>()
+        originalHand = hands.value?.get(0)?.toList()
+        val handEvalsTemp = mutableListOf<Evaluate.Hand>()
+        val handTemp = MutableList(numberOfHands.value ?: 1){ mutableListOf<Card>()}
+
+        hands.value?.forEachIndexed { index, han ->
             for (i in 0 until 5) {
                 if (!cardsToKeep[i]) {
-                    tempHand.add(Deck.draw1())
+                    handTemp[index].add(otherDecks?.get(index)?.draw1() ?: Card())
                 } else {
-                    tempHand.add(hand.value?.get(i) ?: Deck.draw1())
+                    handTemp[index].add(han[i])
                 }
             }
-            hand.value = tempHand
-            cardFLipState.value = CardFlipState.FULL_FLIP
+
+            handEvalsTemp.add(Evaluate.analyzeHand(handTemp[index]))
         }
+        hands.value = handTemp
+        handEvals.value = handEvalsTemp
+        cardFLipState.value = CardFlipState.FULL_FLIP
 
-        val evaluation = Evaluate.analyzeHand(hand.value ?: emptyList())
-        updateLastEvaluatedHand(evaluation)
 
-        if (evaluation == Evaluate.Hand.NOTHING) {
+        Timber.d("hand evals ${handEvals.value}")
+        Timber.d("hands ${hands.value}")
+
+        updateLastEvaluatedHand(handEvals.value?.get(0))
+
+        if (calculatePayout() <= 0) {
             collect()
             gameState.value = GameState.EVALUATE_NO_BONUS
         } else {
@@ -180,9 +235,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private suspend fun runGetBestHand(numTrials: Int) {
         withContext(Dispatchers.IO) {
-            hand.value?.let {
+            hands.value?.let {
                 val timeInMillis = measureTimeMillis {
-                    aiDecision.postValue(AIPlayer.calculateBestHands(getApplication(), bet.value ?: DEFAULT_BET,it, numTrials))
+                    Timber.d("bet = ${(bet.value ?: DEFAULT_BET) * (numberOfHands.value ?: 1)}")
+                    aiDecision.postValue(AIPlayer.calculateBestHands(getApplication(), (bet.value ?: DEFAULT_BET) ,it[0], numTrials, (numberOfHands.value ?: 1)))
                 }
                 Timber.d("MonteCarlo simulation took $timeInMillis ms")
             }

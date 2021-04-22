@@ -7,6 +7,7 @@
 <!--        <item name="colorAccent">@color/colorAccent</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="TableRowTextView" parent="@android:style/TextAppearance.Widget.TextView">
@@ -79,7 +80,7 @@
     <style name="TextWhite" parent="@android:style/Widget.TextView">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextWhiteSmall" parent="@android:style/Widget.TextView">
@@ -239,5 +240,16 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="PayTableWhite" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="PayTableBlack" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

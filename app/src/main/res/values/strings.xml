@@ -53,7 +53,7 @@
 
     <!--    Stat fragment screen  -->
     <string name="loss">Loss: -$%d</string>
-    <string name="won">Won: +$%d</string>
+    <string name="won">Won: $%d</string>
     <string name="total">Total: $%d</string>
     <string name="total_neg">Total: -$%d</string>
     <string name="bet">Bet: $%d</string>
@@ -62,16 +62,6 @@
     <string name="correct_count">Correct Count: %d</string>
     <string name="wrong_count">Wrong Count: %d</string>
     <string name="reset"><u>Reset</u></string>
-
-<!--    <string name="royal_flush">Royal Flush.....</string>-->
-<!--    <string name="straight_flush">Straight Flush.....</string>-->
-<!--    <string name="four_of_a_kind">Four of A Kind.....</string>-->
-<!--    <string name="full_house">Full House.....</string>-->
-<!--    <string name="flush">Flush: </string>-->
-<!--    <string name="straight">Straight: </string>-->
-<!--    <string name="three_of_a_kind">Three of A Kind: </string>-->
-<!--    <string name="two_pairs">Two Pairs: </string>-->
-<!--    <string name="jacks_or_better">Jacks or Better: </string>-->
 
     <string name="right">Right</string>
     <string name="wrong">Wrong</string>
@@ -99,7 +89,7 @@
     <!--  Highscore Fragment -->
     <string name="log_in">Log In</string>
     <string name="signed_in">Signed In</string>
-    <string name="highscore_id">CgkIqLmFopAZEAIQAQ</string>
+    <string name="highscore_id">CgkIqLmFopAZEAIQAw</string>
     <string name="app_id">863359818920</string>
     <string name="dev_settings">Dev Settings</string>
     <string name="no_highscore_results">No High Scores</string>

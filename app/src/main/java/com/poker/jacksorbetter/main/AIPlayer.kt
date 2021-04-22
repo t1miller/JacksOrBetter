@@ -18,7 +18,7 @@ object AIPlayer {
 
     const val DEBUG = false
 
-    fun calculateBestHands(context: Context, bet: Int, hand: List<Card>, numTrials: Int) : AIDecision {
+    fun calculateBestHands(context: Context, bet: Int, hand: List<Card>, numTrials: Int, numHands: Int) : AIDecision {
 
         val hands = hand.powerset()
         val handsEvaluated = mutableListOf<Pair<List<Card>, Double>>()
@@ -30,7 +30,8 @@ object AIPlayer {
                     context,
                     bet,
                     h.toList(),
-                    numTrials
+                    numTrials,
+                    numHands
                 )
             handsEvaluated.add(Pair(h.toMutableList(), expectedValue))
         }
@@ -48,7 +49,7 @@ object AIPlayer {
         )
     }
 
-    private fun monteCarloEvaluation(context: Context, bet: Int, hand: List<Card>, numTrials: Int) : Double {
+    private fun monteCarloEvaluation(context: Context, bet: Int, hand: List<Card>, numTrials: Int, numHands: Int) : Double {
         if(DEBUG) {
             Timber.d("====== Monte Carlo Simulation ======")
         }
@@ -67,7 +68,7 @@ object AIPlayer {
                     hand,
                     eval
                 )
-            )
+            ) * numHands
 
             expectedPayout += payout
             trial += 1

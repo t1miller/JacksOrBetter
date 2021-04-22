@@ -3,17 +3,17 @@ package com.poker.jacksorbetter.cardgame
 
 object Evaluate {
 
-    enum class Hand(val readableName: String, val paytableName: String){
-        ROYAL_FLUSH("Royal Flush", "Royal Flush..........."),
-        STRAIGHT_FLUSH("Straight Flush","Straight Flush......."),
-        FOUR_OF_A_KIND("Four of a Kind", "Four of a Kind......."),
-        FULL_HOUSE("Full House", "Full House............"),
-        FLUSH("Flush", "Flush....................."),
-        STRAIGHT("Straight", "Straight................."),
-        THREE_OF_A_KIND("Three of a Kind", "Three of a Kind....."),
-        TWO_PAIRS("Two pairs", "Two pairs.............."),
-        JACKS_OR_BETTER("Jacks or Better", "Jacks or Better....."),
-        NOTHING("Nothing", "Nothing...");
+    enum class Hand(val readableName: String, val paytableName: String, val littleName: String){
+        ROYAL_FLUSH("Royal Flush", "Royal Flush...........", "Royal Flush"),
+        STRAIGHT_FLUSH("Straight Flush","Straight Flush.......", "Straight Flush"),
+        FOUR_OF_A_KIND("Four of a Kind", "Four of a Kind.......", "4 of a Kind"),
+        FULL_HOUSE("Full House", "Full House............", "Full House"),
+        FLUSH("Flush", "Flush.....................", "Flush"),
+        STRAIGHT("Straight", "Straight.................","Straight"),
+        THREE_OF_A_KIND("Three of a Kind", "Three of a Kind.....", "3 of a Kind"),
+        TWO_PAIRS("Two Pairs", "Two Pairs..............", "2 Pairs"),
+        JACKS_OR_BETTER("Jacks or Better", "Jacks or Better.....", "Jacks+"),
+        NOTHING("Nothing", "Nothing...","Nothing");
         // Dont change order
 
         companion object {

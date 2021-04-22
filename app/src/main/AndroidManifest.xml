@@ -3,6 +3,7 @@
     package="com.poker.jacksorbetter">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:name="com.poker.jacksorbetter.main.PokerApplication"

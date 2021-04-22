@@ -6,7 +6,7 @@
     <item
         android:id="@+id/simulations"
         android:title="@string/simulations"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item

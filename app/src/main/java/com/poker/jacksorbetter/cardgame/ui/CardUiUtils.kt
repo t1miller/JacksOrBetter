@@ -24,6 +24,10 @@ object CardUiUtils {
         }
     }
 
+    fun showCard(cardView: ImageView, card: Card?) {
+        cardView.setImageResource(cardToImage(card))
+    }
+
     fun showCards(cardViews: List<ImageView>?, fullHand: List<Card>?) {
         fullHand?.forEachIndexed { index, card ->
             cardViews?.get(index)?.setImageResource(cardToImage(card))

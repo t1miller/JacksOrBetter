@@ -4,6 +4,7 @@ import java.util.*
 
 class Card(var rank: Int, var suit: Char) {
 
+    constructor() : this(-1,'s')
 
     enum class ParseError(val humanReadableError: String) {
         NOT_5_CARDS("Need a 5 card hand"),

@@ -55,7 +55,7 @@ object PayTableUiUtils {
         val animBlink = AnimationUtils.loadAnimation(context, R.anim.blink)
         for((j, row) in tableLayout.children.withIndex()){
             if(j == rowIndex) {
-                for ((i, rowElement) in (row as TableRow).children.withIndex()) {
+                for ((_, rowElement) in (row as TableRow).children.withIndex()) {
                     val rowTextView = rowElement as TextView
                     rowTextView.animation = animBlink
                 }

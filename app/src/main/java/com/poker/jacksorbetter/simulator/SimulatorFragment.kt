@@ -122,7 +122,7 @@ class SimulatorFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.aiDecision.observe(viewLifecycleOwner, Observer { aiDecision ->
-            adapter.updateData(aiDecision.sortedRankedHands, viewModel.hand.value)
+            adapter.updateData(aiDecision.sortedRankedHands, viewModel.hands.value?.get(0))
             dismissSimulationLoadingDialog()
             showAiCardsToHold(aiDecision.sortedRankedHands.first().first)
             updateYourExpectedValue(aiDecision.sortedRankedHands.first().second)
@@ -150,7 +150,7 @@ class SimulatorFragment : Fragment() {
             }
             clearHoldUi()
             errorInputHandText.visibility = View.GONE
-            viewModel.hand.value = hand.toMutableList()
+            viewModel.hands.value = mutableListOf(hand.toMutableList())
             for ((i,c) in hand.withIndex()) {
                 cardViews[i].setImageResource(CardUiUtils.cardToImage(c))
             }
@@ -179,8 +179,8 @@ class SimulatorFragment : Fragment() {
     }
 
     private fun showAiCardsToHold(bestHand: List<Card>) {
-        viewModel.hand.value?.let {
-            for ((idx, card) in it.withIndex()) {
+        viewModel.hands.value?.let {
+            for ((idx, card) in it[0].withIndex()) {
                 if (bestHand.contains(card)) {
                     cardsHoldOverlay[idx].visibility = View.VISIBLE
                 }

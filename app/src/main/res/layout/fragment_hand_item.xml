@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/cardfront1"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:src="@drawable/card_back_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/cardfront2"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:src="@drawable/card_back_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/cardfront3"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:src="@drawable/card_back_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/cardfront4"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:src="@drawable/card_back_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/cardfront5"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:padding="2dp"
+            android:src="@drawable/card_back_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/betCircleText"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="5"
+            android:background="@drawable/round_background_yellow_with_red_outline"
+            app:layout_constraintEnd_toEndOf="@id/cardfront5"
+            app:layout_constraintBottom_toBottomOf="@id/cardfront5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/winningLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:padding="2dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            style="@style/PayTableWhite"
+            android:id="@+id/handEval"
+            android:gravity="center"
+            android:background="@color/red"
+            android:text="Jacks or Better"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/handEvalPay"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/PayTableBlack"
+            android:id="@+id/handEvalPay"
+            android:background="@color/goldenYellow"
+            android:text="1"
+            android:textSize="12dp"
+            android:gravity="center"
+            android:layout_marginStart="2dp"
+            android:layout_width="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_height="20dp"
+            app:layout_constraintStart_toEndOf="@id/handEval"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -123,6 +123,7 @@ class HighScoreFragment : Fragment(), HighScoreTapped {
                 HighScoreViewModel.STATE.SHOW_NO_RESULTS -> {
                     showNoResults()
                 }
+                else -> {}
             }
         })
 

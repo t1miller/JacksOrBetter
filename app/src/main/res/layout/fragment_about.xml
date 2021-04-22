@@ -80,6 +80,13 @@
                 android:layout_margin="5dp"
                 app:srcCompat="@drawable/let_it_ride_icon" />
 
+            <ImageView
+                android:id="@+id/threeCardPoker"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                app:srcCompat="@drawable/threecardhand" />
+
         </LinearLayout>
 
         <TextView

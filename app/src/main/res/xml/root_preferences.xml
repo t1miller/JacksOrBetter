@@ -49,6 +49,13 @@
             app:summaryOn="Bonus sounds are on"
             app:title="Bonus Sound" />
 
+        <SwitchPreferenceCompat
+            app:key="crazy_mode"
+            app:defaultValue="false"
+            app:summaryOff="Maximum hands is 10"
+            app:summaryOn="Maximum hands is 20"
+            app:title="Crazy Mode" />
+
         <SeekBarPreference
             android:max="15000"
             app:defaultValue="5000"

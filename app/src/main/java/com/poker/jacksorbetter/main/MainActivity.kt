@@ -1,7 +1,9 @@
 package com.poker.jacksorbetter.main
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,10 +11,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.poker.jacksorbetter.settings.SettingsFragment
-import com.poker.jacksorbetter.simulator.SimulatorFragment
-import com.poker.jacksorbetter.stats.StatisticsManager
-import com.poker.jacksorbetter.stats.StatsFragment
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -20,6 +18,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.leaderboard.SignInViewModel
+import com.poker.jacksorbetter.settings.SettingsFragment
+import com.poker.jacksorbetter.simulator.SimulatorFragment
+import com.poker.jacksorbetter.stats.StatisticsManager
+import com.poker.jacksorbetter.stats.StatsFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +35,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.hide()
+
         setContentView(R.layout.main_activity)
+
         MobileAds.initialize(this) {}
 
         if (savedInstanceState == null) {
@@ -44,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
     }
 
+
+    @SuppressLint("RestrictedApi")
     override fun onResume() {
         super.onResume()
         if (!viewModel.isSignedIn()) {
@@ -51,6 +58,20 @@ class MainActivity : AppCompatActivity() {
             Timber.d("onResume(): Not signed in")
         }
     }
+
+    override fun openOptionsMenu() {
+        super.openOptionsMenu()
+        val config: Configuration = resources.configuration
+        if (config.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK > Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            val originalScreenLayout: Int = config.screenLayout
+            config.screenLayout = Configuration.SCREENLAYOUT_SIZE_LARGE
+            super.openOptionsMenu()
+            config.screenLayout = originalScreenLayout
+        } else {
+            super.openOptionsMenu()
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -70,7 +91,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Sign in: Success", Toast.LENGTH_LONG).show()
         } catch (e: ApiException) {
             Timber.d("handleSignInResult() error ${e.statusCode}")
-//            Toast.makeText(applicationContext, "Sign in: Error", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -93,12 +113,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.simulations -> {
-            supportFragmentManager.beginTransaction().replace(R.id.container, SimulatorFragment(), SimulatorFragment.NAME).commitNow()
+            supportFragmentManager.beginTransaction().replace(
+                R.id.container,
+                SimulatorFragment(),
+                SimulatorFragment.NAME
+            ).commitNow()
             true
         }
 
         R.id.about -> {
-            supportFragmentManager.beginTransaction().replace(R.id.container, AboutFragment.newInstance(), AboutFragment.NAME).commitNow()
+            supportFragmentManager.beginTransaction().replace(
+                R.id.container,
+                AboutFragment.newInstance(),
+                AboutFragment.NAME
+            ).commitNow()
             true
         }
 
@@ -108,13 +136,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         R.id.settings -> {
-            supportFragmentManager.beginTransaction().replace(R.id.container, SettingsFragment(), SettingsFragment.NAME).commitNow()
+            supportFragmentManager.beginTransaction().replace(
+                R.id.container,
+                SettingsFragment(),
+                SettingsFragment.NAME
+            ).commitNow()
             true
         }
         android.R.id.home -> {
-//            if (isSettingsVisible() || isSimulatorVisible() || isStatsVisible()){
-//                loadMainFragment()
-//            }
             loadMainFragment()
             true
         }

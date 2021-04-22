@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/payLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/red"
+    android:layout_margin="2dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/PayTableWhite"
+        android:id="@+id/payName"
+        android:layout_width="36dp"
+        android:layout_height="26dp"
+        android:layout_margin="1dp"
+        android:gravity="center"
+        android:background="@color/colorBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/payAmount"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Flush" />
+
+    <TextView
+        style="@style/PayTableBlack"
+        android:id="@+id/payAmount"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:gravity="center"
+        android:background="@color/goldenYellow"
+        app:layout_constraintEnd_toEndOf="@id/payName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payName"
+        app:layout_constraintStart_toStartOf="@id/payName"
+        android:text="30" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ object SettingsUtils {
         const val SHEEP_MODE = false
         const val PAYOUT_TABLE = "9/6 – 99.54%"
         const val GOLDEN_GOD = false
+        const val CRAZY_MODE = false
     }
 
     object Keys{
@@ -45,6 +46,7 @@ object SettingsUtils {
         const val SOUND_BONUS = "sound_bonus"
         const val SHEEP_MODE = "sheep_mode"
         const val GOLDEN_GOD = "golden_god"
+        const val CRAZY_MODE = "crazy_mode"
     }
 
     object CardBacks{
@@ -169,6 +171,14 @@ object SettingsUtils {
         )
     }
 
+    fun isCrazyMode(context: Context) : Boolean{
+        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getBoolean(
+            Keys.CRAZY_MODE,
+            Defaults.CRAZY_MODE
+        )
+    }
+
     fun setGoldenGod(context: Context, isGoldenGold: Boolean) : Boolean {
         if(isGoldenGold){
             setCardBack(CardBacks.cardbacks.size - 1, context)
@@ -210,7 +220,7 @@ object SettingsUtils {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
+//        recyclerView.setHasFixedSize(true)
 
         Timber.d("showing cardback dialog")
         dialog.show()

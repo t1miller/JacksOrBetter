@@ -20,7 +20,7 @@ import java.io.File
 object StatisticsManager {
     private const val filename = "/Statistics.txt"
 
-    private const val NUM_PAST_HANDS_LOGS = 1000
+    private const val NUM_PAST_HANDS_LOGS = 500
 
     private val fullFileName = PokerApplication.applicationContext().filesDir.absolutePath + filename
 
@@ -79,7 +79,7 @@ object StatisticsManager {
         updateLastGame(lastGame)
 
         // todo this is way too much writing to disk
-        writeStatisticsToDisk()
+//        writeStatisticsToDisk()
     }
 
 
@@ -154,9 +154,6 @@ object StatisticsManager {
 
     }
 
-//    fun checkIfBestHand(oldGame: Game, bestGame: Game) {
-//        //todo
-//    }
 
     private fun Statistics.toJSON() : String{
         val gson = GsonBuilder().setPrettyPrinting().create()
@@ -191,6 +188,9 @@ object StatisticsManager {
         val rawJson: String
         try {
             rawJson = File(fullFileName).readText()
+            if(rawJson.isEmpty()){
+                return INITIALIZE
+            }
         } catch (e: java.lang.Exception) {
             Timber.e("Problem loading statistic file $fullFileName")
             return INITIALIZE

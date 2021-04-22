@@ -76,3 +76,56 @@ object Deck {
     }
 
 }
+
+class Deck2(private val cardsInit: MutableList<Card>?){
+
+
+    private var cards = mutableListOf<Card>()
+
+
+    init {
+        if(cardsInit == null){
+            newDeck()
+        } else {
+            cards.clear()
+            cards.addAll(cardsInit)
+        }
+    }
+
+
+
+    fun shuffle(){
+        cards.shuffle()
+    }
+
+    fun newDeck() {
+        cards.clear()
+        for (suit in Card.SUITS) {
+            for (face in Card.FACES){
+                cards.add(
+                    Card(
+                        Card.FACES.indexOf(face) + 2,
+                        suit
+                    )
+                )
+            }
+        }
+        cards.shuffle()
+    }
+
+    fun draw1(): Card {
+        return cards.removeAt(0)
+    }
+
+    fun draw5(): MutableList<Card> {
+        val hand = mutableListOf<Card>()
+        for (i in 0..4) {
+            hand.add(draw1())
+        }
+        return hand
+    }
+
+    fun getCards() : MutableList<Card> {
+        return cards
+    }
+}

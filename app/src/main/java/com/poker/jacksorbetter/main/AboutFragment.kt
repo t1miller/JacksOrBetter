@@ -48,6 +48,12 @@ class AboutFragment : Fragment() {
             loadLetItRidePlaystore()
         }
 
+        val threeCardPoker = view.findViewById<ImageView>(R.id.threeCardPoker)
+        threeCardPoker.setOnClickListener {
+            loadThreeCardPokerPlaystore()
+        }
+
+
         return view
     }
 
@@ -99,6 +105,15 @@ class AboutFragment : Fragment() {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(
                     "https://play.google.com/store/apps/details?id=com.poker.letitride")
+            setPackage("com.android.vending")
+        }
+        startActivity(intent)
+    }
+
+    private fun loadThreeCardPokerPlaystore() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(
+                "https://play.google.com/store/apps/details?id=com.poker.threecardpoker")
             setPackage("com.android.vending")
         }
         startActivity(intent)
