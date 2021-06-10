@@ -35,6 +35,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
     fun startMeUp(activity: Activity) {
         gso  =  GoogleSignInOptions
+//            .Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestScopes(Games.SCOPE_GAMES_LITE)
             .build()

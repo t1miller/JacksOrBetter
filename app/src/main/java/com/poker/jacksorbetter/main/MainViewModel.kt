@@ -1,18 +1,18 @@
 package com.poker.jacksorbetter.main
 
+import Card
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.Deck
 import com.poker.jacksorbetter.cardgame.Deck2
 import com.poker.jacksorbetter.cardgame.Evaluate
+import com.poker.jacksorbetter.main.CommonUiUtils.toFormattedStringThreeDecimals
 import com.poker.jacksorbetter.settings.SettingsUtils
 import com.poker.jacksorbetter.stats.Game
 import com.poker.jacksorbetter.stats.StatisticsManager
-import com.poker.jacksorbetter.main.CommonUiUtils.toFormattedStringThreeDecimals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -49,7 +49,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     var otherDecks: MutableList<Deck2>? = null
 
-    val bonusHand: MutableLiveData<MutableList<Card>> = MutableLiveData()
+    private val bonusHand: MutableLiveData<MutableList<Card>> = MutableLiveData()
 
     val hands: MutableLiveData<MutableList<MutableList<Card>>> = MutableLiveData()
 
@@ -79,7 +79,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private var cardsKept: BooleanArray = listOf(false, false, false, false, false).toBooleanArray()
     private var lastCardsKept: List<Card>? = null
-    private var originalHand: List<Card>? = null
+    var originalHand: List<Card>? = null
 
 
     private fun updateTotalMoney(newAmount: Int, isBonus: Boolean) {
@@ -106,11 +106,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun incrementHands() {
         val currentHands = numberOfHands.value ?: 1
-        if(currentHands < 10 || SettingsUtils.isCrazyMode(getApplication())){
-            numberOfHands.value = currentHands + 1
-        } else {
-            Toast.makeText(getApplication(), "Maximum: 10 hands", Toast.LENGTH_LONG).show()
-        }
+        numberOfHands.value = currentHands + 1
         Timber.d("incrementHands() hand ${hands.value}")
     }
 
@@ -137,34 +133,40 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         bet.value = 5
     }
 
+    fun calculateBet() : Int{
+        return (bet.value ?: 1) * (numberOfHands.value ?: 1)
+    }
+
     fun newGame() {
-        val deck = Deck2(null)
+        val deck = Deck2(0)
         val hand = deck.draw5()
         hands.value = MutableList(numberOfHands.value?:1){ hand }
-        otherDecks = MutableList(numberOfHands.value?:1){ Deck2(deck.getCards()) }
-        otherDecks?.forEach { it.shuffle() }
+        otherDecks = MutableList(numberOfHands.value?:1){ Deck2(it.toLong()) }
+        otherDecks?.forEach {
+            it.removeCards(hand)
+        }
+
         gameState.value = GameState.DEAL
         cardsKept = listOf(false, false, false, false, false).toBooleanArray()
+        subtractBet()
+    }
+
+    private fun subtractBet() {
+        val toteMoney = getMoney() - calculateBet()
+        updateTotalMoney(toteMoney, false)
     }
 
     fun collect() {
         val payout = calculatePayout()
-        Timber.d("payout $payout")
         val toteMoney = getMoney() + payout
         wonLostMoney.value = payout
         updateTotalMoney(toteMoney, false)
 
         // done w/ game get statistics for game (NON BONUS flow)
         StatisticsManager.addStatistic(Game(bet.value, payout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
+        Timber.d("payout $payout")
     }
 
-    fun calculatePayout() : Int{
-        var payout = 0
-        hands.value?.forEachIndexed { index, _ ->
-            payout += PayOutHelper.calculatePayout(getApplication(), bet.value, handEvals.value?.get(index))
-        }
-        return payout
-    }
     /**
      *  C[2] is the index of the card to guess
      */
@@ -180,6 +182,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         // done w/ game get statistics for game (BONUS flow)
         StatisticsManager.addStatistic(Game(bet.value, totalPayout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
+    }
+
+    fun calculatePayout() : Int{
+        var payout = 0
+        hands.value?.forEachIndexed { index, _ ->
+            var tempPayout = PayOutHelper.calculatePayout(getApplication(), bet.value, handEvals.value?.get(index))
+            if(tempPayout < 0){
+                tempPayout = 0
+            }
+            payout += tempPayout
+            Timber.d("hand %d payout %d", index, PayOutHelper.calculatePayout(getApplication(), bet.value, handEvals.value?.get(index)))
+        }
+        return payout
     }
 
     fun evaluateHand(cardsToKeep: BooleanArray, cards: List<Card>) {
@@ -204,7 +219,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         hands.value = handTemp
         handEvals.value = handEvalsTemp
         cardFLipState.value = CardFlipState.FULL_FLIP
-
 
         Timber.d("hand evals ${handEvals.value}")
         Timber.d("hands ${hands.value}")

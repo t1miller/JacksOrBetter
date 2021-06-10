@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Jacks Or Better</string>
-    <color name="yellow">#FFCC00</color>
-    <color name="white">#FFFFFF</color>
 
     <string name="simulations">Simulations</string>
     <string name="about">About</string>
@@ -22,7 +20,7 @@
     <string name="training_expected_diff">Difference: $%.3f</string>
     <string name="deal_button">Deal</string>
     <string name="double_button">Double</string>
-    <string name="bet_one_button">Bet 1</string>
+    <string name="bet_one_button">Bet Up</string>
     <string name="bet_max_button">Bet Max</string>
     <string name="button_explain">Explain</string>
     <string name="autohold">Autohold</string>
@@ -61,6 +59,7 @@
     <string name="your_accuracy">Accuracy: %.2f%%</string>
     <string name="correct_count">Correct Count: %d</string>
     <string name="wrong_count">Wrong Count: %d</string>
+    <string name="percent">Accuracy</string>
     <string name="reset"><u>Reset</u></string>
 
     <string name="right">Right</string>
@@ -89,7 +88,7 @@
     <!--  Highscore Fragment -->
     <string name="log_in">Log In</string>
     <string name="signed_in">Signed In</string>
-    <string name="highscore_id">CgkIqLmFopAZEAIQAw</string>
+    <string name="highscore_id">CgkIqLmFopAZEAIQBg</string>
     <string name="app_id">863359818920</string>
     <string name="dev_settings">Dev Settings</string>
     <string name="no_highscore_results">No High Scores</string>
@@ -102,5 +101,12 @@
     <string name="golden_god_highscore_desc">#1 Global High Score</string>
     <string name="golden_god_desc">You are a Golden God and should be treated as such. You\'ve unlocked the golden card back. (You can change card backs in settings)</string>
 
+<!--    Whats new -->
+    <string name="whats_new_title">What\'s New (v%s)</string>
+    <string name="whats_new_desc">&#8226; Added fast-forward button to speed up card animation when number of hands are more than 1\n<br/>
+    &#8226; Fixed some bugs in crazy mode (hands > 10) <br/>
+    </string>
 
+
+    <string name="two_decimal">%.2f%%</string>
 </resources>

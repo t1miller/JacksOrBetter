@@ -1,10 +1,10 @@
 package com.poker.jacksorbetter.stats
 
+import Card
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
 import com.poker.jacksorbetter.main.PokerApplication
-import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

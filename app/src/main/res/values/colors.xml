@@ -28,5 +28,10 @@
     <color name="orange">#FF5E13</color>
     <color name="red">#D6001C</color>
     <color name="goldenYellow">#FFE078</color>
+    <color name="yellow">#FFCC00</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <color name="colorBlueTransparent">#55003399</color>
 
 </resources>

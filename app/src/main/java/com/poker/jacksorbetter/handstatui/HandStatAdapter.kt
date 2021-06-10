@@ -1,5 +1,6 @@
 package com.poker.jacksorbetter.handstatui
 
+import Card
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
-import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 
 

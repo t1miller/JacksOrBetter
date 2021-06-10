@@ -1,5 +1,6 @@
 package com.poker.jacksorbetter.simulator
 
+import Card
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.util.component1
+import androidx.core.util.component2
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,9 +19,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
-import com.poker.jacksorbetter.cardgame.Card
-import com.poker.jacksorbetter.handstatui.HandStatAdapter
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
+import com.poker.jacksorbetter.handstatui.HandStatAdapter
 import com.poker.jacksorbetter.main.CommonUiUtils.toFormattedStringThreeDecimals
 import com.poker.jacksorbetter.main.MainViewModel
 

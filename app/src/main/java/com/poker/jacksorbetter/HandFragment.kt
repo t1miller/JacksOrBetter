@@ -1,5 +1,6 @@
 package com.poker.jacksorbetter
 
+import Card
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.*
-import com.poker.jacksorbetter.cardgame.Card
+import com.poker.jacksorbetter.cardgame.Evaluate
 import com.poker.jacksorbetter.main.MainViewModel
 import timber.log.Timber
 
@@ -20,11 +21,13 @@ class HandFragment : Fragment(), HandAdapter.Callback {
 
     private lateinit var viewModel: MainViewModel
 
-    private var adapterData = mutableListOf<MutableList<Card>>()
+    private var adapterHandData = mutableListOf<MutableList<Card>>()
+    private var adapterEvalData = mutableListOf<Evaluate.Hand>()
 
     private var mAdapter: HandAdapter? = null
     private var payAdapter: HandPayAdapter? = null
 
+    private var layManager: FlexboxLayoutManager? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -47,22 +50,21 @@ class HandFragment : Fragment(), HandAdapter.Callback {
         viewModel.numberOfHands.observe(viewLifecycleOwner, Observer { numHands ->
             Timber.d("number of hands: $numHands")
             emptyHand(numHands - 1)
+            layManager?.scrollToPosition(0)
         })
 
         viewModel.hands.observe(viewLifecycleOwner, Observer { hands ->
             hands?.let {
                 val nonMainHands = hands.subList(1, hands.size)
                 Timber.d("data $hands")
-                setData(nonMainHands)
+                setHandData(nonMainHands)
             }
         })
 
         viewModel.handEvals.observe(viewLifecycleOwner, Observer { evals ->
-            Timber.d("evals $evals")
             evals?.let {
-                mAdapter?.unhold()
-                mAdapter?.setEvals(evals)
-                payAdapter?.highlightEvals(evals)
+                Timber.d("evals $evals")
+                setEvalData(evals)
             }
         })
 
@@ -77,11 +79,11 @@ class HandFragment : Fragment(), HandAdapter.Callback {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        val layManager = FlexboxLayoutManager(requireContext())
-        layManager.flexWrap = FlexWrap.WRAP
-        layManager.flexDirection = FlexDirection.ROW
-        layManager.justifyContent = JustifyContent.CENTER
-        layManager.alignItems = AlignItems.CENTER
+        layManager = FlexboxLayoutManager(requireContext())
+        layManager?.flexWrap = FlexWrap.WRAP
+        layManager?.flexDirection = FlexDirection.ROW
+        layManager?.justifyContent = JustifyContent.CENTER
+        layManager?.alignItems = AlignItems.CENTER
 
         val layManager2 = FlexboxLayoutManager(requireContext())
         layManager2.flexWrap = FlexWrap.NOWRAP
@@ -89,7 +91,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
         layManager2.justifyContent = JustifyContent.CENTER
         layManager2.alignItems = AlignItems.CENTER
 
-        mAdapter =  HandAdapter(adapterData, mutableListOf(), mutableListOf(), 1, State.CARD_BACK, this)
+        mAdapter =  HandAdapter(adapterHandData, mutableListOf(), adapterEvalData, 1, State.CARD_BACK)
         val recycler = view.findViewById<RecyclerView>(R.id.list)
         with(recycler) {
             layoutManager = layManager
@@ -102,23 +104,27 @@ class HandFragment : Fragment(), HandAdapter.Callback {
             layoutManager = layManager2
             adapter = payAdapter
         }
-
+      
         return view
     }
 
-
-    private fun setData(data: MutableList<MutableList<Card>>) {
-        adapterData = data
-        mAdapter?.setHands(adapterData)
-        mAdapter?.notifyDataSetChanged()
+    private fun setHandData(data: MutableList<MutableList<Card>>) {
+        adapterHandData = data
+        mAdapter?.setHands(adapterHandData)
     }
 
+    private fun setEvalData(evals: MutableList<Evaluate.Hand>) {
+        adapterEvalData = evals
+        mAdapter?.setEvals(adapterEvalData)
+        payAdapter?.highlightEvals(adapterEvalData.toSet())
+        Timber.d("setting eval data: $evals")
+        mAdapter?.setState(State.FLIP)
+    }
 
     private fun emptyHand(numHands: Int) {
-        adapterData = MutableList(numHands){mutableListOf(Card(), Card(), Card(), Card(), Card())}
+        adapterHandData = MutableList(numHands){mutableListOf(Card(), Card(), Card(), Card(), Card())}
         mAdapter?.setState(State.CARD_BACK)
-        mAdapter?.setHands(adapterData)
-        mAdapter?.notifyDataSetChanged()
+        mAdapter?.setHands(adapterHandData)
     }
 
     companion object {
@@ -129,6 +135,5 @@ class HandFragment : Fragment(), HandAdapter.Callback {
 
     override fun onComplete() {
         // todo enable button viewmodel
-//        viewModel
     }
 }

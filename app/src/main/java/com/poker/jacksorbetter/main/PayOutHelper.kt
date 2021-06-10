@@ -1,7 +1,7 @@
 package com.poker.jacksorbetter.main
 
+import Card
 import android.content.Context
-import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.Deck
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.poker.jacksorbetter.settings.SettingsUtils
@@ -20,16 +20,16 @@ object PayOutHelper {
 
     private val payoutMap = mapOf(
         PAY_TABLE_TYPES._9_6_99 to mapOf(
-        Evaluate.Hand.ROYAL_FLUSH to listOf(250, 500, 750, 1000, 4000),
-        Evaluate.Hand.STRAIGHT_FLUSH to listOf(50, 100, 150, 200, 250),
-        Evaluate.Hand.FOUR_OF_A_KIND to listOf(25, 50, 75, 100, 125),
-        Evaluate.Hand.FULL_HOUSE to listOf(9, 18, 27, 36, 45),
-        Evaluate.Hand.FLUSH to listOf(6, 12, 18, 24, 30),
-        Evaluate.Hand.STRAIGHT to listOf(4, 8, 12, 16, 20),
-        Evaluate.Hand.THREE_OF_A_KIND to listOf(3, 6, 9, 12, 15),
-        Evaluate.Hand.TWO_PAIRS to listOf(2, 4, 6, 8, 10),
-        Evaluate.Hand.JACKS_OR_BETTER to listOf(1, 2, 3, 4, 5),
-        Evaluate.Hand.NOTHING to listOf(-1, -2, -3, -4, -5)),
+            Evaluate.Hand.ROYAL_FLUSH to listOf(250, 500, 750, 1000, 4000),
+            Evaluate.Hand.STRAIGHT_FLUSH to listOf(50, 100, 150, 200, 250),
+            Evaluate.Hand.FOUR_OF_A_KIND to listOf(25, 50, 75, 100, 125),
+            Evaluate.Hand.FULL_HOUSE to listOf(9, 18, 27, 36, 45),
+            Evaluate.Hand.FLUSH to listOf(6, 12, 18, 24, 30),
+            Evaluate.Hand.STRAIGHT to listOf(4, 8, 12, 16, 20),
+            Evaluate.Hand.THREE_OF_A_KIND to listOf(3, 6, 9, 12, 15),
+            Evaluate.Hand.TWO_PAIRS to listOf(2, 4, 6, 8, 10),
+            Evaluate.Hand.JACKS_OR_BETTER to listOf(1, 2, 3, 4, 5),
+            Evaluate.Hand.NOTHING to listOf(-1, -2, -3, -4, -5)),
 
         PAY_TABLE_TYPES._9_5_98 to mapOf(
             Evaluate.Hand.ROYAL_FLUSH to listOf(250, 500, 750, 1000, 4000),
@@ -94,10 +94,6 @@ object PayOutHelper {
         return payoutMap[SettingsUtils.getPayoutTable(context)]?.get(evalHand)?.get(bet-1) ?: -1*bet
     }
 
-    fun getPayoutMap(context: Context?) : Map<Evaluate.Hand, List<Int>>? {
-        return payoutMap[SettingsUtils.getPayoutTable(context)]
-    }
-
     fun calculateBonusPayout(bet: Int?, card: Card?, isGuessRed: Boolean) : Int {
         if(card == null || bet == null) return -1
         val isCorrectGuess = Deck.isSuitRed(card.suit) && isGuessRed || !Deck.isSuitRed(card.suit) && !isGuessRed
@@ -107,7 +103,7 @@ object PayOutHelper {
         return if (isCorrectGuess) {
             bet*2
         } else {
-            -1*bet
+            0
         }
     }
 }

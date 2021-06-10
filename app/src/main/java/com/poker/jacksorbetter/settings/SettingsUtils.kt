@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.main.PayOutHelper
+import com.poker.jacksorbetter.main.PokerApplication
 import timber.log.Timber
 
 object SettingsUtils {
@@ -27,7 +28,6 @@ object SettingsUtils {
         const val SHEEP_MODE = false
         const val PAYOUT_TABLE = "9/6 – 99.54%"
         const val GOLDEN_GOD = false
-        const val CRAZY_MODE = false
     }
 
     object Keys{
@@ -46,7 +46,6 @@ object SettingsUtils {
         const val SOUND_BONUS = "sound_bonus"
         const val SHEEP_MODE = "sheep_mode"
         const val GOLDEN_GOD = "golden_god"
-        const val CRAZY_MODE = "crazy_mode"
     }
 
     object CardBacks{
@@ -60,11 +59,11 @@ object SettingsUtils {
             R.drawable.card_back_pinstriped,
             R.drawable.card_back_red,
             R.drawable.card_back_t_rex,
+            R.drawable.card_back_mountain,
             R.drawable.cardback_empty,
             R.drawable.card_back_gold
         )
     }
-
 
     fun getNumTrials(context: Context?) : Int{
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -171,13 +170,13 @@ object SettingsUtils {
         )
     }
 
-    fun isCrazyMode(context: Context) : Boolean{
-        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(
-            Keys.CRAZY_MODE,
-            Defaults.CRAZY_MODE
-        )
-    }
+//    fun isCrazyMode(context: Context) : Boolean{
+//        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
+//        return preferences.getBoolean(
+//            Keys.CRAZY_MODE,
+//            Defaults.CRAZY_MODE
+//        )
+//    }
 
     fun setGoldenGod(context: Context, isGoldenGold: Boolean) : Boolean {
         if(isGoldenGold){

@@ -16,7 +16,7 @@ class HandPayAdapter (val context: Context) : RecyclerView.Adapter<HandPayAdapte
 
     var values = populatePayTable(1)
 
-    private var evals: MutableList<Evaluate.Hand>? = null
+    private var evals: Set<Evaluate.Hand>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -26,15 +26,16 @@ class HandPayAdapter (val context: Context) : RecyclerView.Adapter<HandPayAdapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
+        val handEval = Evaluate.Hand.handFromReadableName(item.first)
 
         holder.evalName.text = item.first
         holder.evalAmount.text = "${item.second}"
 
-        if(evals == null) {
+        if(evals.isNullOrEmpty()) {
             holder.evalName.setBackgroundColor(PokerApplication.applicationContext().resources.getColor(R.color.colorBlue))
             holder.evalAmount.setBackgroundColor(PokerApplication.applicationContext().resources.getColor(R.color.goldenYellow))
             holder.evalContainer.setBackgroundColor(PokerApplication.applicationContext().resources.getColor(R.color.red))
-        } else if(position < evals?.size ?: 0 && evals?.filter { it.littleName == item.first }?.count() ?: 0 > 0) {
+        } else if(evals?.contains(handEval) == true && handEval != Evaluate.Hand.NOTHING) {
             holder.evalName.setBackgroundColor(PokerApplication.applicationContext().resources.getColor(R.color.red))
             holder.evalAmount.setBackgroundColor(PokerApplication.applicationContext().resources.getColor(R.color.red))
             holder.evalContainer.setBackgroundColor(PokerApplication.applicationContext().resources.getColor(R.color.colorYellow))
@@ -55,7 +56,7 @@ class HandPayAdapter (val context: Context) : RecyclerView.Adapter<HandPayAdapte
             val pay = PayOutHelper.calculatePayout(context, bet, hand)
             values.add(Pair(hand.littleName, pay))
         }
-        return values.dropLast(1).toMutableList()
+        return values.dropLast(1).toMutableList() //drop NOTHING eval
     }
 
     fun setBetAmount(bet: Int) {
@@ -64,7 +65,7 @@ class HandPayAdapter (val context: Context) : RecyclerView.Adapter<HandPayAdapte
         notifyDataSetChanged()
     }
 
-    fun highlightEvals(evals: MutableList<Evaluate.Hand>) {
+    fun highlightEvals(evals: Set<Evaluate.Hand>) {
         this.evals = evals
         notifyDataSetChanged()
     }

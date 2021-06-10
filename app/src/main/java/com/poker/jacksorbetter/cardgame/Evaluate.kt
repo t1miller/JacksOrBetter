@@ -1,5 +1,7 @@
 package com.poker.jacksorbetter.cardgame
 
+import Card
+
 
 object Evaluate {
 
@@ -19,7 +21,7 @@ object Evaluate {
         companion object {
             fun handFromReadableName(name: String?) : Hand {
                 for (mune in values()) {
-                    if(name == mune.readableName) {
+                    if(name == mune.readableName || name == mune.littleName) {
                         return mune
                     }
                 }

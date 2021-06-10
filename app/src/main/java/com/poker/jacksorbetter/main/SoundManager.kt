@@ -36,16 +36,11 @@ object SoundManager {
     fun load(context: Context) {
         soundPool = SoundPool.Builder().setMaxStreams(5).build()
         soundTypeToId[SoundType.SHUFFLE] = soundPool?.load(context, R.raw.shuffling,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.SHUFFLE_SHEEP] = soundPool?.load(context, R.raw.shuffle_sheep,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.FLIP] = soundPool?.load(context, R.raw.card_flip,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.INSERT_COIN] = soundPool?.load(context, R.raw.insert_coin,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.INSERT_COIN_SHEEP] = soundPool?.load(context, R.raw.increase_bet_sheep,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.COLLECTING_COINS] = soundPool?.load(context, R.raw.collecting_coins,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.COLLECTING_COINS_SHEEP] = soundPool?.load(context, R.raw.collect_coins_sheep,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.BIG_WIN] = soundPool?.load(context, R.raw.big_win,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.BIG_WIN_SHEEP] = soundPool?.load(context, R.raw.big_win_sheep,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.MEDIUM_WIN] = soundPool?.load(context, R.raw.medium_win,1) ?: DEFAULT_ID
-        soundTypeToId[SoundType.MEDIUM_WIN_SHEEP] = soundPool?.load(context, R.raw.medium_win_sheep,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.CHIME] = soundPool?.load(context, R.raw.chime,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.CHICKEN_DINNER] = soundPool?.load(context, R.raw.chicken_dinner,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.CHICKEN_SHUFFLING] = soundPool?.load(context, R.raw.chicken_shuffling,1) ?: DEFAULT_ID
@@ -62,19 +57,7 @@ object SoundManager {
                 load(context)
             }
 
-            var soundTypeT = sound
-            if(SettingsUtils.isSheepModeEnabled(context)){
-                when(sound) {
-                    SoundType.SHUFFLE -> soundTypeT = SoundType.SHUFFLE_SHEEP
-                    SoundType.BIG_WIN -> soundTypeT = SoundType.BIG_WIN_SHEEP
-                    SoundType.MEDIUM_WIN -> soundTypeT = SoundType.MEDIUM_WIN_SHEEP
-                    SoundType.INSERT_COIN -> soundTypeT = SoundType.INSERT_COIN_SHEEP
-                    SoundType.COLLECTING_COINS -> soundTypeT = SoundType.COLLECTING_COINS_SHEEP
-                    else -> {}
-                }
-            }
-
-            val soundId = soundTypeToId[soundTypeT] ?: DEFAULT_ID
+            val soundId = soundTypeToId[sound] ?: DEFAULT_ID
 
             soundPool?.play(soundId, 1F, 1F, 0, 0, 1F)
         }

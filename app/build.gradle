@@ -9,8 +9,8 @@ android {
         applicationId "com.poker.jacksorbetter"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.7"
+        versionCode 15
+        versionName "2.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -20,6 +20,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -43,6 +47,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

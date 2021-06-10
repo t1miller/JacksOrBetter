@@ -1,5 +1,6 @@
 package com.poker.jacksorbetter.main
 
+import Card
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -12,6 +13,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.poker.jacksorbetter.HandFragment
 import com.poker.jacksorbetter.R
@@ -22,17 +24,17 @@ import com.poker.jacksorbetter.cardgame.dialog.SnackBarUtils.snack
 import com.poker.jacksorbetter.cardgame.ui.AdHelper
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 import com.poker.jacksorbetter.cardgame.ui.PayTableUiUtils
-import com.poker.jacksorbetter.handstatui.StatDialogUtils
 import com.poker.jacksorbetter.leaderboard.HighScoreFragment
 import com.poker.jacksorbetter.leaderboard.HighScoreViewModel
 import com.poker.jacksorbetter.leaderboard.SignInViewModel
 import com.poker.jacksorbetter.settings.SettingsUtils
 import com.poker.jacksorbetter.stats.StatisticsManager
+import com.poker.jacksorbetter.training.TrainingFragment
+import com.poker.jacksorbetter.training.TrainingViewModel
 import com.wajahatkarim3.easyflipview.EasyFlipView
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import timber.log.Timber
-import kotlin.math.abs
 
 
 class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
@@ -44,6 +46,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     private lateinit var viewModel: MainViewModel
     private lateinit var signInViewModel: SignInViewModel
     private lateinit var highscoreViewModel: HighScoreViewModel
+    private lateinit var trainingViewModel: TrainingViewModel
 
     private lateinit var tableLayout: TableLayout
     private var highLightedRow = -1
@@ -70,24 +73,24 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     private lateinit var doubleButton: Button
     private lateinit var doubleRedButton: Button
     private lateinit var doubleBlackButton: Button
-    private lateinit var explainButton: Button
+    private lateinit var plusTenButton: Button
+    private lateinit var minusTenButton: Button
 
     private lateinit var autoHold: CheckBox
     private lateinit var minusButton: Button
     private lateinit var plusButton: Button
 
-    private lateinit var wrongText: TextView
-    private lateinit var correctText: TextView
-    private lateinit var correctCountText: TextView
-    private lateinit var wrongCountText: TextView
-    private lateinit var accuracyText: TextView
-    private lateinit var optimalExpectedText: TextView
-    private lateinit var yourExpectedText: TextView
     private lateinit var betCircleText: TextView
     private lateinit var betCircleBack: TextView
 
     private lateinit var numberOfHands: TextView
     private lateinit var handsFragContainer: FrameLayout
+    private lateinit var shimmerLayout: ShimmerFrameLayout
+    private lateinit var shimmerLayout2: ShimmerFrameLayout
+    private lateinit var shimmerLayout3: ShimmerFrameLayout
+    private lateinit var shimmerLayout4: ShimmerFrameLayout
+    private lateinit var shimmerLayout5: ShimmerFrameLayout
+
 
     private var cardLayouts: MutableList<EasyFlipView> = mutableListOf()
     private var cardViews: MutableList<ImageView> = mutableListOf()
@@ -97,21 +100,11 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     private var actionBar: ActionBar? = null
 
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
-//    }
-//
-//    override fun onPrepareOptionsMenu(menu: Menu) {
-////        menu.findItem(R.id.action_search).isVisible = false
-//        super.onPrepareOptionsMenu(menu)
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        // TODO Add your menu entries here
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater.inflate(R.menu.menu_items, menu)
-//    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        SettingsUtils.resetNumTrials(requireContext())
+    }
 
 
     override fun onCreateView(
@@ -139,14 +132,6 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         autoHold = view.findViewById(R.id.autoHold)
         winningHandText = view.findViewById(R.id.handEval2)
         winningHandPayText = view.findViewById(R.id.handEvalPay)
-        wrongText = view.findViewById(R.id.wrongTrainingText)
-        correctText = view.findViewById(R.id.correctTrainingText)
-        correctCountText = view.findViewById(R.id.correctCount)
-        wrongCountText = view.findViewById(R.id.wrongCount)
-        accuracyText = view.findViewById(R.id.accuracy)
-        optimalExpectedText = view.findViewById(R.id.optimalChoice)
-        yourExpectedText = view.findViewById(R.id.yourChoice)
-        explainButton = view.findViewById(R.id.explainButton)
         numberOfHands = view.findViewById(R.id.numHands)
         handsFragContainer = view.findViewById(R.id.hand_container)
         winnningTextLayout = view.findViewById(R.id.winnningTextLayout)
@@ -154,6 +139,14 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         betCircleBack = view.findViewById<View>(R.id.back5).findViewById(R.id.betCircleBackText)
         winningBannerTextLayout = view.findViewById(R.id.winningLayout)
         topTextLayout = view.findViewById(R.id.topText)
+        shimmerLayout = view.findViewById(R.id.shimmer_view_container)
+        shimmerLayout2 = view.findViewById(R.id.shimmer_view_container2)
+        shimmerLayout3 = view.findViewById(R.id.shimmer_view_container3)
+        shimmerLayout4 = view.findViewById(R.id.shimmer_view_container4)
+        shimmerLayout5 = view.findViewById(R.id.shimmer_view_container5)
+        plusTenButton = view.findViewById(R.id.plusTen)
+        minusTenButton = view.findViewById(R.id.minusTen)
+
 
         betCircleBack.visibility = View.VISIBLE
 
@@ -192,7 +185,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 when(viewModel.gameState.value){
                     MainViewModel.GameState.DEAL -> {
                         toggleHoldUi(i)
-                        updateTrainingYourExpected(viewModel.lookupExpectedValue(getCardsToKeep()))
+//                        updateTrainingYourExpected(viewModel.lookupExpectedValue(getCardsToKeep()))
                         viewModel.cardsHeld.value = getCardsToKeep().toMutableList()
                     }
                     else -> {}
@@ -218,9 +211,10 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         dealButton.setOnClickListener {
             when (viewModel.gameState.value) {
                 MainViewModel.GameState.START -> {
-                    if ((viewModel.bet.value ?: 1) > (viewModel.totalMoney.value ?: 0)) {
+                    if (viewModel.calculateBet() > (viewModel.totalMoney.value ?: 0)) {
                         ResetMoneyDialog.showDialog(requireContext(), this)
                     } else {
+                        startShimmer()
                         viewModel.newGame()
                         viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_UP
                     }
@@ -229,11 +223,12 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                     viewModel.evaluateHand(getCardsToKeepBooleanArray(), getCardsToKeep())
                 }
                 MainViewModel.GameState.EVALUATE_NO_BONUS -> {
-                    if ((viewModel.bet.value ?: 1) > (viewModel.totalMoney.value ?: 0)) {
+                    if (viewModel.calculateBet() > (viewModel.totalMoney.value ?: 0)) {
                         ResetMoneyDialog.showDialog(requireContext(), this)
                     } else {
                         viewModel.gameState.value = MainViewModel.GameState.START
                         viewModel.newGame()
+                        startShimmer()
                         viewModel.cardFLipState.value = MainViewModel.CardFlipState.FULL_FLIP
                     }
                 }
@@ -244,11 +239,12 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                     viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_DOWN
                 }
                 MainViewModel.GameState.BONUS -> {
-                    if ((viewModel.bet.value ?: 1) > (viewModel.totalMoney.value ?: 0)) {
+                    if (viewModel.calculateBet() > (viewModel.totalMoney.value ?: 0)) {
                         ResetMoneyDialog.showDialog(requireContext(), this)
                     } else {
                         viewModel.gameState.value = MainViewModel.GameState.START
                         viewModel.newGame()
+                        startShimmer()
                         viewModel.cardFLipState.value = MainViewModel.CardFlipState.FULL_FLIP
                     }
                 }
@@ -278,38 +274,24 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         }
 
-        explainButton.setOnClickListener {
-            when(viewModel.gameState.value) {
-                MainViewModel.GameState.DEAL -> {
-                    StatDialogUtils.showDialog(
-                        requireActivity(),
-                        viewModel.aiDecision.value,
-                        viewModel.aiDecision.value?.hand,
-                        getCardsToKeep(),
-                        viewModel.lookupExpectedValue(getCardsToKeep())
-                    )
-                }
-                MainViewModel.GameState.EVALUATE_WITH_BONUS,
-                MainViewModel.GameState.EVALUATE_NO_BONUS -> {
-                    StatDialogUtils.showDialog(
-                        requireActivity(),
-                        viewModel.aiDecision.value,
-                        viewModel.aiDecision.value?.hand,
-                        viewModel.lastKeptCards(),
-                        viewModel.lookupExpectedValue(viewModel.lastKeptCards() ?: emptyList())
-                    )
-                }
-                else -> {
-                    mainLayout.snack("Deal First", Snackbar.LENGTH_LONG)
-                }
-            }
-        }
-
         minusButton = view.findViewById<Button>(R.id.minusButton)
         minusButton.setOnClickListener {
             if(viewModel?.gameState.value == MainViewModel.GameState.START
                 || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
                 viewModel.decreaseHands()
+            } else {
+                mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
+            }
+        }
+
+        minusTenButton.setOnClickListener {
+            if(viewModel?.gameState.value == MainViewModel.GameState.START
+                || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
+                for(i in 0..9){
+                    if(viewModel.numberOfHands.value?:1 > 1) {
+                        viewModel.decreaseHands()
+                    }
+                }
             } else {
                 mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
             }
@@ -325,16 +307,19 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         }
 
-        val threeDots = view.findViewById<ImageView>(R.id.dots)
-        threeDots.setOnClickListener {
-            if(actionBar?.isShowing == true){
-                actionBar?.hide()
+        plusTenButton.setOnClickListener {
+            if(viewModel?.gameState.value == MainViewModel.GameState.START
+                || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
+                for(i in 0..9){
+                    viewModel.incrementHands()
+                }
             } else {
-                actionBar?.show()
+                mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
             }
         }
 
-        topTextLayout.setOnClickListener {
+        val threeDots = view.findViewById<ImageView>(R.id.dots)
+        threeDots.setOnClickListener {
             if(actionBar?.isShowing == true){
                 actionBar?.hide()
             } else {
@@ -350,6 +335,9 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             tableLayout,
             SettingsUtils.getPayoutTable(requireContext())
         )
+
+//        WhatsNewDialog.showDialog(requireContext())
+
         CardUiUtils.showCardBacks(cardBackViews)
         AdHelper.setupAd(requireActivity(), view, "ca-app-pub-7137320034166109/9607206136")
         return view
@@ -370,6 +358,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         signInViewModel = ViewModelProvider(requireActivity()).get(SignInViewModel::class.java)
         highscoreViewModel = ViewModelProvider(requireActivity()).get(HighScoreViewModel::class.java)
+        trainingViewModel = ViewModelProvider(requireActivity()).get(TrainingViewModel::class.java)
 
         SoundManager.load(requireActivity())
 
@@ -400,7 +389,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
         viewModel.hands.observe(viewLifecycleOwner, Observer { hand ->
             hand?.let {
-                updateTrainingYourExpected(viewModel.lookupExpectedValue(getCardsToKeep()))
+//                updateTrainingYourExpected(viewModel.lookupExpectedValue(getCardsToKeep()))
             }
         })
 
@@ -413,10 +402,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 }
 
                 viewModel.aiDecision.value?.let {
-                    updateTrainingOptimalExpected(it.sortedRankedHands[0].second)
-                    val isCorrect =
-                        it.sortedRankedHands[0].first.toSet() == getCardsToKeep().toSet()
-                    updateTrainingCorrect(isCorrect)
+                    trainingViewModel.state.value = TrainingViewModel.State.DONE
                 }
             }
         })
@@ -426,8 +412,8 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         })
 
         viewModel.wonLostMoney.observe(viewLifecycleOwner, Observer { wonLostMoney ->
-            updateWonLostMoneyUi(wonLostMoney)
 
+            updateWonLostMoneyUi(wonLostMoney)
             if (wonLostMoney > 0) {
                 highscoreViewModel.submitHighScore(requireContext(), wonLostMoney.toLong())
             }
@@ -460,86 +446,23 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                     viewModel.hands.value?.get(0),
                     sortedHands[0].first
                 )
+
                 SoundManager.playSound(requireActivity(), SoundManager.SoundType.CHIME)
-                updateTrainingYourExpected(sortedHands[0].second)
                 viewModel.cardsHeld.value = getCardsToKeep().toMutableList()
             }
-            updateTrainingOptimalExpected(sortedHands[0].second)
+            stopShimmer()
         })
 
         loadHighScoreFragment()
+        loadTrainingFragment()
     }
 
     private fun showMultiHandView() {
-//        val constraintSet = ConstraintSet()
-//        constraintSet.clone(mainLayout)
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.TOP,
-//            R.id.hand_container,
-//            ConstraintSet.BOTTOM,
-//            0
-//        )
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.START,
-//            ConstraintSet.PARENT_ID,
-//            ConstraintSet.START,
-//            0
-//        )
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.END,
-//            ConstraintSet.PARENT_ID,
-//            ConstraintSet.END,
-//            0
-//        )
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.BOTTOM,
-//            R.id.hand,
-//            ConstraintSet.TOP,
-//            0
-//        )
-//        constraintSet.applyTo(mainLayout)
-
         handsFragContainer.visibility = View.VISIBLE
         payoutTable.visibility = View.GONE
     }
 
     private fun showPayTable() {
-//        val constraintSet = ConstraintSet()
-//        constraintSet.clone(mainLayout)
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.TOP,
-//            R.id.payoutTable,
-//            ConstraintSet.BOTTOM,
-//            0
-//        )
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.START,
-//            ConstraintSet.PARENT_ID,
-//            ConstraintSet.START,
-//            0
-//        )
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.END,
-//            ConstraintSet.PARENT_ID,
-//            ConstraintSet.END,
-//            0
-//        )
-//        constraintSet.connect(
-//            R.id.winnningTextLayout,
-//            ConstraintSet.BOTTOM,
-//            R.id.hand,
-//            ConstraintSet.TOP,
-//            0
-//        )
-//        constraintSet.applyTo(mainLayout)
-
         handsFragContainer.visibility = View.GONE
         payoutTable.visibility = View.VISIBLE
     }
@@ -557,11 +480,44 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     private fun disableBetChangingUi() {
         betMaxButton.isEnabled = false
         betOneButton.isEnabled = false
+        betMaxButton.text = ""
+        betOneButton.text = ""
     }
 
     private fun enableBetChangingUi() {
         betMaxButton.isEnabled = true
         betOneButton.isEnabled = true
+        betMaxButton.text = getString(R.string.bet_max_button)
+        betOneButton.text = getString(R.string.bet_one_button)
+    }
+
+    private fun startShimmer() {
+        if(autoHold.isChecked) {
+            shimmerLayout.baseAlpha = 0.8F // opacity of non shimmer part of image
+            shimmerLayout.intensity = 0.1F
+            shimmerLayout2.baseAlpha = 0.8F // opacity of non shimmer part of image
+            shimmerLayout2.intensity = 0.1F
+            shimmerLayout3.baseAlpha = 0.8F // opacity of non shimmer part of image
+            shimmerLayout3.intensity = 0.1F
+            shimmerLayout4.baseAlpha = 0.8F // opacity of non shimmer part of image
+            shimmerLayout4.intensity = 0.1F
+            shimmerLayout5.baseAlpha = 0.8F // opacity of non shimmer part of image
+            shimmerLayout5.intensity = 0.1F
+
+            shimmerLayout.startShimmerAnimation()
+            shimmerLayout2.startShimmerAnimation()
+            shimmerLayout3.startShimmerAnimation()
+            shimmerLayout4.startShimmerAnimation()
+            shimmerLayout5.startShimmerAnimation()
+        }
+    }
+
+    private fun stopShimmer() {
+        shimmerLayout.stopShimmerAnimation()
+        shimmerLayout2.stopShimmerAnimation()
+        shimmerLayout3.stopShimmerAnimation()
+        shimmerLayout4.stopShimmerAnimation()
+        shimmerLayout5.stopShimmerAnimation()
     }
 
 
@@ -577,7 +533,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 showNormalButtonsUi()
                 clearWinningTextUi()
                 PayTableUiUtils.unblink(tableLayout)
-                initializeTrainingView()
+//                initializeTrainingView()
             }
             MainViewModel.GameState.DEAL -> {
                 showHelpText()
@@ -632,6 +588,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     private fun showBonusAndCollect() {
         dealButton.text = getString(R.string.collect_button)
         doubleButton.isEnabled = true
+        doubleButton.text = getString(R.string.double_button)
     }
 
     private fun showRedAndBlack() {
@@ -662,15 +619,15 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         enableBetChangingUi()
         dealButton.text = getString(R.string.deal_button)
         doubleButton.isEnabled = false
-
+        doubleButton.text = ""
         normalButtons.visibility = View.VISIBLE
         doubleDownButtons.visibility = View.INVISIBLE
     }
 
 
     private fun updateWonLostMoneyUi(wonLost: Int) {
-        if (wonLost < 0) {
-            wonLostText.text = getString(R.string.loss, abs(wonLost))
+        if (wonLost == 0) {
+            wonLostText.text = ""
         } else {
             wonLostText.text = getString(R.string.won, wonLost)
         }
@@ -821,36 +778,6 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         }
     }
 
-    private fun updateTrainingYourExpected(your: Double) {
-        yourExpectedText.visibility = View.VISIBLE
-        yourExpectedText.text = getString(
-            R.string.training_your_expected, java.text.NumberFormat.getCurrencyInstance().format(
-                your
-            )
-        )
-    }
-
-    private fun updateTrainingOptimalExpected(optimal: Double) {
-        optimalExpectedText.visibility = View.VISIBLE
-        optimalExpectedText.text = getString(
-            R.string.training_optimal_expected, java.text.NumberFormat.getCurrencyInstance().format(
-                optimal
-            )
-        )
-    }
-
-    private fun updateTrainingCorrect(isCorrect: Boolean) {
-        if (isCorrect) {
-            wrongText.visibility = View.INVISIBLE
-            correctText.visibility = View.VISIBLE
-            StatisticsManager.increaseCorrectCount()
-        } else {
-            wrongText.visibility = View.VISIBLE
-            correctText.visibility = View.INVISIBLE
-            StatisticsManager.increaseIncorrectCount()
-        }
-    }
-
     private fun loadHighScoreFragment() {
         childFragmentManager.beginTransaction().replace(
             R.id.highscore_container,
@@ -859,34 +786,22 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         ).commit()
     }
 
-    private fun initializeTrainingView(){
-        wrongText.visibility = View.INVISIBLE
-        correctText.visibility = View.INVISIBLE
-        optimalExpectedText.visibility = View.INVISIBLE
-        yourExpectedText.visibility = View.INVISIBLE
-
-        correctCountText.text = context?.getString(
-            R.string.correct_count,
-            StatisticsManager.getStatistics()?.correctCount
-        )
-        wrongCountText.text = context?.getString(
-            R.string.wrong_count,
-            StatisticsManager.getStatistics()?.wrongCount
-        )
-        accuracyText.text = context?.getString(
-            R.string.training_accuracy,
-            StatisticsManager.getAccuracy()
-        )
+    private fun loadTrainingFragment() {
+        childFragmentManager.beginTransaction().replace(
+            R.id.training_container,
+            TrainingFragment.newInstance(),
+            TrainingFragment.NAME
+        ).commit()
     }
 
+
     private fun updateWinningTextUi(first: Evaluate.Hand) {
-        winningBannerTextLayout.visibility = View.VISIBLE
-        winningHandText.text = first.readableName
-        winningHandPayText.text = "${PayOutHelper.calculatePayout(
-            requireContext(),
-            viewModel.bet.value ?: 1,
-            first
-        )}"
+        if (first != Evaluate.Hand.NOTHING || viewModel.numberOfHands.value == 1) {
+            winningBannerTextLayout.visibility = View.VISIBLE
+            winningHandText.text = first.readableName
+            val payout = PayOutHelper.calculatePayout(requireContext(), viewModel.bet.value ?: 1, first)
+            winningHandPayText.text = "$payout"
+        }
     }
 
     private fun clearWinningTextUi() {

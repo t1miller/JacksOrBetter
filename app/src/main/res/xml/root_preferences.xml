@@ -25,13 +25,13 @@
             app:title="Sound" />
 
 
-        <SwitchPreferenceCompat
-            app:dependency="sound"
-            app:key="sheep_mode"
-            app:defaultValue="false"
-            app:summaryOff="Sheep mode is off"
-            app:summaryOn="Sheep mode is on"
-            app:title="Sheep Mode" />
+<!--        <SwitchPreferenceCompat-->
+<!--            app:dependency="sound"-->
+<!--            app:key="sheep_mode"-->
+<!--            app:defaultValue="false"-->
+<!--            app:summaryOff="Sheep mode is off"-->
+<!--            app:summaryOn="Sheep mode is on"-->
+<!--            app:title="Sheep Mode" />-->
 
         <SwitchPreferenceCompat
             app:dependency="sound"
@@ -49,21 +49,21 @@
             app:summaryOn="Bonus sounds are on"
             app:title="Bonus Sound" />
 
-        <SwitchPreferenceCompat
-            app:key="crazy_mode"
-            app:defaultValue="false"
-            app:summaryOff="Maximum hands is 10"
-            app:summaryOn="Maximum hands is... Infinity. Yay have fun."
-            app:title="Crazy Mode" />
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="crazy_mode"-->
+<!--            app:defaultValue="false"-->
+<!--            app:summaryOff="Maximum hands is 10"-->
+<!--            app:summaryOn="Maximum hands is... Infinity. Yay have fun."-->
+<!--            app:title="Crazy Mode" />-->
 
-        <SeekBarPreference
-            android:max="15000"
-            app:defaultValue="5000"
-            app:key="montecarlo_trials"
-            app:min="500"
-            app:showSeekBarValue="true"
-            app:summary="@string/autohold_description"
-            app:title="Autohold Accuracy" />
+<!--        <SeekBarPreference-->
+<!--            android:max="15000"-->
+<!--            app:defaultValue="5000"-->
+<!--            app:key="montecarlo_trials"-->
+<!--            app:min="500"-->
+<!--            app:showSeekBarValue="true"-->
+<!--            app:summary="@string/autohold_description"-->
+<!--            app:title="Autohold Accuracy" />-->
 
 <!--        <SeekBarPreference-->
 <!--            android:max="20"-->

@@ -1,7 +1,7 @@
 package com.poker.jacksorbetter.main
 
+import Card
 import android.content.Context
-import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.cardgame.Deck
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.poker.jacksorbetter.handevaluator.*

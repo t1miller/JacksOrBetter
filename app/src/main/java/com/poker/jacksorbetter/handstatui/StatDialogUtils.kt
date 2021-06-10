@@ -1,5 +1,6 @@
 package com.poker.jacksorbetter.handstatui
 
+import Card
 import android.app.Dialog
 import android.view.Window
 import android.widget.Button
@@ -10,7 +11,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
-import com.poker.jacksorbetter.cardgame.Card
 import com.poker.jacksorbetter.main.AIDecision
 import com.poker.jacksorbetter.cardgame.ui.CardUiUtils
 import com.poker.jacksorbetter.main.CommonUiUtils.toFormattedStringThreeDecimals

@@ -1,5 +1,9 @@
 package com.poker.jacksorbetter.cardgame
 
+import Card
+import timber.log.Timber
+import kotlin.random.Random
+
 
 object Deck {
 
@@ -36,10 +40,6 @@ object Deck {
         return cards.removeAt(0)
     }
 
-    fun removeCards(hand: List<Card>) {
-        cards.removeAll(hand)
-    }
-
     fun draw5Random(hand: MutableList<Card>) : List<Card>{
         while (hand.size < 5) {
             val suit = Card.SUITS[(0..3).random()]
@@ -51,15 +51,6 @@ object Deck {
         }
         return hand
     }
-
-//    private fun MutableList<Card>.toReadableString(): String{
-//        val sorted = this.sortedBy { it.face }
-//        var readableString = "====== DECK ======\n"
-//        readableString += "size: ${this.size}\n"
-//        readableString += sorted.joinToString (separator = "\n"){ it.toString() }
-//        readableString += "\n=================\n"
-//        return readableString
-//    }
 
     fun suitColor(suit: Char) : String {
         return when(suit) {
@@ -77,37 +68,22 @@ object Deck {
 
 }
 
-class Deck2(private val cardsInit: MutableList<Card>?){
+class Deck2(seed: Long){
 
 
     private var cards = mutableListOf<Card>()
 
 
     init {
-        if(cardsInit == null){
-            newDeck()
-        } else {
-            cards.clear()
-            cards.addAll(cardsInit)
-        }
+        newDeck(seed)
     }
 
-
-
-    fun shuffle(){
-        cards.shuffle()
-    }
-
-    fun newDeck() {
+    private fun newDeck(seed: Long) {
         cards.clear()
         for (suit in Card.SUITS) {
             for (face in Card.FACES){
-                cards.add(
-                    Card(
-                        Card.FACES.indexOf(face) + 2,
-                        suit
-                    )
-                )
+                val card = Card(Card.FACES.indexOf(face) + 2, suit)
+                cards.add(card)
             }
         }
         cards.shuffle()
@@ -123,6 +99,10 @@ class Deck2(private val cardsInit: MutableList<Card>?){
             hand.add(draw1())
         }
         return hand
+    }
+
+    fun removeCards(cardsToRemove: MutableList<Card>) {
+        cards.removeAll(cardsToRemove)
     }
 
     fun getCards() : MutableList<Card> {
