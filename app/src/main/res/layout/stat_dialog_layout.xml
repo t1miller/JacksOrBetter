@@ -16,7 +16,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:layout_margin="10dp"
-                    android:text="All 32 possible decisions w/ expected return" />
+                    android:text="@string/stat_dialog_all_hands" />
 
                 <TextView
                     android:id="@+id/yourHand"
@@ -24,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:text="Your Hand:" />
+                    android:text="@string/stat_dialog_your_hand" />
 
 
                 <LinearLayout
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:text="Best Hands:" />
+                    android:text="@string/stat_dialog_best_hands" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:padding="5dp"
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:gravity="center"
-                    android:text="Dismiss" />
+                    android:text="@string/stat_dialog_dismiss" />
 
         </LinearLayout>
 

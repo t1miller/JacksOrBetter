@@ -82,7 +82,6 @@ class HighScoreFragment : Fragment(), HighScoreTapped {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         highScoreViewModel = ViewModelProvider(requireActivity()).get(HighScoreViewModel::class.java)
         signInViewModel = ViewModelProvider(requireActivity()).get(SignInViewModel::class.java)
 
@@ -93,7 +92,7 @@ class HighScoreFragment : Fragment(), HighScoreTapped {
             highScoreViewModel.getTopFiveHighScores(requireActivity())
         }
 
-        highScoreViewModel.highScores.observe(viewLifecycleOwner, Observer { highScores ->
+        highScoreViewModel.highScores.observe(viewLifecycleOwner,  { highScores ->
             Timber.d("High scores: $highScores")
             highscoreDate.clear()
             highscoreDate.addAll(highScores)
@@ -109,7 +108,7 @@ class HighScoreFragment : Fragment(), HighScoreTapped {
             }
         })
 
-        highScoreViewModel.uiState.observe(viewLifecycleOwner, Observer { state ->
+        highScoreViewModel.uiState.observe(viewLifecycleOwner,  { state ->
             when (state) {
                 HighScoreViewModel.STATE.SIGN_IN -> {
                     showSignIn()
@@ -128,7 +127,7 @@ class HighScoreFragment : Fragment(), HighScoreTapped {
         })
 
         highScoreViewModel.goldenScore.observe(viewLifecycleOwner, Observer { goldScore ->
-            Timber.d("Golden score: ${goldScore}")
+            Timber.d("Golden score: $goldScore")
         })
     }
 
@@ -137,28 +136,28 @@ class HighScoreFragment : Fragment(), HighScoreTapped {
     }
 
 
-    fun showProgressBar() {
+    private fun showProgressBar() {
         progressBar.visibility = View.VISIBLE
         recyclerView.visibility = View.INVISIBLE
         highscoreText.visibility = View.INVISIBLE
         signinLayout.visibility = View.INVISIBLE
     }
 
-    fun showHighScore() {
+    private fun showHighScore() {
         progressBar.visibility = View.INVISIBLE
         recyclerView.visibility = View.VISIBLE
         highscoreText.visibility = View.INVISIBLE
         signinLayout.visibility = View.INVISIBLE
     }
 
-    fun showNoResults() {
+    private fun showNoResults() {
         progressBar.visibility = View.INVISIBLE
         recyclerView.visibility = View.INVISIBLE
         highscoreText.visibility = View.VISIBLE
         signinLayout.visibility = View.INVISIBLE
     }
 
-    fun showSignIn() {
+    private fun showSignIn() {
         progressBar.visibility = View.INVISIBLE
         recyclerView.visibility = View.INVISIBLE
         highscoreText.visibility = View.INVISIBLE

@@ -34,6 +34,8 @@
     <string name="training_accuracy">Accuracy: %.2f%%</string>
     <string name="training_wrong">Wrong</string>
     <string name="training_correct">Correct</string>
+    <string name="hand_increase_error">Can\'t change mid game</string>
+    <string name="hand_decrease_error">Minimum: 1 hand</string>
 
     <string name="tap_card_to_hold">Tap card to hold</string>
 
@@ -51,15 +53,25 @@
 
     <!--    Stat fragment screen  -->
     <string name="loss">Loss: -$%d</string>
+    <string name="loss2">Loss:</string>
     <string name="won">Won: $%d</string>
+    <string name="won2">Won:</string>
     <string name="total">Total: $%d</string>
+    <string name="total2">Total:</string>
     <string name="total_neg">Total: -$%d</string>
     <string name="bet">Bet: $%d</string>
+    <string name="bet2">Bet:</string>
     <string name="eval">Eval: %s</string>
+    <string name="eval2">Eval:</string>
     <string name="your_accuracy">Accuracy: %.2f%%</string>
+
     <string name="correct_count">Correct Count: %d</string>
     <string name="wrong_count">Wrong Count: %d</string>
+    <string name="correct_count2">Correct Count: </string>
+    <string name="wrong_count2">Wrong Count: </string>
     <string name="percent">Accuracy</string>
+    <string name="percent2">Accuracy: </string>
+
     <string name="reset"><u>Reset</u></string>
 
     <string name="right">Right</string>
@@ -81,19 +93,21 @@
 
     <!--    Dialog Reset Money -->
     <string name="select_money">Select how much you want</string>
-    <string name="five_thousand">$5,000</string>
-    <string name="thousand">$1,000</string>
-    <string name="ten_thousand">$10,000</string>
+    <string name="five_thousand" translatable="false">$5,000</string>
+    <string name="thousand" translatable="false">$1,000</string>
+    <string name="ten_thousand" translatable="false">$10,000</string>
+    <string name="money_set">Money set: $%d</string>
 
     <!--  Highscore Fragment -->
     <string name="log_in">Log In</string>
     <string name="signed_in">Signed In</string>
-    <string name="highscore_id">CgkIqLmFopAZEAIQBg</string>
-    <string name="app_id">863359818920</string>
+    <string name="highscore_id" translatable="false">CgkIqLmFopAZEAIQBg</string>
+    <string name="app_id" translatable="false">863359818920</string>
     <string name="dev_settings">Dev Settings</string>
     <string name="no_highscore_results">No High Scores</string>
     <string name="battle_with_the_best">Sign in to submit high scores!</string>
     <string name="highscores">High Scores</string>
+    <string name="sign_in_success">Sign in: Success</string>
 
 
     <!--    Dialog Golden God-->
@@ -101,12 +115,11 @@
     <string name="golden_god_highscore_desc">#1 Global High Score</string>
     <string name="golden_god_desc">You are a Golden God and should be treated as such. You\'ve unlocked the golden card back. (You can change card backs in settings)</string>
 
-<!--    Whats new -->
-    <string name="whats_new_title">What\'s New (v%s)</string>
-    <string name="whats_new_desc">&#8226; Added fast-forward button to speed up card animation when number of hands are more than 1\n<br/>
-    &#8226; Fixed some bugs in crazy mode (hands > 10) <br/>
+
+    <string name="whats_new_title" translatable="false">What\'s New (v%s)</string>
+    <string name="whats_new_desc" translatable="false">…<br/>
     </string>
 
 
-    <string name="two_decimal">%.2f%%</string>
+    <string name="two_decimal" translatable="false">%.2f%%</string>
 </resources>

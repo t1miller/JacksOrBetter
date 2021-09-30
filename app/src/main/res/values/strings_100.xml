@@ -1,0 +1,57 @@
+<resources>
+
+<!--  Preferences  -->
+    <string name="sign_in">Sign in</string>
+    <string name="signed_in_status">Status: Signed in</string>
+    <string name="signed_out_status">Status: Signed out</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_success">Sign out: Success</string>
+    <string name="sign_out_failure">Sign out: Failure</string>
+    <string name="cardback_changed">Cardback changed</string>
+
+    <string name="choose_cardback">Choose Cardback</string>
+    <string name="choose_cardback_desc">Choose a custom cardback</string>
+    <string name="golden_god_desc2">Golden God\'s only</string>
+    <string name="sound">Sound</string>
+    <string name="sound_off">Sound is off</string>
+    <string name="sound_on">Sound is on</string>
+    <string name="sound_flip">Flip Sound</string>
+    <string name="sound_flip_off">Card Flip sound is off</string>
+    <string name="sound_flip_on">Card Flip sound is on</string>
+    <string name="sound_bonus">Bonus Sound</string>
+    <string name="sound_bonus_off">Bonus sounds are off</string>
+    <string name="sound_bonus_on">Bonus sounds are on</string>
+    <string name="share_stats">Share Stats</string>
+    <string name="share_stats_desc">Share your statistics</string>
+    <string name="reset_stats">Reset Stats</string>
+    <string name="reset_stats_desc">Resets your statistics</string>
+    <string name="choose_cardback_desc2">Tap favorite card</string>
+
+<!--  Simulation Page-->
+    <string name="simulation_title">Run Simulations</string>
+    <string name="simulation_example">Example: ts th td ac ah -></string>
+    <string name="simulation_number_trials">Number of trials:</string>
+    <string name="simulation_number_trials_desc">Number of trial of Monte Carlo Simulation</string>
+    <string name="simulation_start">Start</string>
+    <string name="simulation_dialog_title">Monte Carlo Simulation</string>
+    <string name="simulation_dialog_desc1">Possible Decisions: 32\n</string>
+    <string name="simulation_dialog_desc2">"Trials Per Decision: %,d\n"</string>
+    <string name="simulation_dialog_desc3">"Total Games: %,d\n\n"</string>
+    <string name="simulation_dialog_desc4">, that\'s a lot of trials. Let\'s Go!</string>
+
+<!--  Stat Dialog-->
+    <string name="stat_dialog_dismiss">Dismiss</string>
+    <string name="stat_dialog_best_hands">Best Hands:</string>
+    <string name="stat_dialog_your_hand">Your Hand:</string>
+    <string name="stat_dialog_all_hands">All 32 possible decisions w/ expected return</string>
+
+<!--  Statistics-->
+    <string name="statistic_strategy">Strategy Statistics:</string>
+    <string name="statistic_last_game">Last Game:</string>
+    <string name="statistic_money_stats">Money Stats:</string>
+
+<!--  Training-->
+    <string name="deal_first">Deal First</string>
+
+
+</resources>

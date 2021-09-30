@@ -9,8 +9,17 @@
     android:layout_height="match_parent"
     tools:context="com.poker.jacksorbetter.main.MainFragment">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blahBlahBlah"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,11 +27,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/blahBlahBlah"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/topText"
@@ -669,20 +673,10 @@
             app:layout_constraintStart_toStartOf="@id/optionLayout"
             android:text="@string/autohold" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/fastForward"-->
-<!--            android:layout_width="35dp"-->
-<!--            android:layout_height="35dp"-->
-<!--            android:background="@drawable/fast_forward_off"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/autoHold"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/optionLayout"-->
-<!--            app:layout_constraintStart_toStartOf="@id/optionLayout"-->
-<!--            />-->
-
         <FrameLayout
             android:id="@+id/highscore_container"
             android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_centerInParent="true"
@@ -703,9 +697,6 @@
             app:layout_constraintEnd_toEndOf="@id/buttons"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-
 
     <FrameLayout
         android:id="@+id/ad_view_container"

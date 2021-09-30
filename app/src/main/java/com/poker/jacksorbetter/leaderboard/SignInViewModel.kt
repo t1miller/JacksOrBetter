@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.games.Games
+import com.poker.jacksorbetter.R
 import timber.log.Timber
 import java.util.*
 
@@ -101,11 +102,11 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
             googleAccount.value = null
             if (task.isSuccessful) {
                 Timber.d("signOut() success")
-                Toast.makeText(getApplication(), "Sign out: Success", Toast.LENGTH_LONG).show()
+                Toast.makeText(getApplication(), getApplication<Application>().resources.getString(R.string.sign_out_success), Toast.LENGTH_LONG).show()
                 state.value = SignInState.SIGNED_OUT
             } else {
                 Timber.d("signOut() failure ${task.exception}")
-                Toast.makeText(getApplication(), "Sign out: Failure", Toast.LENGTH_LONG).show()
+                Toast.makeText(getApplication(), getApplication<Application>().resources.getString(R.string.sign_out_failure), Toast.LENGTH_LONG).show()
             }
         }
     }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+<!--  Preferences  -->
+    <string name="sign_in">Entrar</string>
+    <string name="signed_in_status">Status: Conectado</string>
+    <string name="signed_out_status">Status: Desconectado</string>
+    <string name="sign_out">Sair</string>
+    <string name="sign_out_success">Saída: Realizada</string>
+    <string name="sign_out_failure">Saída: Falhou</string>
+    <string name="cardback_changed">Verso da carta alterado</string>
+
+    <string name="choose_cardback">Escolher Verso da Carta</string>
+    <string name="choose_cardback_desc">Escolha um verso personalizado</string>
+    <string name="golden_god_desc2">Só Para o Deus Dourado</string>
+    <string name="sound">Sons</string>
+    <string name="sound_off">Som desligado</string>
+    <string name="sound_on">Som ligado</string>
+    <string name="sound_flip">Som de Virada</string>
+    <string name="sound_flip_off">Som de virada de carta desligado</string>
+    <string name="sound_flip_on">Som de virada de carta ligado</string>
+    <string name="sound_bonus">Som do Bônus</string>
+    <string name="sound_bonus_off">Som do bônus desligado</string>
+    <string name="sound_bonus_on">Som do bônus ligado</string>
+    <string name="share_stats">Compartilhar Estatísticas</string>
+    <string name="share_stats_desc">Compartilhe as suas estatísticas</string>
+    <string name="reset_stats">Redefinir Estatísticas</string>
+    <string name="reset_stats_desc">Redefine as suas estatísticas</string>
+    <string name="choose_cardback_desc2">Toque na carta favorita</string>
+
+<!--  Simulation Page-->
+    <string name="simulation_title">Rodar Simulações</string>
+    <string name="simulation_example">Examplo: de dc do ap ac -&gt;</string>
+    <string name="simulation_number_trials">Número de testes:</string>
+    <string name="simulation_number_trials_desc">Número do teste da Simulação Monte Carlo</string>
+    <string name="simulation_start">Iniciar</string>
+    <string name="simulation_dialog_title">Simulação Monte Carlo</string>
+    <string name="simulation_dialog_desc1">Decisões Possíveis: 32\n</string>
+    <string name="simulation_dialog_desc2">\"Testes Por Decisão: %,d\n\"</string>
+    <string name="simulation_dialog_desc3">\"Total de Jogos: %,d\n\n\"</string>
+    <string name="simulation_dialog_desc4">, isso é teste pra dedéu. Vamos lá!</string>
+
+<!--  Stat Dialog-->
+    <string name="stat_dialog_dismiss">Fechar</string>
+    <string name="stat_dialog_best_hands">Melhores Mãos:</string>
+    <string name="stat_dialog_your_hand">Sua Mão:</string>
+    <string name="stat_dialog_all_hands">Todas as 32 decisões possíveis com o retorno esperado</string>
+
+<!--  Statistics-->
+    <string name="statistic_strategy">Estatísticas de Estratégia:</string>
+    <string name="statistic_last_game">Último Jogo:</string>
+    <string name="statistic_money_stats">Estatísticas de Dinheiro:</string>
+
+<!--  Training-->
+    <string name="deal_first">Dar as Cartas Primeiro</string>
+
+
+</resources>

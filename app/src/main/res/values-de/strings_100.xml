@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+<!--  Preferences  -->
+    <string name="sign_in">Anmelden</string>
+    <string name="signed_in_status">Status: Angemeldet</string>
+    <string name="signed_out_status">Status: Abgemeldet</string>
+    <string name="sign_out">Abmelden</string>
+    <string name="sign_out_success">Erfolgreich abgemeldet</string>
+    <string name="sign_out_failure">Abmeldung fehlgeschlagen</string>
+    <string name="cardback_changed">Kartenrückseite geändert</string>
+
+    <string name="choose_cardback">Kartenrückseite auswählen</string>
+    <string name="choose_cardback_desc">Eigene Kartenrückseite auswählen</string>
+    <string name="golden_god_desc2">Nur Goldener Gott</string>
+    <string name="sound">Ton</string>
+    <string name="sound_off">Ton aus</string>
+    <string name="sound_on">Ton ein</string>
+    <string name="sound_flip">Drehton</string>
+    <string name="sound_flip_off">Kartendrehton aus</string>
+    <string name="sound_flip_on">Kartendrehton ein</string>
+    <string name="sound_bonus">Bonuston</string>
+    <string name="sound_bonus_off">Bonustöne aus</string>
+    <string name="sound_bonus_on">Bonustöne ein</string>
+    <string name="share_stats">Statistik teilen</string>
+    <string name="share_stats_desc">Teile deine Statistik</string>
+    <string name="reset_stats">Statistik zurücksetzen</string>
+    <string name="reset_stats_desc">Setze deine Spielstatistik zurück.</string>
+    <string name="choose_cardback_desc2">Lieblingskarte antippen</string>
+
+<!--  Simulation Page-->
+    <string name="simulation_title">Simulationen ausführen</string>
+    <string name="simulation_example">Beispiel: ts th td ac ah -&gt;</string>
+    <string name="simulation_number_trials">Anzahl der Versuche:</string>
+    <string name="simulation_number_trials_desc">Anzahl der Versuche der Monte-Carlo-Simulation</string>
+    <string name="simulation_start">Start</string>
+    <string name="simulation_dialog_title">Monte-Carlo-Simulation</string>
+    <string name="simulation_dialog_desc1">Mögliche Entscheidungen: 32\n</string>
+    <string name="simulation_dialog_desc2">\"Versuche pro Entscheidung: %,d\n\"</string>
+    <string name="simulation_dialog_desc3">\"Gesamte Spiele: %,d\n\n\"</string>
+    <string name="simulation_dialog_desc4">, das sind viele Versuche. Los geht\'s!</string>
+
+<!--  Stat Dialog-->
+    <string name="stat_dialog_dismiss">Verwerfen</string>
+    <string name="stat_dialog_best_hands">Beste Hände:</string>
+    <string name="stat_dialog_your_hand">Meine Hand:</string>
+    <string name="stat_dialog_all_hands">Alle 32 möglichen Entscheidungen mit erwartetem Gewinn</string>
+
+<!--  Statistics-->
+    <string name="statistic_strategy">Strategiestatistik:</string>
+    <string name="statistic_last_game">Letztes Spiel:</string>
+    <string name="statistic_money_stats">Geldstatistik:</string>
+
+<!--  Training-->
+    <string name="deal_first">Zuerst austeilen</string>
+
+
+</resources>

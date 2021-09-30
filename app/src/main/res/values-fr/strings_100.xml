@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+<!--  Preferences  -->
+    <string name="sign_in">Connexion</string>
+    <string name="signed_in_status">Statut : connecté</string>
+    <string name="signed_out_status">Statut : déconnecté</string>
+    <string name="sign_out">Déconnexion</string>
+    <string name="sign_out_success">Déconnexion : réussie</string>
+    <string name="sign_out_failure">Déconnexion : échec</string>
+    <string name="cardback_changed">Dos de carte changé</string>
+
+    <string name="choose_cardback">Choisir le dos de carte</string>
+    <string name="choose_cardback_desc">Choisir un dos de carte personnalisé</string>
+    <string name="golden_god_desc2">Dieu d\'or uniquement</string>
+    <string name="sound">Son</string>
+    <string name="sound_off">Son désactivé</string>
+    <string name="sound_on">Son activé</string>
+    <string name="sound_flip">Son du retournement</string>
+    <string name="sound_flip_off">Le son du retournement de carte est désactivé</string>
+    <string name="sound_flip_on">Le son du retournement de carte est activé</string>
+    <string name="sound_bonus">Son bonus</string>
+    <string name="sound_bonus_off">Les sons bonus sont désactivés</string>
+    <string name="sound_bonus_on">Les sons bonus sont activés</string>
+    <string name="share_stats">Partager les stats</string>
+    <string name="share_stats_desc">Partager vos stats</string>
+    <string name="reset_stats">Réinitialiser les stats</string>
+    <string name="reset_stats_desc">Réinitialise vos statistiques</string>
+    <string name="choose_cardback_desc2">Appuyer sur la carte préférée</string>
+
+<!--  Simulation Page-->
+    <string name="simulation_title">Lancer des simulations</string>
+    <string name="simulation_example">Exemple : ts th td ac ah -&gt;</string>
+    <string name="simulation_number_trials">Nombre d\'essais :</string>
+    <string name="simulation_number_trials_desc">Nombre d\'essais pour la simulation Monte Carlo</string>
+    <string name="simulation_start">Début</string>
+    <string name="simulation_dialog_title">Simulation Monte Carlo</string>
+    <string name="simulation_dialog_desc1">Décisions possibles : 32\n</string>
+    <string name="simulation_dialog_desc2">\"Essais par décision : %,d\n\"</string>
+    <string name="simulation_dialog_desc3">\"Parties totales : %,d\n\n\"</string>
+    <string name="simulation_dialog_desc4">, c\'est beaucoup d\'essais. C\'est parti !</string>
+
+<!--  Stat Dialog-->
+    <string name="stat_dialog_dismiss">Ignorer</string>
+    <string name="stat_dialog_best_hands">Meilleures mains :</string>
+    <string name="stat_dialog_your_hand">Votre main :</string>
+    <string name="stat_dialog_all_hands">Les 32 décisions possibles avec le retour attendu</string>
+
+<!--  Statistics-->
+    <string name="statistic_strategy">Statistiques de la stratégie :</string>
+    <string name="statistic_last_game">Dernière partie :</string>
+    <string name="statistic_money_stats">Stats d\'argent :</string>
+
+<!--  Training-->
+    <string name="deal_first">Distribuer d\'abord</string>
+
+
+</resources>

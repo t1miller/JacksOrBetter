@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Deck
 import com.poker.jacksorbetter.cardgame.Deck2
 import com.poker.jacksorbetter.cardgame.Evaluate
@@ -93,12 +94,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 SoundManager.playSound(getApplication(), SoundManager.SoundType.COLLECTING_COINS)
             }
         }
-        totalMoney.value = newAmount
+        totalMoney.postValue(newAmount)
+//        totalMoney.value = newAmount
     }
 
-    private fun updateLastEvaluatedHand(handEval: Evaluate.Hand?) {
-        lastEvaluatedHand.value = handEval
-    }
+
 
     private fun getMoney() : Int {
         return totalMoney.value ?: SettingsUtils.getMoney(getApplication())
@@ -115,7 +115,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if(currentHands > 1){
             numberOfHands.value = currentHands - 1
         } else {
-            Toast.makeText(getApplication(), "Minimum: 1 hand", Toast.LENGTH_LONG).show()
+            Toast.makeText(getApplication(), getApplication<Application>().resources.getString(R.string.hand_decrease_error), Toast.LENGTH_LONG).show()
         }
         Timber.d("decreaseHands() ${hands.value}")
     }
@@ -156,16 +156,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         updateTotalMoney(toteMoney, false)
     }
 
-    fun collect() {
-        val payout = calculatePayout()
+    fun collect(handEvalsTemp: List<Evaluate.Hand>?, handsTemp: MutableList<MutableList<Card>>?) {
+        val payout = calculatePayout(handEvalsTemp)
         val toteMoney = getMoney() + payout
-        wonLostMoney.value = payout
+        wonLostMoney.postValue(payout)
         updateTotalMoney(toteMoney, false)
 
         // done w/ game get statistics for game (NON BONUS flow)
-        StatisticsManager.addStatistic(Game(bet.value, payout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
-        Timber.d("payout $payout")
+        if(handEvalsTemp == null || handsTemp == null){
+            StatisticsManager.addStatistic(Game(bet.value, payout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
+        } else {
+            StatisticsManager.addStatistic(Game(bet.value, payout, handEvalsTemp[0].readableName, originalHand, lastCardsKept, handsTemp[0]))
+        }
     }
+
 
     /**
      *  C[2] is the index of the card to guess
@@ -174,7 +178,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         Deck.newDeck()
         bonusHand.value = Deck.draw5()
 
-        val payout = calculatePayout()
+        val payout = calculatePayout(null)
         val totalPayout = PayOutHelper.calculateBonusPayout(payout, hands.value?.get(0)?.get(2), isGuessRed)
         val toteMoney = getMoney() + totalPayout
         wonLostMoney.value = totalPayout
@@ -184,52 +188,55 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         StatisticsManager.addStatistic(Game(bet.value, totalPayout, handEvals.value?.get(0)?.readableName, originalHand, lastCardsKept, hands.value?.get(0)))
     }
 
-    fun calculatePayout() : Int{
+    fun calculatePayout(handEvalsTemp: List<Evaluate.Hand>?) : Int {
         var payout = 0
-        hands.value?.forEachIndexed { index, _ ->
-            var tempPayout = PayOutHelper.calculatePayout(getApplication(), bet.value, handEvals.value?.get(index))
-            if(tempPayout < 0){
+        repeat(numberOfHands.value ?: 0) {
+            val handEval = if (handEvalsTemp != null) handEvalsTemp[it] else handEvals.value?.get(it)
+            var tempPayout = PayOutHelper.calculatePayout(getApplication(), bet.value, handEval)
+            if (tempPayout < 0) {
                 tempPayout = 0
             }
             payout += tempPayout
-            Timber.d("hand %d payout %d", index, PayOutHelper.calculatePayout(getApplication(), bet.value, handEvals.value?.get(index)))
         }
         return payout
     }
 
     fun evaluateHand(cardsToKeep: BooleanArray, cards: List<Card>) {
-
-        cardsKept = cardsToKeep
-        lastCardsKept = cards
-        originalHand = hands.value?.get(0)?.toList()
-        val handEvalsTemp = mutableListOf<Evaluate.Hand>()
-        val handTemp = MutableList(numberOfHands.value ?: 1){ mutableListOf<Card>()}
-
-        hands.value?.forEachIndexed { index, han ->
-            for (i in 0 until 5) {
-                if (!cardsToKeep[i]) {
-                    handTemp[index].add(otherDecks?.get(index)?.draw1() ?: Card())
-                } else {
-                    handTemp[index].add(han[i])
-                }
-            }
-
-            handEvalsTemp.add(Evaluate.analyzeHand(handTemp[index]))
+        viewModelScope.launch {
+            runEvaluateHand(cardsToKeep, cards)
         }
-        hands.value = handTemp
-        handEvals.value = handEvalsTemp
-        cardFLipState.value = CardFlipState.FULL_FLIP
+    }
 
-        Timber.d("hand evals ${handEvals.value}")
-        Timber.d("hands ${hands.value}")
+    private suspend fun runEvaluateHand(cardsToKeep: BooleanArray, cards: List<Card>) {
+        withContext(Dispatchers.IO) {
+            cardsKept = cardsToKeep
+            lastCardsKept = cards
+            originalHand = hands.value?.get(0)?.toList()
+            val handEvalsTemp = mutableListOf<Evaluate.Hand>()
+            val handTemp = MutableList(numberOfHands.value ?: 1){ mutableListOf<Card>()}
 
-        updateLastEvaluatedHand(handEvals.value?.get(0))
+            hands.value?.forEachIndexed { index, han ->
+                for (i in 0 until 5) {
+                    if (!cardsToKeep[i]) {
+                        handTemp[index].add(otherDecks?.get(index)?.draw1() ?: Card())
+                    } else {
+                        handTemp[index].add(han[i])
+                    }
+                }
 
-        if (calculatePayout() <= 0) {
-            collect()
-            gameState.value = GameState.EVALUATE_NO_BONUS
-        } else {
-            gameState.value = GameState.EVALUATE_WITH_BONUS
+                handEvalsTemp.add(Evaluate.analyzeHand(handTemp[index]))
+            }
+            hands.postValue(handTemp)
+            handEvals.postValue(handEvalsTemp)
+            lastEvaluatedHand.postValue(handEvalsTemp[0])
+            cardFLipState.postValue(CardFlipState.FULL_FLIP)
+
+            if (calculatePayout(handEvalsTemp) <= 0) {
+                collect(handEvalsTemp, handTemp)
+                gameState.postValue(GameState.EVALUATE_NO_BONUS)
+            } else {
+                gameState.postValue(GameState.EVALUATE_WITH_BONUS)
+            }
         }
     }
 

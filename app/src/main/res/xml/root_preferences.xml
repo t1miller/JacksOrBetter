@@ -4,86 +4,53 @@
     <PreferenceCategory app:title="@string/general_header">
 
         <Preference
-            android:title="Sign in"
+            android:title="@string/sign_in"
             android:key="sign_in"/>
 
         <Preference
-            android:title="Sign out"
+            android:title="@string/sign_out"
             android:key="sign_out"/>
 
         <Preference
-            android:title="Choose Cardback"
+            android:title="@string/choose_cardback"
             android:key="choose_cardback"
-            android:summary="Choose a custom cardback"
+            android:summary="@string/choose_cardback_desc"
             />
 
         <SwitchPreferenceCompat
             app:key="sound"
             app:defaultValue="true"
-            app:summaryOff="Sound is off"
-            app:summaryOn="Sound is on"
-            app:title="Sound" />
+            app:summaryOff="@string/sound_off"
+            app:summaryOn="@string/sound_on"
+            app:title="@string/sound" />
 
-
-<!--        <SwitchPreferenceCompat-->
-<!--            app:dependency="sound"-->
-<!--            app:key="sheep_mode"-->
-<!--            app:defaultValue="false"-->
-<!--            app:summaryOff="Sheep mode is off"-->
-<!--            app:summaryOn="Sheep mode is on"-->
-<!--            app:title="Sheep Mode" />-->
 
         <SwitchPreferenceCompat
             app:dependency="sound"
             app:key="sound_flip"
             app:defaultValue="true"
-            app:summaryOff="Card Flip sound is off"
-            app:summaryOn="Card Flip sound is on"
-            app:title="Flip Sound" />
+            app:summaryOff="@string/sound_flip_off"
+            app:summaryOn="@string/sound_flip_on"
+            app:title="@string/sound_flip" />
 
         <SwitchPreferenceCompat
             app:dependency="sound"
             app:key="sound_bonus"
             app:defaultValue="true"
-            app:summaryOff="Bonus sounds are off"
-            app:summaryOn="Bonus sounds are on"
-            app:title="Bonus Sound" />
-
-<!--        <SwitchPreferenceCompat-->
-<!--            app:key="crazy_mode"-->
-<!--            app:defaultValue="false"-->
-<!--            app:summaryOff="Maximum hands is 10"-->
-<!--            app:summaryOn="Maximum hands is... Infinity. Yay have fun."-->
-<!--            app:title="Crazy Mode" />-->
-
-<!--        <SeekBarPreference-->
-<!--            android:max="15000"-->
-<!--            app:defaultValue="5000"-->
-<!--            app:key="montecarlo_trials"-->
-<!--            app:min="500"-->
-<!--            app:showSeekBarValue="true"-->
-<!--            app:summary="@string/autohold_description"-->
-<!--            app:title="Autohold Accuracy" />-->
-
-<!--        <SeekBarPreference-->
-<!--            android:max="20"-->
-<!--            app:defaultValue="10"-->
-<!--            app:key="training_strictness"-->
-<!--            app:min="0"-->
-<!--            app:showSeekBarValue="true"-->
-<!--            app:summary="@string/training_strict_description"-->
-<!--            app:title="Training Strictness" />-->
+            app:summaryOff="@string/sound_bonus_off"
+            app:summaryOn="@string/sound_bonus_on"
+            app:title="@string/sound_bonus" />
 
         <Preference
-            android:title="Share Stats"
+            android:title="@string/share_stats"
             android:key="share_stats"
-            android:summary="Share your statistics"
+            android:summary="@string/share_stats_desc"
             />
 
         <Preference
-            android:title="Reset Stats"
+            android:title="@string/reset_stats"
             android:key="reset_stats"
-            android:summary="Resets your statistics"
+            android:summary="@string/reset_stats_desc"
             />
 
     </PreferenceCategory>
@@ -91,9 +58,9 @@
     <PreferenceCategory app:title="@string/money_header">
 
         <Preference
-            android:title="Reset Money"
+            android:title="@string/reset_money"
             android:key="reset_money"
-            android:summary="Resets your money"
+            android:summary="@string/reset_money"
             />
 
         <ListPreference

@@ -45,21 +45,21 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
         val resetStatsButton: Preference? = findPreference(SettingsUtils.Keys.RESET_STATS)
         resetStatsButton?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             StatisticsManager.deleteStatisticsOnDisk()
-            Toast.makeText(requireContext(),"Reset stats", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),getString(R.string.reset_stats), Toast.LENGTH_LONG).show()
             true
         }
 
         val shareStats: Preference? = findPreference(SettingsUtils.Keys.SHARE_STATS)
         shareStats?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             StatisticsManager.shareStatistics(requireContext())
-            Toast.makeText(requireContext(),"Share stats", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),getString(R.string.share_stats), Toast.LENGTH_LONG).show()
             true
         }
 
         val cardBack: Preference? = findPreference(SettingsUtils.Keys.CHOOSE_CARDBACK)
         cardBack?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             SettingsUtils.showChangeCardBackDialog(requireContext())
-            Toast.makeText(requireContext(),"Cardback changed", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),getString(R.string.cardback_changed), Toast.LENGTH_LONG).show()
             true
         }
 
@@ -96,17 +96,17 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
     private fun showSignInButton() {
         signin?.isVisible = true
         signout?.isVisible = false
-        signin?.summary = "Status: Signed out"
+        signin?.summary = getString(R.string.signed_out_status)
     }
 
     private fun showSignOutButton() {
         signin?.isVisible = false
         signout?.isVisible = true
-        signout?.summary = "Status: Signed in"
+        signout?.summary = getString(R.string.signed_in_status)
     }
 
     override fun setMoney(amount: Int) {
         SettingsUtils.setMoney(amount, requireContext())
-        Toast.makeText(requireContext(),"Money set: $$amount", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), getString(R.string.money_set, amount), Toast.LENGTH_LONG).show()
     }
 }

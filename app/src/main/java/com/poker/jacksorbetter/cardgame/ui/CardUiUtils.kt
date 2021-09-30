@@ -7,10 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.poker.jacksorbetter.main.PokerApplication
+import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.settings.SettingsUtils
-import timber.log.Timber
 import kotlin.random.Random
 
 object CardUiUtils {
@@ -19,7 +18,6 @@ object CardUiUtils {
         if(SettingsUtils.getCardBack(context) == R.drawable.card_back_gold) {
             for (shimmer in shimmerLayouts){
                 shimmer.baseAlpha = 0.9F// opacity of non shimmer part of image
-//                shimmer.intensity = 0.1F
                 shimmer.duration = Random.nextInt(900, 1400)
                 shimmer.startShimmerAnimation()
             }
@@ -30,7 +28,6 @@ object CardUiUtils {
         if(cardsToTint.isEmpty()) return
         fullHand?.forEachIndexed { index, c ->
             if (cardsToTint.contains(c)){
-//            if (c in cardsToTint) {
                 cardViews?.get(index)?.setColorFilter(ContextCompat.getColor(PokerApplication.applicationContext(), R.color.colorGrey), android.graphics.PorterDuff.Mode.MULTIPLY)
             }
         }
@@ -60,7 +57,7 @@ object CardUiUtils {
     fun showSmallCards(cardViews: List<ImageView>?, fullHand: List<Card>?) {
         if(cardViews == null || fullHand == null || cardViews.size != 5 || fullHand.size != 5) return
         fullHand.forEachIndexed { index, card ->
-            cardViews.get(index).setImageResource(cardSmallToImage(card))
+            cardViews[index].setImageResource(cardSmallToImage(card))
         }
     }
 
@@ -69,7 +66,7 @@ object CardUiUtils {
     }
 
     fun showCardBacks(cardViews: List<ImageView>?) {
-        cardViews?.forEachIndexed { index,it ->
+        cardViews?.forEachIndexed { _,it ->
             it.setImageResource(SettingsUtils.getCardBack(PokerApplication.applicationContext()))
         }
     }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">Valetes Ou Melhor</string>
+
+    <string name="simulations">Simulações</string>
+    <string name="about">Sobre</string>
+    <string name="settings">Ajustes</string>
+    <string name="statistics">Estatísticas</string>
+
+
+    <!-- Preferences -->
+    <string name="general_header">Geral</string>
+    <string name="money_header">Dinheiro</string>
+    <string name="payout_table_title">Mesa de Pagamento</string>
+    <string name="reset_money">Redefinir Dinheiro</string>
+    <string name="autohold_description">Aumentar o número aumenta a precisão, mas diminui o tempo de decisão. (Padrão 5.000)</string>
+    <string name="training_strict_description">Aumentar o número aumenta a seriedade da comparação da sua mão com a melhor mão. Às vezes, as diferenças nos valores esperados entre a mãos é irrelevante</string>
+
+    <!--    Main Fragment -->
+    <string name="collect_button">Coletar</string>
+    <string name="training_expected_diff">Diferença: $%.3f</string>
+    <string name="deal_button">Oferta</string>
+    <string name="double_button">Dobrar</string>
+    <string name="bet_one_button">Apostar Mais</string>
+    <string name="bet_max_button">Aposta Máxima</string>
+    <string name="button_explain">Explicar</string>
+    <string name="autohold">Autohold</string>
+    <string name="hand_stats">Statísticas das Mãos</string>
+    <string name="training">Treinamento</string>
+    <string name="training_optimal_expected">Melhor Expectativa: %s</string>
+    <string name="training_your_expected">Sua Expectativa: %s</string>
+    <string name="training_all_choices">Todas as Opções</string>
+    <string name="training_correct_count">Correto: %d</string>
+    <string name="training_wrong_count">Incorreto: %d</string>
+    <string name="training_accuracy">Precisão: %.2f%%</string>
+    <string name="training_wrong">Incorreto</string>
+    <string name="training_correct">Correto</string>
+    <string name="hand_increase_error">Não pode alterar no meio do jogo</string>
+    <string name="hand_decrease_error">Mínimo: 1 mão</string>
+
+    <string name="tap_card_to_hold">Toque na carta para manter</string>
+
+    <!--   Bonus round stuff   -->
+    <string name="bonus_correct_guess">Vencedor!</string>
+    <string name="bonus_wrong_guess">Palpite Errado!</string>
+    <string name="bonus_title">Adivinhe a cor?</string>
+
+    <!--   Hand stats  -->
+    <string name="stats_optimal_return_pos">Melhor Retorno: +$%.3f</string>
+    <string name="stats_optimal_return_neg">Melhor Retorno: -$%.3f</string>
+    <string name="stats_your_return_pos">Seu Retorno: +$%.3f</string>
+    <string name="stats_your_return_neg">Seu Retorno: -$%.3f</string>
+
+
+    <!--    Stat fragment screen  -->
+    <string name="loss">Derrotas: -$%d</string>
+    <string name="loss2">Derrotas:</string>
+    <string name="won">Vitórias: $%d</string>
+    <string name="won2">Vitórias:</string>
+    <string name="total">Total: $%d</string>
+    <string name="total2">Total:</string>
+    <string name="total_neg">Total: -$%d</string>
+    <string name="bet">Aposta: $%d</string>
+    <string name="bet2">Aposta:</string>
+    <string name="eval">Avaliação: %s</string>
+    <string name="eval2">Avaliação:</string>
+    <string name="your_accuracy">Precisão: %.2f%%</string>
+    <string name="correct_count">Contagem Correta: %d</string>
+    <string name="wrong_count">Contagem Incorreta: %d</string>
+    <string name="correct_count2">Contagem Correta: </string>
+    <string name="wrong_count2">Contagem Incorreta: </string>
+    <string name="percent">Precisão</string>
+    <string name="percent2">Precisão: </string>
+    <string name="reset"><u>Redefinir</u></string>
+
+    <string name="right">Direita</string>
+    <string name="wrong">Incorreto</string>
+    <string name="correct">Correto</string>
+    <string name="hold">Manter</string>
+
+    <string name="guess_the_color">Adivinhe a cor?</string>
+    <string name="red">Vermelho</string>
+    <string name="black">Preto</string>
+
+    <!--   About -->
+    <string name="other_apps">Meus Outros Apps:</string>
+    <string name="about_feedback_title">Comentários:</string>
+    <string name="about_feedback">Encontrou um bug? Tem uma ideia legal? Quer uma nova opção de estatística? Me mande um email, adoro comentários/sugestões!</string>
+    <string name="email_me">Enviar Email</string>
+    <string name="about_jacks_poker">Valetes ou Melhor é a variante de vídeo poker mais popular. </string>
+
+
+    <!--    Dialog Reset Money -->
+    <string name="select_money">Selecione a quantia desejada</string>
+    <string name="five_thousand" translatable="false">$5,000</string>
+    <string name="thousand" translatable="false">$1,000</string>
+    <string name="ten_thousand" translatable="false">$10,000</string>
+    <string name="money_set">Dinheiro: $%d</string>
+
+    <!--  Highscore Fragment -->
+    <string name="log_in">Entrar</string>
+    <string name="signed_in">Conectado</string>
+    <string name="highscore_id" translatable="false">CgkIqLmFopAZEAIQBg</string>
+    <string name="app_id" translatable="false">863359818920</string>
+    <string name="dev_settings">Dev Settings</string>
+    <string name="no_highscore_results">Nenhum Recorde</string>
+    <string name="battle_with_the_best">Entre para registrar os seus recordes!</string>
+    <string name="highscores">Recordes</string>
+    <string name="sign_in_success">Entrada: Realizada</string>
+
+
+    <!--    Dialog Golden God-->
+    <string name="golden_god_highscore">Recorde</string>
+    <string name="golden_god_highscore_desc">#1 Recorde Mundial</string>
+    <string name="golden_god_desc">Você é um Deus Dourado e deve ser tratado como tal. Você liberou as cartas com versos dourados (você pode alterar os versos das cartas nos ajustes).</string>
+
+
+    <string name="whats_new_title" translatable="false">What\'s New (v%s)</string>
+    <string name="whats_new_desc" translatable="false">…<br/>
+    </string>
+
+
+    <string name="two_decimal" translatable="false">%.2f%%</string>
+</resources>

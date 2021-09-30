@@ -11,11 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
-import com.poker.jacksorbetter.HandFragment
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.*
 import com.poker.jacksorbetter.cardgame.dialog.GoldenGodDialog
@@ -28,7 +26,6 @@ import com.poker.jacksorbetter.leaderboard.HighScoreFragment
 import com.poker.jacksorbetter.leaderboard.HighScoreViewModel
 import com.poker.jacksorbetter.leaderboard.SignInViewModel
 import com.poker.jacksorbetter.settings.SettingsUtils
-import com.poker.jacksorbetter.stats.StatisticsManager
 import com.poker.jacksorbetter.training.TrainingFragment
 import com.poker.jacksorbetter.training.TrainingViewModel
 import com.wajahatkarim3.easyflipview.EasyFlipView
@@ -47,6 +44,8 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     private lateinit var signInViewModel: SignInViewModel
     private lateinit var highscoreViewModel: HighScoreViewModel
     private lateinit var trainingViewModel: TrainingViewModel
+
+    private var handFragment: HandFragment? = null
 
     private lateinit var tableLayout: TableLayout
     private var highLightedRow = -1
@@ -234,7 +233,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 }
                 MainViewModel.GameState.EVALUATE_WITH_BONUS -> {
                     // user is opting out of double down
-                    viewModel.collect()
+                    viewModel.collect(null, null)
                     viewModel.gameState.value = MainViewModel.GameState.START
                     viewModel.cardFLipState.value = MainViewModel.CardFlipState.FACE_DOWN
                 }
@@ -280,7 +279,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
                 viewModel.decreaseHands()
             } else {
-                mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
+                mainLayout.snack(getString(R.string.hand_increase_error), Snackbar.LENGTH_LONG)
             }
         }
 
@@ -293,7 +292,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                     }
                 }
             } else {
-                mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
+                mainLayout.snack(getString(R.string.hand_increase_error), Snackbar.LENGTH_LONG)
             }
         }
 
@@ -303,7 +302,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
                 viewModel.incrementHands()
             } else {
-                mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
+                mainLayout.snack(getString(R.string.hand_increase_error), Snackbar.LENGTH_LONG)
             }
         }
 
@@ -314,10 +313,11 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                     viewModel.incrementHands()
                 }
             } else {
-                mainLayout.snack("Can't change mid game", Snackbar.LENGTH_LONG)
+                mainLayout.snack(getString(R.string.hand_increase_error), Snackbar.LENGTH_LONG)
             }
         }
 
+        actionBar?.hide()
         val threeDots = view.findViewById<ImageView>(R.id.dots)
         threeDots.setOnClickListener {
             if(actionBar?.isShowing == true){
@@ -327,9 +327,17 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         }
 
-        childFragmentManager.beginTransaction()
-            .replace(R.id.hand_container, HandFragment.newInstance())
-            .commitNow()
+
+        //todo move this somewhere else and have variable
+//        if(handFragment == null){
+//        }
+        handFragment = HandFragment.newInstance()
+        handFragment?.let {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.hand_container, it)
+                .commitNow()
+        }
+
 
         PayTableUiUtils.populatePayTable(
             tableLayout,
@@ -345,8 +353,22 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     override fun onPause() {
         super.onPause()
-        StatisticsManager.writeStatisticsToDisk()
+//        StatisticsManager.writeStatisticsToDisk()
+//        handFragment = null
+        handFragment?.onDestroy()
+        viewModel.numberOfHands.value = 1
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        viewModel.gameState.value = MainViewModel.GameState.START
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SoundManager.release()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         actionBar = (activity as AppCompatActivity?)?.supportActionBar
@@ -363,11 +385,11 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         SoundManager.load(requireActivity())
 
         signInViewModel.setPopUpView(requireContext(), mainLayout)
-        signInViewModel.googleAccount.observe(viewLifecycleOwner, Observer {
+        signInViewModel.googleAccount.observe(viewLifecycleOwner,  {
             loadHighScoreFragment()
         })
 
-        viewModel.bet.observe(viewLifecycleOwner, Observer { currentBet ->
+        viewModel.bet.observe(viewLifecycleOwner,  { currentBet ->
             currentBet?.let {
                 updateHighlightedColumnUi()
                 updateBetText(currentBet * (viewModel.numberOfHands.value ?: 1))
@@ -376,7 +398,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             betCircleBack.text = "$currentBet"
         })
 
-        viewModel.numberOfHands.observe(viewLifecycleOwner, Observer { numHands ->
+        viewModel.numberOfHands.observe(viewLifecycleOwner,  { numHands ->
             numberOfHands.text = "$numHands"
             updateBetText( numHands * (viewModel.bet.value ?: 1))
 
@@ -387,13 +409,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         })
 
-        viewModel.hands.observe(viewLifecycleOwner, Observer { hand ->
-            hand?.let {
-//                updateTrainingYourExpected(viewModel.lookupExpectedValue(getCardsToKeep()))
-            }
-        })
-
-        viewModel.handEvals.observe(viewLifecycleOwner, Observer { handEvals ->
+        viewModel.handEvals.observe(viewLifecycleOwner,  { handEvals ->
             handEvals?.let {
                 if (handEvals.size > 0) {
                     updateHighlightedRowUi(handEvals[0])
@@ -407,11 +423,11 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         })
 
-        viewModel.totalMoney.observe(viewLifecycleOwner, Observer { totalMoney ->
+        viewModel.totalMoney.observe(viewLifecycleOwner,  { totalMoney ->
             updateTotalMoneyUi(totalMoney)
         })
 
-        viewModel.wonLostMoney.observe(viewLifecycleOwner, Observer { wonLostMoney ->
+        viewModel.wonLostMoney.observe(viewLifecycleOwner,  { wonLostMoney ->
 
             updateWonLostMoneyUi(wonLostMoney)
             if (wonLostMoney > 0) {
@@ -430,15 +446,15 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         })
 
-        viewModel.gameState.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.gameState.observe(viewLifecycleOwner,  { state ->
             updateUi(state)
         })
 
-        viewModel.cardFLipState.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.cardFLipState.observe(viewLifecycleOwner,  { state ->
             flip(state, viewModel.hands.value?.get(0)?.toList() ?: emptyList())
         })
 
-        viewModel.aiDecision.observe(viewLifecycleOwner, Observer { decision ->
+        viewModel.aiDecision.observe(viewLifecycleOwner,  { decision ->
             val sortedHands = decision.sortedRankedHands
             if (autoHold.isChecked && viewModel.gameState.value == MainViewModel.GameState.DEAL) {
                 CardUiUtils.highlightHeldCards(
@@ -469,12 +485,6 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     private fun updateBetText(currentBet: Int?) {
         betText.text = getString(R.string.bet, currentBet)
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        SoundManager.release()
     }
 
     private fun disableBetChangingUi() {
@@ -533,9 +543,9 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 showNormalButtonsUi()
                 clearWinningTextUi()
                 PayTableUiUtils.unblink(tableLayout)
-//                initializeTrainingView()
             }
             MainViewModel.GameState.DEAL -> {
+                clearWonLostMoneyUi()
                 showHelpText()
                 disableBetChangingUi()
                 viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
@@ -548,7 +558,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 clearHoldUi()
                 disableBetChangingUi()
                 showBonusAndCollect()
-                updateWonLostMoneyUi(viewModel.calculatePayout()) // show money won although user hasnnt collected yet (they might double)
+                updateWonLostMoneyUi(viewModel.calculatePayout(null)) // show money won although user hasnnt collected yet (they might double)
                 showWinningCardsUi()
                 PayTableUiUtils.blinkRow(
                     requireContext(), tableLayout, viewModel.handEvals.value?.get(
@@ -814,6 +824,6 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     override fun setMoney(amount: Int) {
         viewModel.totalMoney.value = amount
         SettingsUtils.setMoney(amount, requireContext())
-        Toast.makeText(requireContext(), "Money set: $$amount", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), getString(R.string.money_set, amount), Toast.LENGTH_LONG).show()
     }
 }

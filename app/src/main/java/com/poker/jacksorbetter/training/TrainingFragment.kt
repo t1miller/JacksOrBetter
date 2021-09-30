@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.dialog.SnackBarUtils.snack
@@ -54,7 +53,6 @@ class TrainingFragment : Fragment() {
         greenImage = view.findViewById(R.id.green)
         redImage = view.findViewById(R.id.red)
         mainLayout = view.findViewById(R.id.trainingModeLayout)
-//        yellowImage = view.findViewById(R.id.yellow)
 
         cardViews.clear()
         cardViews.add(view.findViewById(R.id.card1Small))
@@ -86,13 +84,10 @@ class TrainingFragment : Fragment() {
                     )
                 }
                 else -> {
-                    mainLayout.snack("Deal First", Snackbar.LENGTH_LONG)
+                    mainLayout.snack(getString(R.string.deal_first), Snackbar.LENGTH_LONG)
                 }
             }
         }
-
-        CardUiUtils.showSmallCards(cardViews, listOf(Card(), Card(), Card(), Card(), Card()))
-        clearTrainingView()
         return view
     }
 
@@ -101,7 +96,7 @@ class TrainingFragment : Fragment() {
         viewModelMain = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         viewModelTrain = ViewModelProvider(requireActivity()).get(TrainingViewModel::class.java)
 
-        viewModelMain.handEvals.observe(viewLifecycleOwner, Observer { handEvals ->
+        viewModelMain.handEvals.observe(viewLifecycleOwner, { handEvals ->
             handEvals?.let {
 
                 viewModelMain.aiDecision.value?.let {
@@ -114,7 +109,7 @@ class TrainingFragment : Fragment() {
             }
         })
 
-        viewModelMain.gameState.observe(viewLifecycleOwner, Observer { state ->
+        viewModelMain.gameState.observe(viewLifecycleOwner, { state ->
             if(state == MainViewModel.GameState.START){
                 clearTrainingView()
             }
@@ -136,7 +131,6 @@ class TrainingFragment : Fragment() {
     }
 
     private fun clearTrafficLight() {
-//        yellowImage.setImageDrawable(null)
         greenImage.setImageDrawable(null)
         redImage.setImageDrawable(null)
     }

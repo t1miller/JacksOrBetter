@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">Jacks Or Better</string>
+
+    <string name="simulations">Simulazioni</string>
+    <string name="about">Info</string>
+    <string name="settings">Impostazioni</string>
+    <string name="statistics">Statistiche</string>
+
+
+    <!-- Preferences -->
+    <string name="general_header">Generale</string>
+    <string name="money_header">Denaro</string>
+    <string name="payout_table_title">Tabella dei pagamenti</string>
+    <string name="reset_money">Ripristina denaro</string>
+    <string name="autohold_description">Aumentando il numero aumenta la precisione, ma anche il tempo di decisione. (Predefinito 5.000)</string>
+    <string name="training_strict_description">Aumentando il numero aumenta la rigidità di confronto tra la propria mano e la mano migliore. A volte, le differenze nei valori attesi tra le mani sono trascurabili</string>
+
+    <!--    Main Fragment -->
+    <string name="collect_button">Raccogli</string>
+    <string name="training_expected_diff">Differenza: $%.3f</string>
+    <string name="deal_button">Distribuisci</string>
+    <string name="double_button">Raddoppia</string>
+    <string name="bet_one_button">Punta</string>
+    <string name="bet_max_button">Punta il massimo</string>
+    <string name="button_explain">Spiega</string>
+    <string name="autohold">Autohold</string>
+    <string name="hand_stats">Statistiche mano</string>
+    <string name="training">Esercitazione</string>
+    <string name="training_optimal_expected">Ottimale stimato: %s</string>
+    <string name="training_your_expected">La tua stima: %s</string>
+    <string name="training_all_choices">Tutte le scelte</string>
+    <string name="training_correct_count">Corretto: %d</string>
+    <string name="training_wrong_count">Errato: %d</string>
+    <string name="training_accuracy">Precisione: %.2f%%</string>
+    <string name="training_wrong">Errato</string>
+    <string name="training_correct">Corretto</string>
+    <string name="hand_increase_error">Impossibile modificare a metà partita</string>
+    <string name="hand_decrease_error">Minimo: 1 mano</string>
+
+    <string name="tap_card_to_hold">Tocca la carta per mantenerla</string>
+
+    <!--   Bonus round stuff   -->
+    <string name="bonus_correct_guess">Hai vinto!</string>
+    <string name="bonus_wrong_guess">Sbagliato!</string>
+    <string name="bonus_title">Indovini il colore?</string>
+
+    <!--   Hand stats  -->
+    <string name="stats_optimal_return_pos">Resa ottimale: +$%.3f</string>
+    <string name="stats_optimal_return_neg">Resa ottimale: -$%.3f</string>
+    <string name="stats_your_return_pos">La tua resa: +$%.3f</string>
+    <string name="stats_your_return_neg">La tua resa: -$%.3f</string>
+
+
+    <!--    Stat fragment screen  -->
+    <string name="loss">Perdita: -$%d</string>
+    <string name="loss2">Perdita:</string>
+    <string name="won">Vincita: $%d</string>
+    <string name="won2">Vincita:</string>
+    <string name="total">Totale: $%d</string>
+    <string name="total2">Totale:</string>
+    <string name="total_neg">Totale: -$%d</string>
+    <string name="bet">Puntata: $%d</string>
+    <string name="bet2">Puntata:</string>
+    <string name="eval">Valut.: %s</string>
+    <string name="eval2">Valut.:</string>
+    <string name="your_accuracy">Precisione: %.2f%%</string>
+    <string name="correct_count">Conteggio corretto: %d</string>
+    <string name="wrong_count">Conteggio errato: %d</string>
+    <string name="correct_count2">Conteggio corretto: </string>
+    <string name="wrong_count2">Conteggio errato: </string>
+    <string name="percent">Precisione</string>
+    <string name="percent2">Precisione: </string>
+    <string name="reset"><u>Ripristina</u></string>
+
+    <string name="right">Giusto</string>
+    <string name="wrong">Errato</string>
+    <string name="correct">Corretto</string>
+    <string name="hold">Mantieni</string>
+
+    <string name="guess_the_color">Indovini il colore?</string>
+    <string name="red">Rosso</string>
+    <string name="black">Nero</string>
+
+    <!--   About -->
+    <string name="other_apps">Le altre mie app:</string>
+    <string name="about_feedback_title">Feedback:</string>
+    <string name="about_feedback">Hai trovato un bug? Hai una grande idea? Vuoi una nuova funzionalità delle statistiche? Inviami un\'email, adoro ricevere feedback/suggerimenti!</string>
+    <string name="email_me">Inviami un\'email</string>
+    <string name="about_jacks_poker">Jacks or Better è la variante di video poker più famosa.</string>
+
+
+    <!--    Dialog Reset Money -->
+    <string name="select_money">Seleziona quanto vuoi</string>
+    <string name="five_thousand" translatable="false">$5,000</string>
+    <string name="thousand" translatable="false">$1,000</string>
+    <string name="ten_thousand" translatable="false">$10,000</string>
+    <string name="money_set">Denaro accantonato: $%d</string>
+
+    <!--  Highscore Fragment -->
+    <string name="log_in">Accedi</string>
+    <string name="signed_in">Accesso eseguito</string>
+    <string name="highscore_id" translatable="false">CgkIqLmFopAZEAIQBg</string>
+    <string name="app_id" translatable="false">863359818920</string>
+    <string name="dev_settings">Dev Settings</string>
+    <string name="no_highscore_results">Nessun punteggio record</string>
+    <string name="battle_with_the_best">Accedi per inviare i record!</string>
+    <string name="highscores">Record</string>
+    <string name="sign_in_success">Accesso: riuscito</string>
+
+
+    <!--    Dialog Golden God-->
+    <string name="golden_god_highscore">Record</string>
+    <string name="golden_god_highscore_desc">#1 record globale</string>
+    <string name="golden_god_desc">Sei un Dio dorato e devi essere trattato come tale. Hai sbloccato la golden card. (Puoi modificare il retro delle carte nelle impostazioni)</string>
+
+
+    <string name="whats_new_title" translatable="false">What\'s New (v%s)</string>
+    <string name="whats_new_desc" translatable="false">…<br/>
+    </string>
+
+
+    <string name="two_decimal" translatable="false">%.2f%%</string>
+</resources>

@@ -12,20 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.main.PayOutHelper
-import com.poker.jacksorbetter.main.PokerApplication
 import timber.log.Timber
 
 object SettingsUtils {
 
     object Defaults{
-        const val CHOOSE_CARDBACK = 0
+        const val CHOOSE_CARDBACK = 2
         const val MONEY = 500
-        const val MONTE_CARLO_TRIALS = 5000
+        const val MONTE_CARLO_TRIALS = 4500
         const val SOUND = true
         const val SOUND_FLIP = true
-        const val SOUND_LOSE = true
         const val SOUND_BONUS = true
-        const val SHEEP_MODE = false
         const val PAYOUT_TABLE = "9/6 – 99.54%"
         const val GOLDEN_GOD = false
     }
@@ -33,7 +30,7 @@ object SettingsUtils {
     object Keys{
         const val SIGN_OUT = "sign_out"
         const val SIGN_IN = "sign_in"
-        const val MONTE_CARLO_TRIALS = "montecarlo_trials"
+        const val MONTE_CARLO_TRIALS = "montecarlo_trials_config6"
         const val PAYOUT_TABLE = "payout_table"
         const val RESET_MONEY = "reset_money"
         const val RESET_STATS = "reset_stats"
@@ -41,10 +38,8 @@ object SettingsUtils {
         const val CHOOSE_CARDBACK = "choose_cardback"
         const val TOTAL_MONEY = "money"
         const val SOUND = "sound"
-        const val SOUND_LOSE = "sound_lose"
         const val SOUND_FLIP = "sound_flip"
         const val SOUND_BONUS = "sound_bonus"
-        const val SHEEP_MODE = "sheep_mode"
         const val GOLDEN_GOD = "golden_god"
     }
 
@@ -97,18 +92,6 @@ object SettingsUtils {
         )
     }
 
-    fun isSheepModeEnabled(context: Context) : Boolean{
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(
-            Keys.SHEEP_MODE,
-            Defaults.SHEEP_MODE
-        )
-    }
-
-//    fun resetMoney(context: Context) {
-//        setMoney(Defaults.MONEY, context)
-//    }
-
     fun getMoney(context: Context) : Int {
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         return preferences.getInt(Keys.TOTAL_MONEY, Defaults.MONEY)
@@ -146,14 +129,6 @@ object SettingsUtils {
         return CardBacks.cardbacks[position]
     }
 
-    fun isLoseSoundEnabled(context: Context) : Boolean{
-        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(
-            Keys.SOUND_LOSE,
-            Defaults.SOUND_LOSE
-        )
-    }
-
     fun isFlipSoundEnabled(context: Context) : Boolean{
         val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
         return preferences.getBoolean(
@@ -169,14 +144,6 @@ object SettingsUtils {
             Defaults.SOUND_BONUS
         )
     }
-
-//    fun isCrazyMode(context: Context) : Boolean{
-//        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-//        return preferences.getBoolean(
-//            Keys.CRAZY_MODE,
-//            Defaults.CRAZY_MODE
-//        )
-//    }
 
     fun setGoldenGod(context: Context, isGoldenGold: Boolean) : Boolean {
         if(isGoldenGold){
@@ -213,7 +180,7 @@ object SettingsUtils {
             override fun onCardTapped(position: Int) {
                 setCardBack(position, context)
                 dialog.dismiss()
-                Toast.makeText(context, "cardback selected", Toast.LENGTH_LONG).show()
+//                Toast.makeText(context, "cardback selected", Toast.LENGTH_LONG).show()
             }
         }, isGoldenGod(context))
 

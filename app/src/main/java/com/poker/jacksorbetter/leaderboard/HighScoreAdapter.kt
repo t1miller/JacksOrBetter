@@ -29,10 +29,12 @@ class HighScoreAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-//        holder.rank.text = "$position)"
         holder.player.text = item.first
-        holder.money.text = java.text.NumberFormat.getCurrencyInstance().format(item.second)
-//        Timber.d("Adapter $item")
+        try {
+            holder.money.text = java.text.NumberFormat.getCurrencyInstance().format(item.second)
+        }catch (e: Exception) {
+            holder.money.text = "$$item.second"
+        }
     }
 
     override fun getItemCount(): Int = values.size

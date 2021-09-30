@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.R
-import com.poker.jacksorbetter.main.PokerApplication
+import com.poker.jacksorbetter.PokerApplication
 
 
 interface CardTapped {
@@ -42,7 +42,7 @@ class CardBackAdapter(private val cardTapped: CardTapped, private val isGoldenGo
             if (position == itemCount - 1 && !isGoldenGod){
                 Toast.makeText(
                     PokerApplication.applicationContext(),
-                    "Golden Gods only",
+                    PokerApplication.applicationContext().getString(R.string.golden_god_desc2),
                     Toast.LENGTH_LONG
                 ).show()
             } else {

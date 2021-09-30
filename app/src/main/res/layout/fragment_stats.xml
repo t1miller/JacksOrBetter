@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Statistics" />
+            android:text="@string/statistics" />
 
         <TextView
             style="@style/TextSubTitle"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/stats_title"
-            android:text="Hand Stats:" />
+            android:text="@string/hand_stats" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/list"
-            android:text="Money Stats:" />
+            android:text="@string/statistic_money_stats" />
 
         <TextView
             android:id="@+id/won"
@@ -63,7 +63,7 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/money"
-            android:text="Won:" />
+            android:text="@string/won2" />
 
         <TextView
             android:id="@+id/loss"
@@ -72,7 +72,7 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/won"
-            android:text="Lost:" />
+            android:text="@string/loss2" />
 
         <TextView
             android:id="@+id/total"
@@ -81,7 +81,7 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/loss"
-            android:text="Total:" />
+            android:text="@string/total2" />
 
         <TextView
             style="@style/TextSubTitle"
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/total"
-            android:text="Last Game:" />
+            android:text="@string/statistic_last_game" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card1"
                 app:layout_constraintStart_toStartOf="@id/card1"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card2"
                 app:layout_constraintStart_toStartOf="@id/card2"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -156,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card3"
                 app:layout_constraintStart_toStartOf="@id/card3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card4"
                 app:layout_constraintStart_toStartOf="@id/card4"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Hold"
+                android:text="@string/hold"
                 app:layout_constraintEnd_toEndOf="@id/card5"
                 app:layout_constraintStart_toStartOf="@id/card5"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -203,7 +203,7 @@
                 android:id="@+id/bet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bet:"
+                android:text="@string/bet2"
                 android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/card5"
@@ -266,7 +266,7 @@
                 android:id="@+id/lastHandwon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Won:"
+                android:text="@string/won2"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toEndOf="@+id/card52"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -275,7 +275,7 @@
                 android:id="@+id/lastHandEval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Eval:"
+                android:text="@string/eval2"
                 android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/card52"
@@ -290,7 +290,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardsLayout2"
-            android:text="Strategy Stats:" />
+            android:text="@string/statistic_strategy" />
 
         <TextView
             android:id="@+id/strategyYourAccuracy"
@@ -299,7 +299,7 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/strategyStats"
-            android:text="Accuracy: " />
+            android:text="@string/percent2" />
 
 
         <TextView
@@ -309,7 +309,7 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/strategyYourAccuracy"
-            android:text="Correct Count: " />
+            android:text="@string/correct_count2" />
 
         <TextView
             android:id="@+id/strategyWrongCount"
@@ -318,7 +318,7 @@
             android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/strategyCorrectCount"
-            android:text="Wrong Count: " />
+            android:text="@string/wrong_count2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

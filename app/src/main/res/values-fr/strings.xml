@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">Valets ou mieux</string>
+
+    <string name="simulations">Simulations</string>
+    <string name="about">Au sujet de</string>
+    <string name="settings">Paramètres</string>
+    <string name="statistics">Statistiques</string>
+
+
+    <!-- Preferences -->
+    <string name="general_header">Général</string>
+    <string name="money_header">Argent</string>
+    <string name="payout_table_title">Tableau des gains</string>
+    <string name="reset_money">Réinitialiser l\'argent</string>
+    <string name="autohold_description">Augmenter le nombre augmente l\'exactitude mais aussi le temps de décision. (5 000 par défaut)</string>
+    <string name="training_strict_description">Augmenter le nombre augmente la rigueur lors de la comparaison de votre jeu au meilleur jeu. Parfois, les différences en valeur attendues entre les jeux sont négligeables.</string>
+
+    <!--    Main Fragment -->
+    <string name="collect_button">Collecter</string>
+    <string name="training_expected_diff">Différence : $%.3f</string>
+    <string name="deal_button">Distribuer</string>
+    <string name="double_button">Double</string>
+    <string name="bet_one_button">Enchère</string>
+    <string name="bet_max_button">Enchère max</string>
+    <string name="button_explain">Expliquer</string>
+    <string name="autohold">Maintien auto</string>
+    <string name="hand_stats">Stats de jeu</string>
+    <string name="training">Entraînement</string>
+    <string name="training_optimal_expected">Optimal attendu : %s</string>
+    <string name="training_your_expected">Vôtre attendu : %s</string>
+    <string name="training_all_choices">Tous les choix</string>
+    <string name="training_correct_count">Corriger : %d</string>
+    <string name="training_wrong_count">Faux : %d</string>
+    <string name="training_accuracy">Exactitude : %.2f%%</string>
+    <string name="training_wrong">Faux</string>
+    <string name="training_correct">Correct</string>
+    <string name="hand_increase_error">Impossible de changer à mi-partie</string>
+    <string name="hand_decrease_error">Minimum : 1 jeu</string>
+
+    <string name="tap_card_to_hold">Appuyer la carte pour maintenir</string>
+
+    <!--   Bonus round stuff   -->
+    <string name="bonus_correct_guess">Gagnant !</string>
+    <string name="bonus_wrong_guess">Mauvaise estimation !</string>
+    <string name="bonus_title">Deviner la couleur ?</string>
+
+    <!--   Hand stats  -->
+    <string name="stats_optimal_return_pos">Retour optimal : +$%.3f</string>
+    <string name="stats_optimal_return_neg">Retour optimal : -$%.3f</string>
+    <string name="stats_your_return_pos">Votre retour : +$%.3f</string>
+    <string name="stats_your_return_neg">Votre retour : -$%.3f</string>
+
+
+    <!--    Stat fragment screen  -->
+    <string name="loss">Perte : -$%d</string>
+    <string name="loss2">Perte :</string>
+    <string name="won">Gagné : $%d</string>
+    <string name="won2">Gagné : </string>
+    <string name="total">Total : $%d</string>
+    <string name="total2">Total :</string>
+    <string name="total_neg">Total : -$%d</string>
+    <string name="bet">Mise : $%d</string>
+    <string name="bet2">Mise :</string>
+    <string name="eval">Eval : %s</string>
+    <string name="eval2">Eval :</string>
+    <string name="your_accuracy">Exactitude : %.2f%%</string>
+    <string name="correct_count">Compte exact : %d</string>
+    <string name="wrong_count">Mauvais compte : %d</string>
+    <string name="correct_count2">Compte exact : </string>
+    <string name="wrong_count2">Mauvais compte : </string>
+    <string name="percent">Exactitude</string>
+    <string name="percent2">Exactitude: </string>
+    <string name="reset"><u>Rénitialiser</u></string>
+
+    <string name="right">Juste</string>
+    <string name="wrong">Faux</string>
+    <string name="correct">Correct</string>
+    <string name="hold">Maintenir</string>
+
+    <string name="guess_the_color">Deviner la couleur ?</string>
+    <string name="red">Rouge</string>
+    <string name="black">Noir</string>
+
+    <!--   About -->
+    <string name="other_apps">Mes autres applis :</string>
+    <string name="about_feedback_title">Commentaires :</string>
+    <string name="about_feedback">Vous avez trouvé un bogue ? Vous avez une bonne idée ? Vous voulez une nouvelle fonctionnalité de stats ? Envoyez-moi un e-mail, j\'adore les commentaires et suggestions !</string>
+    <string name="email_me">Envoyez-moi un e-mail</string>
+    <string name="about_jacks_poker">Valets ou plus est la variante vidéo de poker la plus populaire.</string>
+
+
+    <!--    Dialog Reset Money -->
+    <string name="select_money">Choisissez combien vous voulez</string>
+    <string name="five_thousand" translatable="false">$5,000</string>
+    <string name="thousand" translatable="false">$1,000</string>
+    <string name="ten_thousand" translatable="false">$10,000</string>
+    <string name="money_set">Argent placé : $%d</string>
+
+    <!--  Highscore Fragment -->
+    <string name="log_in">Connexion</string>
+    <string name="signed_in">Connecté</string>
+    <string name="highscore_id" translatable="false">CgkIqLmFopAZEAIQBg</string>
+    <string name="app_id" translatable="false">863359818920</string>
+    <string name="dev_settings">Dev Settings</string>
+    <string name="no_highscore_results">Aucun score élevé</string>
+    <string name="battle_with_the_best">Connectez-vous pour envoyer des scores élevés !</string>
+    <string name="highscores">Scores élevés</string>
+    <string name="sign_in_success">Connexion : réussie</string>
+
+
+    <!--    Dialog Golden God-->
+    <string name="golden_god_highscore">Meilleur score</string>
+    <string name="golden_god_highscore_desc">Meilleur score mondial</string>
+    <string name="golden_god_desc">Vous êtes un Dieu d\'or et vous devriez être traité comme tel. Vous avez déverrouillé la carte d\'or. (Vous pouvez modifier les dos de cartes dans les paramètres)</string>
+
+
+    <string name="whats_new_title" translatable="false">What\'s New (v%s)</string>
+    <string name="whats_new_desc" translatable="false">…<br/>
+    </string>
+
+
+    <string name="two_decimal" translatable="false">%.2f%%</string>
+</resources>

@@ -15,16 +15,11 @@ object SoundManager {
 
     enum class SoundType {
         SHUFFLE,
-        SHUFFLE_SHEEP,
         FLIP,
         INSERT_COIN,
-        INSERT_COIN_SHEEP,
         COLLECTING_COINS,
-        COLLECTING_COINS_SHEEP,
         BIG_WIN,
-        BIG_WIN_SHEEP,
         MEDIUM_WIN,
-        MEDIUM_WIN_SHEEP,
         CHIME,
         CHICKEN_DINNER,
         CHICKEN_SHUFFLING,

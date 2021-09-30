@@ -4,7 +4,7 @@ import Card
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
-import com.poker.jacksorbetter.main.PokerApplication
+import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -75,11 +75,9 @@ object StatisticsManager {
         }
     }
 
+    // todo look where used
     fun addStatistic(lastGame: Game?) {
         updateLastGame(lastGame)
-
-        // todo this is way too much writing to disk
-//        writeStatisticsToDisk()
     }
 
 
@@ -92,9 +90,14 @@ object StatisticsManager {
         if(lastGame.heldCards == null) return
         if(lastGame.handFinal == null) return
 
+        if(statistics?.hands == null){
+            statistics = INITIALIZE
+        }
+
         statistics?.let { stat ->
             stat.lastGame = lastGame
             stat.hands.add(lastGame.handFinal)
+
             if(stat.hands.size > NUM_PAST_HANDS_LOGS){
                 // no bloated logs
                 stat.hands = stat.hands.drop(100).toMutableList()

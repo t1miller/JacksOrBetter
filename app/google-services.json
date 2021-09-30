@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "863359818920",
+    "project_id": "jacks-or-better-trainer-507200",
+    "storage_bucket": "jacks-or-better-trainer-507200.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863359818920:android:ae313ad5af912cb059b69d",
+        "android_client_info": {
+          "package_name": "com.poker.jacksorbetter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863359818920-t564cm0325uibo5658tkhsern6ungvn7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVwldczu2sdkhM1esys5eayCnKISK6F9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863359818920-t564cm0325uibo5658tkhsern6ungvn7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

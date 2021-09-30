@@ -26,8 +26,10 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    private val RC_SIGN_IN = 8008
-    private val RC_LEADERBOARD_UI = 9004
+    companion object {
+        private const val RC_SIGN_IN = 8008
+        private const val RC_LEADER_BOARD_UI = 9004
+    }
 
     private lateinit var viewModel: SignInViewModel
 
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
-        } else if (requestCode == RC_LEADERBOARD_UI) {
+        } else if (requestCode == RC_LEADER_BOARD_UI) {
         }
     }
 
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.googleAccount.value = account
             viewModel.state.value = SignInViewModel.SignInState.SIGNED_IN
             Timber.d("sign in: $account")
-            Toast.makeText(applicationContext, "Sign in: Success", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, R.string.sign_in_success, Toast.LENGTH_LONG).show()
         } catch (e: ApiException) {
             Timber.d("handleSignInResult() error ${e.statusCode}")
         }
@@ -124,8 +126,7 @@ class MainActivity : AppCompatActivity() {
         R.id.about -> {
             supportFragmentManager.beginTransaction().replace(
                 R.id.container,
-                AboutFragment.newInstance(),
-                AboutFragment.NAME
+                AboutFragment(),
             ).commitNow()
             true
         }
@@ -143,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             ).commitNow()
             true
         }
-        android.R.id.home -> {
+        R.id.home -> {
             loadMainFragment()
             true
         }

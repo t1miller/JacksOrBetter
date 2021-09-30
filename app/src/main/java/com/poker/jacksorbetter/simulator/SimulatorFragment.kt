@@ -161,15 +161,15 @@ class SimulatorFragment : Fragment() {
     }
 
     private fun showSimulationLoadingDialog(numTrials: Int) {
-        progress.setTitle("Monte Carlo Simulation")
+        progress.setTitle(getString(R.string.simulation_dialog_title))
 
-        var trialText = "Possible Decisions: 32\n"
-        trialText += String.format("Trials Per Decision: %,d\n",numTrials)
-        trialText += String.format("Total Games: %,d\n\n",32*numTrials)
+        var trialText = getString(R.string.simulation_dialog_desc1)
+        trialText += String.format(getString(R.string.simulation_dialog_desc2),numTrials)
+        trialText += String.format(getString(R.string.simulation_dialog_desc3),32*numTrials)
 
         if(numTrials > TRIAL_THRESHOLD) {
             trialText += randomSuprisedExpression()
-            trialText += ", that's a lot of trials. Let's Go!"
+            trialText += getString(R.string.simulation_dialog_desc4)
         }
         progress.setMessage(trialText)
         progress.setCancelable(false) // disable dismiss by tapping outside of the dialog

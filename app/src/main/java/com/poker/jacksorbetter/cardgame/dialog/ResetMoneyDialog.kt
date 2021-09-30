@@ -13,7 +13,7 @@ object ResetMoneyDialog {
     enum class AMOUNTS(var value: Int) {
         ONE(200),
         TWO(500),
-        THREE(1000)
+        THREE(5000)
     }
 
     interface MoneyButton{
