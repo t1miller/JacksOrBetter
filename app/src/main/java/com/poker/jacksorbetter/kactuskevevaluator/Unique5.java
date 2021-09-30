@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.handevaluator;
+package com.poker.jacksorbetter.kactuskevevaluator;
 
 public class Unique5
 {

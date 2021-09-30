@@ -34,26 +34,26 @@ class HandFragment : Fragment(), HandAdapter.Callback {
 
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        viewModel.gameState.observe(viewLifecycleOwner, Observer { gameState ->
+        viewModel.gameState.observe(viewLifecycleOwner,  { gameState ->
             if (gameState == MainViewModel.GameState.START){
                 mAdapter?.setState(State.CARD_BACK)
                 payAdapter?.unhighlightEvals()
             }
         })
 
-        viewModel.bet.observe(viewLifecycleOwner, Observer { bet ->
+        viewModel.bet.observe(viewLifecycleOwner,  { bet ->
             Timber.d("bet: $bet")
             payAdapter?.setBetAmount(bet)
             mAdapter?.setBetAmount(bet)
         })
 
-        viewModel.numberOfHands.observe(viewLifecycleOwner, Observer { numHands ->
+        viewModel.numberOfHands.observe(viewLifecycleOwner,  { numHands ->
             Timber.d("number of hands: $numHands")
             emptyHand(numHands - 1)
             layManager?.scrollToPosition(0)
         })
 
-        viewModel.hands.observe(viewLifecycleOwner, Observer { hands ->
+        viewModel.hands.observe(viewLifecycleOwner,  { hands ->
             hands?.let {
                 val nonMainHands = hands.subList(1, hands.size)
                 Timber.d("data $hands")
@@ -61,14 +61,14 @@ class HandFragment : Fragment(), HandAdapter.Callback {
             }
         })
 
-        viewModel.handEvals.observe(viewLifecycleOwner, Observer { evals ->
+        viewModel.handEvals.observe(viewLifecycleOwner,  { evals ->
             evals?.let {
                 Timber.d("evals $evals")
                 setEvalData(evals)
             }
         })
 
-        viewModel.cardsHeld.observe(viewLifecycleOwner, Observer { held ->
+        viewModel.cardsHeld.observe(viewLifecycleOwner,  { held ->
             mAdapter?.hold(held)
         })
     }

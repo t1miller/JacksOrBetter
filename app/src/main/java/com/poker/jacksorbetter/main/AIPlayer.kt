@@ -4,7 +4,7 @@ import Card
 import android.content.Context
 import com.poker.jacksorbetter.cardgame.Deck
 import com.poker.jacksorbetter.cardgame.Evaluate
-import com.poker.jacksorbetter.handevaluator.*
+import com.poker.jacksorbetter.kactuskevevaluator.*
 import timber.log.Timber
 
 data class AIDecision (
@@ -16,18 +16,20 @@ data class AIDecision (
 
 object AIPlayer {
 
-    const val DEBUG = false
+    private const val DEBUG = false
 
-    fun calculateBestHands(context: Context, bet: Int, hand: List<Card>, numTrials: Int, numHands: Int) : AIDecision {
-
+    /**
+     *  Given a 5 card hand there are 32 possible new hand combinations. This
+     *  Algorithm performs a Monte Carlo evaluation on all 32 possible hands
+     *  and returns the top 5 hands.
+     */
+    fun calculateBestHands(bet: Int, hand: List<Card>, numTrials: Int, numHands: Int) : AIDecision {
         val hands = hand.powerset()
         val handsEvaluated = mutableListOf<Pair<List<Card>, Double>>()
-
 
         for (h in hands) {
             val expectedValue =
                 monteCarloEvaluation(
-                    context,
                     bet,
                     h.toList(),
                     numTrials,
@@ -49,7 +51,11 @@ object AIPlayer {
         )
     }
 
-    private fun monteCarloEvaluation(context: Context, bet: Int, hand: List<Card>, numTrials: Int, numHands: Int) : Double {
+    /**
+     *  Monte Carlo Evaluation
+     *  Given a 5 card hand
+     */
+    private fun monteCarloEvaluation(bet: Int, hand: List<Card>, numTrials: Int, numHands: Int) : Double {
         if(DEBUG) {
             Timber.d("====== Monte Carlo Simulation ======")
         }
@@ -60,15 +66,9 @@ object AIPlayer {
         while (trial < numTrials) {
             val tempHand = Deck.draw5Random(hand.toMutableList())
             val tempHandPC = tempHand.map { card -> PokerCard(Rank(card.rank), Suit.parse(card.suit)) }.toTypedArray()
-
             val eval = HandEvaluator.evaluateSpecificHand(tempHandPC)
             evals.add(eval)
-            val payout = PayOutHelper.calculatePayout(context, bet,
-                convertEvalRank(
-                    hand,
-                    eval
-                )
-            ) * numHands
+            val payout = PayOutHelper.calculatePayout(bet, convertEvalRank(hand, eval)) * numHands
 
             expectedPayout += payout
             trial += 1
@@ -85,7 +85,7 @@ object AIPlayer {
 
     private fun convertEvalRank(hand: List<Card>, rank: HandRank) : Evaluate.Hand{
         return when(rank) {
-            HandRank.ROYAL_FLUSH -> Evaluate.Hand.ROYAL_FLUSH // todo
+            HandRank.ROYAL_FLUSH -> Evaluate.Hand.ROYAL_FLUSH
             HandRank.STRAIGHT_FLUSH -> Evaluate.Hand.STRAIGHT_FLUSH
             HandRank.FOUR_OF_A_KIND -> Evaluate.Hand.FOUR_OF_A_KIND
             HandRank.FULL_HOUSE -> Evaluate.Hand.FULL_HOUSE

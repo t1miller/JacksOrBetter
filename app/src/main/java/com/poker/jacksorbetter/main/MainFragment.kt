@@ -102,7 +102,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        SettingsUtils.resetNumTrials(requireContext())
+        SettingsUtils.resetNumTrials()
     }
 
 
@@ -269,11 +269,11 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             if(isChecked && viewModel.gameState.value == MainViewModel.GameState.DEAL) {
                 clearHoldUi()
                 helpText.visibility = View.VISIBLE
-                viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
+                viewModel.getBestHand(SettingsUtils.getNumTrials())
             }
         }
 
-        minusButton = view.findViewById<Button>(R.id.minusButton)
+        minusButton = view.findViewById(R.id.minusButton)
         minusButton.setOnClickListener {
             if(viewModel?.gameState.value == MainViewModel.GameState.START
                 || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
@@ -287,7 +287,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             if(viewModel?.gameState.value == MainViewModel.GameState.START
                 || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
                 for(i in 0..9){
-                    if(viewModel.numberOfHands.value?:1 > 1) {
+                    if(viewModel.numberOfHands.value?:SettingsUtils.getNumHands() > 1) {
                         viewModel.decreaseHands()
                     }
                 }
@@ -296,7 +296,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             }
         }
 
-        plusButton = view.findViewById<Button>(R.id.plusButton)
+        plusButton = view.findViewById(R.id.plusButton)
         plusButton.setOnClickListener {
             if(viewModel?.gameState.value == MainViewModel.GameState.START
                 || viewModel?.gameState.value == MainViewModel.GameState.EVALUATE_NO_BONUS) {
@@ -341,7 +341,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
         PayTableUiUtils.populatePayTable(
             tableLayout,
-            SettingsUtils.getPayoutTable(requireContext())
+            SettingsUtils.getPayoutTable()
         )
 
 //        WhatsNewDialog.showDialog(requireContext())
@@ -353,16 +353,9 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     override fun onPause() {
         super.onPause()
-//        StatisticsManager.writeStatisticsToDisk()
-//        handFragment = null
         handFragment?.onDestroy()
-        viewModel.numberOfHands.value = 1
+        viewModel.numberOfHands.value = SettingsUtils.getNumHands()
     }
-
-//    override fun onStop() {
-//        super.onStop()
-//        viewModel.gameState.value = MainViewModel.GameState.START
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -392,7 +385,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         viewModel.bet.observe(viewLifecycleOwner,  { currentBet ->
             currentBet?.let {
                 updateHighlightedColumnUi()
-                updateBetText(currentBet * (viewModel.numberOfHands.value ?: 1))
+                updateBetText(currentBet * (viewModel.numberOfHands.value ?: SettingsUtils.getNumHands()))
             }
             betCircleText.text = "$currentBet"
             betCircleBack.text = "$currentBet"
@@ -434,13 +427,10 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 highscoreViewModel.submitHighScore(requireContext(), wonLostMoney.toLong())
             }
 
-            if (highscoreViewModel.isGoldenGodScore(wonLostMoney) && !SettingsUtils.isGoldenGod(
-                    requireContext()
-                )
-            ) {
+            if (highscoreViewModel.isGoldenGodScore(wonLostMoney) && !SettingsUtils.isGoldenGod()) {
                 // check if they are a Golden God
                 GoldenGodDialog.showDialog(requireContext(), wonLostMoney)
-                SettingsUtils.setGoldenGod(requireContext(), true)
+                SettingsUtils.setGoldenGod(true)
                 CardUiUtils.showCardBacks(cardBackViews)
                 loadHighScoreFragment()
             }
@@ -548,7 +538,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
                 clearWonLostMoneyUi()
                 showHelpText()
                 disableBetChangingUi()
-                viewModel.getBestHand(SettingsUtils.getNumTrials(activity))
+                viewModel.getBestHand(SettingsUtils.getNumTrials())
             }
             MainViewModel.GameState.EVALUATE_NO_BONUS -> {
                 clearHoldUi()
@@ -719,7 +709,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     private fun showDoubleCardUi() {
         helpText.text = getString(R.string.bonus_title)
-        cardViews[2].setImageResource(SettingsUtils.getCardBack(requireContext()))
+        cardViews[2].setImageResource(SettingsUtils.getCardBack())
         for (i in 0..4) {
             if(i != 2){
                 cardViews[i].visibility = View.GONE
@@ -744,7 +734,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
     }
 
     private fun flip(state: MainViewModel.CardFlipState, cards: List<Card>) {
-        if(SettingsUtils.isFlipSoundEnabled(requireContext())){
+        if(SettingsUtils.isFlipSoundEnabled()){
             SoundManager.playSound(requireActivity(), SoundManager.SoundType.FLIP)
         }
 
@@ -761,7 +751,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             MainViewModel.CardFlipState.FACE_UP -> {
                 for (i in 0..4) {
                     cardLayouts[i].isAutoFlipBack = false
-                    if (!viewModel.getKeptCardIndeces()[i]) {
+                    if (!viewModel.getKeptCardIndices()[i]) {
                         cardViews[i].setImageResource(CardUiUtils.cardToImage(cards[i]))
                         cardLayouts[i].flipTheView()
                         cardLayouts[i].setOnFlipListener { _, _ ->
@@ -773,7 +763,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
             MainViewModel.CardFlipState.FULL_FLIP -> {
                 for (i in 0..4) {
                     cardLayouts[i].isAutoFlipBack = true
-                    if (!viewModel.getKeptCardIndeces()[i]) {
+                    if (!viewModel.getKeptCardIndices()[i]) {
                         cardLayouts[i].autoFlipBackTime = 0
                         cardLayouts[i].flipTheView()
                         cardLayouts[i].setOnFlipListener { _, newCurrentSide ->
@@ -809,7 +799,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
         if (first != Evaluate.Hand.NOTHING || viewModel.numberOfHands.value == 1) {
             winningBannerTextLayout.visibility = View.VISIBLE
             winningHandText.text = first.readableName
-            val payout = PayOutHelper.calculatePayout(requireContext(), viewModel.bet.value ?: 1, first)
+            val payout = PayOutHelper.calculatePayout(viewModel.bet.value ?: 1, first)
             winningHandPayText.text = "$payout"
         }
     }
@@ -823,7 +813,7 @@ class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     override fun setMoney(amount: Int) {
         viewModel.totalMoney.value = amount
-        SettingsUtils.setMoney(amount, requireContext())
+        SettingsUtils.setMoney(amount)
         Toast.makeText(requireContext(), getString(R.string.money_set, amount), Toast.LENGTH_LONG).show()
     }
 }

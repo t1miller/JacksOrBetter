@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.handevaluator;
+package com.poker.jacksorbetter.kactuskevevaluator;
 
 /**
  * Given five PokerCards calculates the value of the hand.

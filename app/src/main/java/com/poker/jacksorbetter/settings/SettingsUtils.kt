@@ -2,14 +2,13 @@ package com.poker.jacksorbetter.settings
 
 import android.app.Dialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.Toast
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.main.PayOutHelper
 import timber.log.Timber
@@ -17,7 +16,7 @@ import timber.log.Timber
 object SettingsUtils {
 
     object Defaults{
-        const val CHOOSE_CARDBACK = 2
+        const val CHOOSE_CARD_BACK = 2
         const val MONEY = 500
         const val MONTE_CARLO_TRIALS = 4500
         const val SOUND = true
@@ -25,6 +24,7 @@ object SettingsUtils {
         const val SOUND_BONUS = true
         const val PAYOUT_TABLE = "9/6 – 99.54%"
         const val GOLDEN_GOD = false
+        const val NUM_HANDS = 1
     }
 
     object Keys{
@@ -35,12 +35,13 @@ object SettingsUtils {
         const val RESET_MONEY = "reset_money"
         const val RESET_STATS = "reset_stats"
         const val SHARE_STATS = "share_stats"
-        const val CHOOSE_CARDBACK = "choose_cardback"
+        const val CHOOSE_CARD_BACK = "choose_cardback"
         const val TOTAL_MONEY = "money"
         const val SOUND = "sound"
         const val SOUND_FLIP = "sound_flip"
         const val SOUND_BONUS = "sound_bonus"
         const val GOLDEN_GOD = "golden_god"
+        const val NUM_HANDS = "num_hands"
     }
 
     object CardBacks{
@@ -60,47 +61,56 @@ object SettingsUtils {
         )
     }
 
-    fun getNumTrials(context: Context?) : Int{
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getInt(
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(PokerApplication.applicationContext())
+
+    fun getNumHands(): Int {
+        return prefs.getInt(
+            Keys.NUM_HANDS,
+            Defaults.NUM_HANDS
+        )
+    }
+
+    fun setNumHands(numHands: Int?) {
+        with(prefs.edit()){
+            putInt(Keys.NUM_HANDS, numHands ?: getNumHands())
+            apply()
+        }
+    }
+
+    fun getNumTrials() : Int{
+        return prefs.getInt(
             Keys.MONTE_CARLO_TRIALS,
             Defaults.MONTE_CARLO_TRIALS
         )
     }
 
-    fun resetNumTrials(context: Context?) {
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        with (preferences.edit()) {
+    fun resetNumTrials() {
+        with (prefs.edit()) {
             putInt(Keys.MONTE_CARLO_TRIALS, Defaults.MONTE_CARLO_TRIALS)
             apply()
         }
     }
 
-    fun setMoney(money: Int, context: Context) {
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        with (preferences.edit()) {
+    fun setMoney(money: Int) {
+        with (prefs.edit()) {
             putInt(Keys.TOTAL_MONEY, money)
             apply()
         }
     }
 
-    fun isSoundEnabled(context: Context) : Boolean{
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(
+    fun isSoundEnabled() : Boolean{
+        return prefs.getBoolean(
             Keys.SOUND,
             Defaults.SOUND
         )
     }
 
-    fun getMoney(context: Context) : Int {
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getInt(Keys.TOTAL_MONEY, Defaults.MONEY)
+    fun getMoney() : Int {
+        return prefs.getInt(Keys.TOTAL_MONEY, Defaults.MONEY)
     }
 
-    fun getPayoutTable(context: Context?) : PayOutHelper.PAY_TABLE_TYPES{
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
-        return when(preferences.getString(Keys.PAYOUT_TABLE, Defaults.PAYOUT_TABLE)){
+    fun getPayoutTable() : PayOutHelper.PAY_TABLE_TYPES{
+        return when(prefs.getString(Keys.PAYOUT_TABLE, Defaults.PAYOUT_TABLE)){
             "6/5 – 95.12%" -> PayOutHelper.PAY_TABLE_TYPES._6_5_95
             "7/5 – 96.17%" -> PayOutHelper.PAY_TABLE_TYPES._7_5_96
             "8/5 – 97.25%" -> PayOutHelper.PAY_TABLE_TYPES._8_5_97
@@ -112,63 +122,57 @@ object SettingsUtils {
         }
     }
 
-    fun setCardBack(position: Int, context: Context) {
-        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        with(preferences.edit()) {
-            putInt(Keys.CHOOSE_CARDBACK, position)
+    fun setCardBack(position: Int) {
+        with(prefs.edit()) {
+            putInt(Keys.CHOOSE_CARD_BACK, position)
             apply()
         }
     }
 
-    fun getCardBack(context: Context) : Int {
-        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        val position = preferences.getInt(
-            Keys.CHOOSE_CARDBACK,
-            Defaults.CHOOSE_CARDBACK
+    fun getCardBack() : Int {
+        val position = prefs.getInt(
+            Keys.CHOOSE_CARD_BACK,
+            Defaults.CHOOSE_CARD_BACK
         )
         return CardBacks.cardbacks[position]
     }
 
-    fun isFlipSoundEnabled(context: Context) : Boolean{
-        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(
+    fun isFlipSoundEnabled() : Boolean{
+        return prefs.getBoolean(
             Keys.SOUND_FLIP,
             Defaults.SOUND_FLIP
         )
     }
 
-    fun isBonusSoundEnabled(context: Context) : Boolean{
-        val preferences: SharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(
+    fun isBonusSoundEnabled() : Boolean{
+        return prefs.getBoolean(
             Keys.SOUND_BONUS,
             Defaults.SOUND_BONUS
         )
     }
 
-    fun setGoldenGod(context: Context, isGoldenGold: Boolean) : Boolean {
+    fun setGoldenGod(isGoldenGold: Boolean) : Boolean {
         if(isGoldenGold){
-            setCardBack(CardBacks.cardbacks.size - 1, context)
+            setCardBack(CardBacks.cardbacks.size - 1)
         }
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        with(preferences.edit()) {
+        with(prefs.edit()) {
             putBoolean(Keys.GOLDEN_GOD, isGoldenGold)
             apply()
         }
-        return preferences.getBoolean(Keys.GOLDEN_GOD, Defaults.GOLDEN_GOD)
+        return prefs.getBoolean(Keys.GOLDEN_GOD, Defaults.GOLDEN_GOD)
     }
 
-    fun isGoldenGod(context: Context) : Boolean {
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getBoolean(Keys.GOLDEN_GOD, Defaults.GOLDEN_GOD)
+    fun isGoldenGod() : Boolean {
+        return prefs.getBoolean(Keys.GOLDEN_GOD, Defaults.GOLDEN_GOD)
     }
 
     fun showChangeCardBackDialog(context: Context)  {
 
-        val dialog = Dialog(context)
-
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
-        dialog.setContentView(R.layout.change_card_dialog_layout)
+        val dialog = Dialog(context).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCancelable(true)
+            setContentView(R.layout.change_card_dialog_layout)
+        }
 
         val yesBtn = dialog.findViewById(R.id.btn_yes) as Button
         yesBtn.setOnClickListener {
@@ -178,15 +182,13 @@ object SettingsUtils {
         val recyclerView = dialog.findViewById(R.id.recyclerView) as RecyclerView
         val adapter = CardBackAdapter(object : CardTapped {
             override fun onCardTapped(position: Int) {
-                setCardBack(position, context)
+                setCardBack(position)
                 dialog.dismiss()
-//                Toast.makeText(context, "cardback selected", Toast.LENGTH_LONG).show()
             }
-        }, isGoldenGod(context))
+        }, isGoldenGod())
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-//        recyclerView.setHasFixedSize(true)
 
         Timber.d("showing cardback dialog")
         dialog.show()

@@ -33,7 +33,7 @@ class CardBackAdapter(private val cardTapped: CardTapped, private val isGoldenGo
         val image = SettingsUtils.CardBacks.cardbacks[position]
         viewHolder.cardback.setImageResource(image)
 
-        if(position != itemCount - 1 || SettingsUtils.isGoldenGod(PokerApplication.applicationContext())){
+        if(position != itemCount - 1 || SettingsUtils.isGoldenGod()){
             viewHolder.lock.visibility = View.GONE
         }
 

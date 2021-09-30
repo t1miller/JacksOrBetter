@@ -32,12 +32,14 @@ object StatDialogUtils {
             dialog.dismiss()
         }
 
-        val cardViews = mutableListOf<ImageView>()
-        cardViews.add(dialog.findViewById(R.id.card1))
-        cardViews.add(dialog.findViewById(R.id.card2))
-        cardViews.add(dialog.findViewById(R.id.card3))
-        cardViews.add(dialog.findViewById(R.id.card4))
-        cardViews.add(dialog.findViewById(R.id.card5))
+        val cardViews = mutableListOf<ImageView>(
+            dialog.findViewById(R.id.card1),
+            dialog.findViewById(R.id.card2),
+            dialog.findViewById(R.id.card3),
+            dialog.findViewById(R.id.card4),
+            dialog.findViewById(R.id.card5)
+        )
+
 
         fullHand.forEachIndexed { index, card ->
             cardViews[index].setImageResource(CardUiUtils.cardToImage(card))

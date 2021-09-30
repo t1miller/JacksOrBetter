@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.handevaluator;
+package com.poker.jacksorbetter.kactuskevevaluator;
 
 /**
  * Easy handle for the ranking of the cards.

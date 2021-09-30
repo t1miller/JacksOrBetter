@@ -17,7 +17,7 @@ import com.poker.jacksorbetter.stats.StatisticsManager
 class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButton{
 
     companion object {
-        val NAME = SettingsFragment::class.java.simpleName
+        val NAME: String = SettingsFragment::class.java.simpleName
     }
 
     private var viewModelSignIn: SignInViewModel? = null
@@ -56,7 +56,7 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
             true
         }
 
-        val cardBack: Preference? = findPreference(SettingsUtils.Keys.CHOOSE_CARDBACK)
+        val cardBack: Preference? = findPreference(SettingsUtils.Keys.CHOOSE_CARD_BACK)
         cardBack?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             SettingsUtils.showChangeCardBackDialog(requireContext())
             Toast.makeText(requireContext(),getString(R.string.cardback_changed), Toast.LENGTH_LONG).show()
@@ -106,7 +106,7 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
     }
 
     override fun setMoney(amount: Int) {
-        SettingsUtils.setMoney(amount, requireContext())
+        SettingsUtils.setMoney(amount)
         Toast.makeText(requireContext(), getString(R.string.money_set, amount), Toast.LENGTH_LONG).show()
     }
 }

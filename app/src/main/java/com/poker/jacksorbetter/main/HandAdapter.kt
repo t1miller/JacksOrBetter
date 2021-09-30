@@ -86,7 +86,7 @@ class HandAdapter(
                     }
 
                     if (position < evals.size && evals[position] != Evaluate.Hand.NOTHING) {
-                        holder.handEvalPay.text = "${PayOutHelper.calculatePayout(PokerApplication.applicationContext(), bet, evals[position])}"
+                        holder.handEvalPay.text = "${PayOutHelper.calculatePayout(bet, evals[position])}"
 
                         if (itemCount > LITTLE_CARD_THRESHOLD) {
                             holder.handEval.text = evals[position].littleName
@@ -241,7 +241,6 @@ class HandAdapter(
         state = s
         notifyDataSetChanged()
     }
-
 
     fun setBetAmount(b: Int) {
         this.bet = b

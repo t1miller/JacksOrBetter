@@ -1,28 +1,15 @@
 package com.poker.jacksorbetter.cardgame.ui
 
 import Card
-import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.settings.SettingsUtils
-import kotlin.random.Random
 
 object CardUiUtils {
-
-    fun startShimmer(context: Context, shimmerLayouts: MutableList<ShimmerFrameLayout>) {
-        if(SettingsUtils.getCardBack(context) == R.drawable.card_back_gold) {
-            for (shimmer in shimmerLayouts){
-                shimmer.baseAlpha = 0.9F// opacity of non shimmer part of image
-                shimmer.duration = Random.nextInt(900, 1400)
-                shimmer.startShimmerAnimation()
-            }
-        }
-    }
 
     fun tintCards(cardViews: List<ImageView>?, fullHand: List<Card>?, cardsToTint: List<Card>) {
         if(cardsToTint.isEmpty()) return
@@ -62,12 +49,12 @@ object CardUiUtils {
     }
 
     fun showCardBack(cardView: ImageView) {
-        cardView.setImageResource(SettingsUtils.getCardBack(PokerApplication.applicationContext()))
+        cardView.setImageResource(SettingsUtils.getCardBack())
     }
 
     fun showCardBacks(cardViews: List<ImageView>?) {
         cardViews?.forEachIndexed { _,it ->
-            it.setImageResource(SettingsUtils.getCardBack(PokerApplication.applicationContext()))
+            it.setImageResource(SettingsUtils.getCardBack())
         }
     }
 
@@ -96,7 +83,7 @@ object CardUiUtils {
     }
 
     fun cardToImage(card: Card?) : Int{
-        if(card == null) return SettingsUtils.getCardBack(PokerApplication.applicationContext())
+        if(card == null) return SettingsUtils.getCardBack()
         return when(card.rank) {
             2 -> {
                 when(card.suit) {
@@ -113,7 +100,7 @@ object CardUiUtils {
                         R.drawable.two_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -132,7 +119,7 @@ object CardUiUtils {
                         R.drawable.three_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -151,7 +138,7 @@ object CardUiUtils {
                         R.drawable.four_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -170,7 +157,7 @@ object CardUiUtils {
                         R.drawable.five_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -189,7 +176,7 @@ object CardUiUtils {
                         R.drawable.six_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -208,7 +195,7 @@ object CardUiUtils {
                         R.drawable.seven_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -227,7 +214,7 @@ object CardUiUtils {
                         R.drawable.eight_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -246,7 +233,7 @@ object CardUiUtils {
                         R.drawable.nine_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -265,7 +252,7 @@ object CardUiUtils {
                         R.drawable.ten_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -284,7 +271,7 @@ object CardUiUtils {
                         R.drawable.jack_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -303,7 +290,7 @@ object CardUiUtils {
                         R.drawable.queen_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -322,7 +309,7 @@ object CardUiUtils {
                         R.drawable.king_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
@@ -341,12 +328,12 @@ object CardUiUtils {
                         R.drawable.ace_of_clubs
                     }
                     else -> {
-                        SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                        SettingsUtils.getCardBack()
                     }
                 }
             }
             else -> {
-                SettingsUtils.getCardBack(PokerApplication.applicationContext())
+                SettingsUtils.getCardBack()
             }
         }
     }

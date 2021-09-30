@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.handevaluator;
+package com.poker.jacksorbetter.kactuskevevaluator;
 
 /**
  * Keeps track of suits as needed by the rest of the algorithm.

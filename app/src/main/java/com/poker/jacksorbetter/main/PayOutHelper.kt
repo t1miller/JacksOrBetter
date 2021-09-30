@@ -1,7 +1,6 @@
 package com.poker.jacksorbetter.main
 
 import Card
-import android.content.Context
 import com.poker.jacksorbetter.cardgame.Deck
 import com.poker.jacksorbetter.cardgame.Evaluate
 import com.poker.jacksorbetter.settings.SettingsUtils
@@ -89,9 +88,9 @@ object PayOutHelper {
         return payoutMap[payTableType]?.get(eval) ?: listOf(0,0,0,0,0)
     }
 
-    fun calculatePayout(context: Context?, bet: Int?, evalHand: Evaluate.Hand?) : Int {
+    fun calculatePayout(bet: Int?, evalHand: Evaluate.Hand?) : Int {
         if(bet == null) return -1
-        return payoutMap[SettingsUtils.getPayoutTable(context)]?.get(evalHand)?.get(bet-1) ?: -1*bet
+        return payoutMap[SettingsUtils.getPayoutTable()]?.get(evalHand)?.get(bet-1) ?: -1*bet
     }
 
     fun calculateBonusPayout(bet: Int?, card: Card?, isGuessRed: Boolean) : Int {

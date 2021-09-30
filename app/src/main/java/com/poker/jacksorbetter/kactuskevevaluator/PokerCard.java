@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.handevaluator;
+package com.poker.jacksorbetter.kactuskevevaluator;
 
 /**
  * Represents a poker card. Has suit and rank.

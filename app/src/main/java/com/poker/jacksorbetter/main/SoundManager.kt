@@ -47,7 +47,7 @@ object SoundManager {
     }
 
     fun playSound(context: Context, sound: SoundType) {
-        if(SettingsUtils.isSoundEnabled(context)) {
+        if(SettingsUtils.isSoundEnabled()) {
             if(soundPool == null){
                 load(context)
             }

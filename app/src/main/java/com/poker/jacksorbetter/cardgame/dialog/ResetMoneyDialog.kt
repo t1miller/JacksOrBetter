@@ -21,11 +21,11 @@ object ResetMoneyDialog {
     }
 
     fun showDialog(context: Context, callbackMoney: MoneyButton) {
-        val dialog = Dialog(context)
-
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
-        dialog.setContentView(R.layout.reset_money_dialog_layout)
+        val dialog = Dialog(context).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCancelable(true)
+            setContentView(R.layout.reset_money_dialog_layout)
+        }
 
         val cancel = dialog.findViewById<ImageView>(R.id.cancel)
         cancel.setOnClickListener {

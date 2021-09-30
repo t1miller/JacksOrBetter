@@ -1,8 +1,7 @@
 package com.poker.jacksorbetter.cardgame
 
 import Card
-import timber.log.Timber
-import kotlin.random.Random
+
 
 
 object Deck {
@@ -68,17 +67,17 @@ object Deck {
 
 }
 
-class Deck2(seed: Long){
+class Deck2{
 
 
     private var cards = mutableListOf<Card>()
 
 
     init {
-        newDeck(seed)
+        newDeck()
     }
 
-    private fun newDeck(seed: Long) {
+    private fun newDeck() {
         cards.clear()
         for (suit in Card.SUITS) {
             for (face in Card.FACES){

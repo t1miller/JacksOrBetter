@@ -22,7 +22,7 @@ import com.poker.jacksorbetter.stats.StatisticsManager
 class TrainingFragment : Fragment() {
 
     companion object {
-        val NAME = TrainingFragment::class.java.simpleName
+        val NAME: String = TrainingFragment::class.java.simpleName
 
         fun newInstance() = TrainingFragment()
     }
@@ -98,7 +98,6 @@ class TrainingFragment : Fragment() {
 
         viewModelMain.handEvals.observe(viewLifecycleOwner, { handEvals ->
             handEvals?.let {
-
                 viewModelMain.aiDecision.value?.let {
                     viewModelMain.lastKeptCards()?.let { it1 ->
                         updateTrainingView(it.hand, it.sortedRankedHands[0].first,
@@ -114,7 +113,6 @@ class TrainingFragment : Fragment() {
                 clearTrainingView()
             }
         })
-
     }
 
     private fun clearTrainingView() {

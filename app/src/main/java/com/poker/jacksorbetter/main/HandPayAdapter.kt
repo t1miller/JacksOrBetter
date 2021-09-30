@@ -71,7 +71,7 @@ class HandPayAdapter (val context: Context) : RecyclerView.Adapter<HandPayAdapte
     private fun populatePayTable(bet: Int): MutableList<Pair<String, Int>>{
         val values = mutableListOf<Pair<String, Int>>()
         for (hand in Evaluate.Hand.values()){
-            val pay = PayOutHelper.calculatePayout(context, bet, hand)
+            val pay = PayOutHelper.calculatePayout(bet, hand)
             values.add(Pair(hand.littleName, pay))
         }
         return values.dropLast(1).toMutableList() //drop NOTHING eval

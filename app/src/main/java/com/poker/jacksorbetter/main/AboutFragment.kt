@@ -52,8 +52,6 @@ class AboutFragment : Fragment() {
         threeCardPoker.setOnClickListener {
             loadThreeCardPokerPlaystore()
         }
-
-
         return view
     }
 
