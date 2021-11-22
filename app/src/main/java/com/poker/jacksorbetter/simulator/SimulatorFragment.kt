@@ -31,6 +31,31 @@ import com.poker.jacksorbetter.main.MainViewModel
  */
 class SimulatorFragment : Fragment() {
 
+    companion object {
+        val NAME = SimulatorFragment::class.java.simpleName
+        const val TRIAL_THRESHOLD = 10000
+
+        @JvmStatic
+        fun newInstance() = SimulatorFragment()
+
+        fun randomSuprisedExpression() : String {
+            val expressions = mutableListOf<String>()
+            expressions.add("Holly cannoli")
+            expressions.add("Gee willikers")
+            expressions.add("Gee whiz")
+            expressions.add("Holy toledo")
+            expressions.add("Gosh almighty")
+            expressions.add("Holy pretzel")
+            expressions.add("I'll be jitterBugged")
+            expressions.add("Zookers")
+            expressions.add("Holy pretzel")
+            expressions.add("Hot diggity")
+            expressions.add("Jeepers creepers")
+            expressions.add("Well call me a biscuit")
+            return expressions.random()
+        }
+    }
+
     private lateinit var cardsEditText: EditText
 
     private var cardViews = mutableListOf<ImageView>()
@@ -197,34 +222,6 @@ class SimulatorFragment : Fragment() {
     private fun clearHoldUi() {
         for (card in cardsHoldOverlay) {
             card.visibility = View.GONE
-        }
-    }
-
-    companion object {
-
-//        val NAME = SimulatorFragment.javaClass.name
-        val NAME = SimulatorFragment::class.java.simpleName
-
-        const val TRIAL_THRESHOLD = 10000
-
-        @JvmStatic
-        fun newInstance() = SimulatorFragment()
-
-        fun randomSuprisedExpression() : String {
-            val expressions = mutableListOf<String>()
-            expressions.add("Holly cannoli")
-            expressions.add("Gee willikers")
-            expressions.add("Gee whiz")
-            expressions.add("Holy toledo")
-            expressions.add("Gosh almighty")
-            expressions.add("Holy pretzel")
-            expressions.add("I'll be jitterBugged")
-            expressions.add("Zookers")
-            expressions.add("Holy pretzel")
-            expressions.add("Hot diggity")
-            expressions.add("Jeepers creepers")
-            expressions.add("Well call me a biscuit")
-            return expressions.random()
         }
     }
 }

@@ -26,6 +26,7 @@ import com.poker.jacksorbetter.leaderboard.HighScoreFragment
 import com.poker.jacksorbetter.leaderboard.HighScoreViewModel
 import com.poker.jacksorbetter.leaderboard.SignInViewModel
 import com.poker.jacksorbetter.settings.SettingsUtils
+import com.poker.jacksorbetter.stats.StatsFragment
 import com.poker.jacksorbetter.training.TrainingFragment
 import com.poker.jacksorbetter.training.TrainingViewModel
 import com.wajahatkarim3.easyflipview.EasyFlipView
@@ -37,6 +38,8 @@ import timber.log.Timber
 class MainFragment : Fragment(), ResetMoneyDialog.MoneyButton {
 
     companion object {
+        val NAME = MainFragment::class.java.simpleName
+
         fun newInstance() = MainFragment()
     }
 

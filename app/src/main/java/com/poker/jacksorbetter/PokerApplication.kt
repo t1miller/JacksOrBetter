@@ -7,8 +7,6 @@ import timber.log.Timber
 import timber.log.Timber.DebugTree
 
 
-
-
 class PokerApplication : Application() {
 
     init {

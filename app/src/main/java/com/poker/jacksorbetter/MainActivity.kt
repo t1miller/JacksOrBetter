@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.main
+package com.poker.jacksorbetter
 
 
 import android.annotation.SuppressLint
@@ -16,8 +16,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.leaderboard.SignInViewModel
+import com.poker.jacksorbetter.main.AboutFragment
+import com.poker.jacksorbetter.main.MainFragment
 import com.poker.jacksorbetter.settings.SettingsFragment
 import com.poker.jacksorbetter.simulator.SimulatorFragment
 import com.poker.jacksorbetter.stats.StatisticsManager
@@ -115,56 +116,80 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.simulations -> {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.container,
-                SimulatorFragment(),
-                SimulatorFragment.NAME
-            ).commitNow()
+            loadSimulationFragment()
             true
         }
-
         R.id.about -> {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.container,
-                AboutFragment(),
-            ).commitNow()
+            loadAboutFragment()
             true
         }
-
         R.id.stats -> {
-            loadStatFragment()
+            loadStatsFragment()
             true
         }
-
         R.id.settings -> {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.container,
-                SettingsFragment(),
-                SettingsFragment.NAME
-            ).commitNow()
+            loadSettingsFragment()
             true
         }
         R.id.home -> {
-            loadMainFragment()
+            if(isFragmentVisible(SettingsFragment.NAME)){
+                loadMainFragment()
+                onBackPressed()
+            }
+//            loadMainFragment()
+//            onBackPressed() // todo fix this
             true
         }
-
         else -> {
             super.onOptionsItemSelected(item)
         }
     }
 
+    private fun isFragmentVisible(name: String): Boolean {
+        return supportFragmentManager.findFragmentByTag(name)
+            ?.isVisible == true
+    }
+
+    private fun loadSettingsFragment() {
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(SettingsFragment.NAME)
+            .replace(R.id.container,
+                SettingsFragment.newInstance(),
+                SettingsFragment.NAME)
+            .commitNow()
+    }
+
+    private fun loadSimulationFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container,
+                SimulatorFragment.newInstance(),
+                SimulatorFragment.NAME)
+            .commitNow()
+    }
+
+    private fun loadAboutFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container,
+                AboutFragment.newInstance(),
+                AboutFragment.NAME
+            )
+            .commitNow()
+    }
+
     private fun loadMainFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, MainFragment.newInstance())
+            .replace(R.id.container,
+                MainFragment.newInstance(),
+                MainFragment.NAME
+            )
             .commitNow()
     }
 
-
-    private fun loadStatFragment() {
+    private fun loadStatsFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, StatsFragment.newInstance(), StatsFragment.NAME)
+            .replace(R.id.container,
+                StatsFragment.newInstance(),
+                StatsFragment.NAME)
             .commitNow()
     }
-
 }

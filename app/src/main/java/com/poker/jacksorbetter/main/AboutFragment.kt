@@ -16,6 +16,12 @@ import com.poker.jacksorbetter.R
  */
 class AboutFragment : Fragment() {
 
+    companion object {
+        val NAME = AboutFragment::class.java.simpleName
+
+        fun newInstance() = AboutFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

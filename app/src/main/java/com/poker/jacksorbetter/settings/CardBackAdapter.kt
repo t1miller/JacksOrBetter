@@ -18,8 +18,8 @@ class CardBackAdapter(private val cardTapped: CardTapped, private val isGoldenGo
 
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
-        val cardback = itemView.findViewById<ImageView>(R.id.card1)
-        val lock = itemView.findViewById<ImageView>(R.id.lock)
+        val cardback: ImageView = itemView.findViewById(R.id.card1)
+        val lock: ImageView = itemView.findViewById(R.id.lock)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,7 +36,6 @@ class CardBackAdapter(private val cardTapped: CardTapped, private val isGoldenGo
         if(position != itemCount - 1 || SettingsUtils.isGoldenGod()){
             viewHolder.lock.visibility = View.GONE
         }
-
 
         viewHolder.cardback.setOnClickListener {
             if (position == itemCount - 1 && !isGoldenGod){

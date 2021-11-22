@@ -16,7 +16,6 @@ object PayOutHelper {
         _9_6_99,
     }
 
-
     private val payoutMap = mapOf(
         PAY_TABLE_TYPES._9_6_99 to mapOf(
             Evaluate.Hand.ROYAL_FLUSH to listOf(250, 500, 750, 1000, 4000),

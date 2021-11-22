@@ -18,6 +18,8 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
 
     companion object {
         val NAME: String = SettingsFragment::class.java.simpleName
+
+        fun newInstance() = SettingsFragment()
     }
 
     private var viewModelSignIn: SignInViewModel? = null
@@ -93,6 +95,11 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
         }
     }
 
+    override fun setMoney(amount: Int) {
+        SettingsUtils.setMoney(amount)
+        Toast.makeText(requireContext(), getString(R.string.money_set, amount), Toast.LENGTH_LONG).show()
+    }
+
     private fun showSignInButton() {
         signin?.isVisible = true
         signout?.isVisible = false
@@ -103,10 +110,5 @@ class SettingsFragment : PreferenceFragmentCompat() , ResetMoneyDialog.MoneyButt
         signin?.isVisible = false
         signout?.isVisible = true
         signout?.summary = getString(R.string.signed_in_status)
-    }
-
-    override fun setMoney(amount: Int) {
-        SettingsUtils.setMoney(amount)
-        Toast.makeText(requireContext(), getString(R.string.money_set, amount), Toast.LENGTH_LONG).show()
     }
 }
