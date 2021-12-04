@@ -131,15 +131,15 @@ class MainActivity : AppCompatActivity() {
             loadSettingsFragment()
             true
         }
-        R.id.home -> {
-            if(isFragmentVisible(SettingsFragment.NAME)){
-                loadMainFragment()
-                onBackPressed()
-            }
-//            loadMainFragment()
+//        R.id.home -> {
+////            if(isFragmentVisible(SettingsFragment.NAME)){
+////                loadMainFragment()
+////                onBackPressed()
+////            }
+////            loadMainFragment()
 //            onBackPressed() // todo fix this
-            true
-        }
+//            true
+//        }
         else -> {
             super.onOptionsItemSelected(item)
         }
@@ -152,7 +152,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadSettingsFragment() {
         supportFragmentManager.beginTransaction()
-            .addToBackStack(SettingsFragment.NAME)
             .replace(R.id.container,
                 SettingsFragment.newInstance(),
                 SettingsFragment.NAME)

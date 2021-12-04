@@ -18,7 +18,7 @@ object SettingsUtils {
     object Defaults{
         const val CHOOSE_CARD_BACK = 2
         const val MONEY = 500
-        const val MONTE_CARLO_TRIALS = 4500
+        const val MONTE_CARLO_TRIALS = 20000
         const val SOUND = true
         const val SOUND_FLIP = true
         const val SOUND_BONUS = true
