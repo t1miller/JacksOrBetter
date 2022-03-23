@@ -99,7 +99,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     fun signOut(activity: Activity) {
         startMeUp(activity)
         mGoogleSignInClient?.signOut()?.addOnCompleteListener { task ->
-            googleAccount.value = null
+//            googleAccount.value = null
             if (task.isSuccessful) {
                 Timber.d("signOut() success")
                 Toast.makeText(getApplication(), getApplication<Application>().resources.getString(R.string.sign_out_success), Toast.LENGTH_LONG).show()
