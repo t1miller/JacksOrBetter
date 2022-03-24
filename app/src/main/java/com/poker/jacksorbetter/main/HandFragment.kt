@@ -1,6 +1,5 @@
  package com.poker.jacksorbetter.main
 
-import Card
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.*
 import com.poker.jacksorbetter.R
-import com.poker.jacksorbetter.cardgame.Evaluate
+import com.poker.jacksorbetter.settings.SettingsUtils
 import timber.log.Timber
 
 /**
@@ -18,25 +17,24 @@ import timber.log.Timber
  */
 class HandFragment : Fragment(){
 
+    companion object {
+
+        @JvmStatic
+        fun newInstance() = HandFragment()
+    }
+
     private lateinit var viewModel: MainViewModel
-
-    private var adapterHandData = mutableListOf<MutableList<Card>>()
-    private var adapterEvalData = mutableListOf<Evaluate.Hand>()
-
-    private var mAdapter: HandAdapter? = null
+    private var handAdapter: HandsAdapter? = null
     private var payAdapter: HandPayAdapter? = null
-
     private var layManager: FlexboxLayoutManager? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         viewModel.gameState.observe(viewLifecycleOwner,  { gameState ->
             if (gameState == MainViewModel.GameState.START){
-                mAdapter?.setState(State.CARD_BACK)
-                mAdapter?.notifyDataSetChanged()
+                handAdapter?.setState(State.CARD_BACK)
                 payAdapter?.unhighlightEvals()
             }
         })
@@ -44,37 +42,37 @@ class HandFragment : Fragment(){
         viewModel.bet.observe(viewLifecycleOwner,  { bet ->
             Timber.d("bet: $bet")
             payAdapter?.setBetAmount(bet)
-            mAdapter?.setBetAmount(bet)
-            mAdapter?.notifyDataSetChanged()
+            handAdapter?.setBetAmount(bet)
         })
 
         viewModel.numberOfHands.observe(viewLifecycleOwner,  { numHands ->
             Timber.d("number of hands: $numHands")
-            emptyHand(numHands - 1)
+            handAdapter?.setState(State.CARD_BACK)
+            handAdapter?.initHands(numHands - 1)
             layManager?.scrollToPosition(0)
         })
 
         viewModel.hands.observe(viewLifecycleOwner,  { hands ->
             hands?.let {
-                val nonMainHands = hands.subList(1, hands.size)
                 Timber.d("data $hands")
-                setHandData(nonMainHands)
+                val nonMainHands = hands.subList(1, hands.size)
+                handAdapter?.setHands(nonMainHands)
             }
         })
 
         viewModel.handEvals.observe(viewLifecycleOwner,  { evals ->
-            evals?.let {
+            if(evals != null && evals.isNotEmpty()){
                 Timber.d("evals $evals")
-                setEvalData(evals)
+                handAdapter?.setEvals(evals)
+                payAdapter?.highlightEvals(evals.toSet())
+                handAdapter?.setState(State.FLIP)
             }
         })
 
         viewModel.cardsHeld.observe(viewLifecycleOwner,  { held ->
-            mAdapter?.hold(held)
-            mAdapter?.notifyDataSetChanged()
+            handAdapter?.setHold(held)
         })
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,52 +92,28 @@ class HandFragment : Fragment(){
         layManager2.alignItems = AlignItems.CENTER
 
         // sets up hand(s) recycler view
-        mAdapter =  HandAdapter(adapterHandData, mutableListOf(), adapterEvalData, 1, State.CARD_BACK)
-        mAdapter?.setHasStableIds(true)
-        val recycler = view.findViewById<RecyclerView>(R.id.list)
-        with(recycler) {
+        handAdapter =  HandsAdapter()
+        handAdapter?.setHasStableIds(true)
+        val handRecycler = view.findViewById<RecyclerView>(R.id.list)
+        with(handRecycler) {
             layoutManager = layManager
-            adapter = mAdapter
+            adapter = handAdapter
             setItemViewCacheSize(100)
         }
 
         // sets up paytable recycler view
         payAdapter = HandPayAdapter(requireContext())
         payAdapter?.setHasStableIds(true)
-        val recycler2 = view.findViewById<RecyclerView>(R.id.paylist)
-        with(recycler2) {
+        val payRecycler = view.findViewById<RecyclerView>(R.id.paylist)
+        with(payRecycler) {
             layoutManager = layManager2
             adapter = payAdapter
         }
-      
+
+        if(SettingsUtils.getNumHands() >= 2){
+            handAdapter?.initHands(SettingsUtils.getNumHands() - 1)
+        }
+
         return view
-    }
-
-    private fun setHandData(data: MutableList<MutableList<Card>>) {
-        adapterHandData = data
-        mAdapter?.setHands(adapterHandData)
-        mAdapter?.notifyDataSetChanged()
-    }
-
-    private fun setEvalData(evals: MutableList<Evaluate.Hand>) {
-        adapterEvalData = evals
-        mAdapter?.setEvals(adapterEvalData)
-        payAdapter?.highlightEvals(adapterEvalData.toSet())
-        Timber.d("setting eval data: $evals")
-        mAdapter?.setState(State.FLIP)
-        mAdapter?.notifyDataSetChanged()
-    }
-
-    private fun emptyHand(numHands: Int) {
-        adapterHandData = MutableList(numHands){mutableListOf(Card(), Card(), Card(), Card(), Card())}
-        mAdapter?.setState(State.CARD_BACK)
-        mAdapter?.setHands(adapterHandData)
-        mAdapter?.notifyDataSetChanged()
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = HandFragment()
     }
 }

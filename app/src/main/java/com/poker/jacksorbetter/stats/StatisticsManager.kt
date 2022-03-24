@@ -19,13 +19,9 @@ import java.io.File
 
 object StatisticsManager {
     private const val filename = "/Statistics.txt"
-
     private const val NUM_PAST_HANDS_LOGS = 500
-
     private val fullFileName = PokerApplication.applicationContext().filesDir.absolutePath + filename
-
     private var statistics: Statistics? = null
-
     private val INITIALIZE = Statistics(
         0,
         0,

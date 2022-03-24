@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow()
         }
+
+        viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
     }
 
 
@@ -97,8 +99,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
-
         // save pending statistics (won, loss, etc) to disk
         StatisticsManager.readStatisticsFromDisk()
         super.onStart()

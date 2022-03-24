@@ -40,44 +40,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         FULL_FLIP
     }
 
-    val bet: MutableLiveData<Int> by lazy {
-        MutableLiveData(DEFAULT_BET)
-    }
-
-    val numberOfHands: MutableLiveData<Int> by lazy {
-        MutableLiveData(SettingsUtils.getNumHands())
-    }
-
+    val bet = MutableLiveData(DEFAULT_BET)
+    val numberOfHands = MutableLiveData(SettingsUtils.getNumHands())
     private var otherDecks: MutableList<Deck2>? = null
-
     private val bonusHand: MutableLiveData<MutableList<Card>> = MutableLiveData()
-
     val hands: MutableLiveData<MutableList<MutableList<Card>>> = MutableLiveData()
-
     val handEvals: MutableLiveData<MutableList<Evaluate.Hand>> = MutableLiveData(mutableListOf())
-
     var aiDecision : MutableLiveData<AIDecision> = MutableLiveData()
-
-    val totalMoney: MutableLiveData<Int> by lazy {
-        MutableLiveData(SettingsUtils.getMoney())
-    }
-
+    val totalMoney: MutableLiveData<Int> =  MutableLiveData(SettingsUtils.getMoney())
     val wonLostMoney: MutableLiveData<Int> = MutableLiveData()
-
     private val lastEvaluatedHand: MutableLiveData<Evaluate.Hand> = MutableLiveData()
-
-    val gameState: MutableLiveData<GameState> by lazy {
-        MutableLiveData(GameState.START)
-    }
-
+    val gameState: MutableLiveData<GameState> = MutableLiveData(GameState.START)
     val cardFLipState: MutableLiveData<CardFlipState> by lazy {
         MutableLiveData(CardFlipState.FACE_DOWN)
     }
-
     val cardsHeld: MutableLiveData<MutableList<Card>> by lazy {
         MutableLiveData(mutableListOf())
     }
-
     private var cardsKept: BooleanArray = listOf(false, false, false, false, false).toBooleanArray()
     private var lastCardsKept: List<Card>? = null
     private var originalHand: List<Card>? = null

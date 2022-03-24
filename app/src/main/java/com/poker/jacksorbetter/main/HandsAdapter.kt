@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.R
@@ -24,21 +26,101 @@ enum class State {
     FLIP,
 }
 
+/**
+ *  Examples of different Hands in adapter:
+ *
+ *  (this is slow on updates)
+ *  hand1 = [2s,2h,2d,2c,8s] bet = 1 held = [2s,2h,2d,2c] state = HOLD eval=4_OF_A_KIND
+ *  hand2 = [2s,2h,2d,2c,9s] bet = 1 held = [2s,2h,2d,2c] state = HOLD eval=4_OF_A_KIND
+ *  hand3 = [2s,2h,2d,2c,10s] bet = 1 held = [2s,2h,2d,2c] state = HOLD eval=4_OF_A_KIND
+ *  ...
+ *
+ *   OR
+ *
+ *  hand1 = [] bet = 1 held = [] state = CARD_BACK eval=NONE
+ *  hand2 = [] bet = 1 held = [] state = CARD_BACK eval=NONE
+ *  hand3 = [] bet = 1 held = [] state = CARD_BACK eval=NONE
+ *  ...
+ * */
+data class Hand(
+    var cards: List<Card> = List(5){ Card() },
+    var held: List<Card> = listOf(),
+    var eval: Evaluate.Hand = Evaluate.Hand.NOTHING,
+    var bet: Int = 1,
+    var state: State = State.CARD_BACK
+)
 
-class HandAdapter(
-    private var values: MutableList<MutableList<Card>>,
-    private var hold: MutableList<Card>,
-    private var evals: MutableList<Evaluate.Hand>,
-    private var bet: Int,
-    private var state: State
-) : RecyclerView.Adapter<HandAdapter.ViewHolder>() {
+class HandsAdapter : RecyclerView.Adapter<HandsAdapter.ViewHolder>() {
+
+    private val differCallback = object : DiffUtil.ItemCallback<Hand>() {
+        override fun areItemsTheSame(oldItem: Hand, newItem: Hand): Boolean {
+            return false
+        }
+        override fun areContentsTheSame(oldItem: Hand, newItem: Hand): Boolean {
+            return oldItem.eval == newItem.eval &&
+                    oldItem.bet == newItem.bet &&
+                    oldItem.state == newItem.state &&
+                    oldItem.held.toSet() == newItem.held.toSet() &&
+                    oldItem.cards.toSet() == newItem.cards.toSet()
+        }
+    }
+    private val mDiffer: AsyncListDiffer<Hand> = AsyncListDiffer(this, differCallback)
 
     companion object {
         private const val LITTLE_CARD_THRESHOLD = 9
     }
 
-    private fun showEval(evalLayout: ConstraintLayout) {
-        evalLayout.visibility = View.VISIBLE
+    private fun submitList(list: List<Hand>) {
+        mDiffer.submitList(list)
+    }
+
+    fun setHold(heldCards: List<Card>) {
+        val hands = mDiffer.currentList.toList()
+        hands.forEach { hand ->
+            hand.held = heldCards
+        }
+        setState(State.HOLD)
+    }
+
+    fun setState(s: State) {
+        val hands = mDiffer.currentList.toList()
+        hands.forEach { hand ->
+            hand.state = s
+        }
+        submitList(hands)
+    }
+
+    fun setBetAmount(b: Int) {
+        val hands = mDiffer.currentList.toList()
+        hands.forEach { hand ->
+            hand.bet = b
+        }
+        setState(State.CARD_BACK)
+    }
+
+    fun setEvals(evals: MutableList<Evaluate.Hand>) {
+        // the first eval is not part of the HandAdapter, its the main hand which is
+        // handled in the MainFragment
+        val evalsNoFirst = evals.drop(1).toMutableList()
+        val hands = mDiffer.currentList.toList()
+        hands.forEachIndexed { idx, hand ->
+            hand.eval = evalsNoFirst[idx]
+        }
+        submitList(hands)
+    }
+
+
+    fun initHands(numHands: Int) {
+        val hands = List(numHands){ Hand() }
+        submitList(hands)
+    }
+
+    fun setHands(cards: List<List<Card>>) {
+        val hands = mDiffer.currentList.toList()
+        hands.forEachIndexed { idx, hand ->
+            hand.cards = cards[idx]
+        }
+        submitList(hands)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,61 +129,56 @@ class HandAdapter(
         return ViewHolder(view)
     }
 
-//    todo go through and remove as much setimage calls as possible
-//    todo reduce calls to notify data set changed
+    override fun getItemCount() : Int{
+        return mDiffer.currentList.size
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val timeInMillis = measureTimeMillis {
-            val item = values[position]
+
+            val hand = mDiffer.currentList[position]
+            Timber.d("HandsAdapter onBindViewHolder() hand = $hand")
 
             resizeImage(holder.cardFronts)
             resizeEvalText(holder.handEval, holder.handEvalPay, holder.handEvalLayout, holder.betText)
 
-            when(state){
-
+            when(hand.state){
                 State.CARD_BACK -> {
                     showBigOrSmallCardBack(holder.cardFronts)
                     holder.handEvalLayout.visibility = View.INVISIBLE
-                    hold = mutableListOf()
+                    hand.held = listOf()
                 }
-
                 State.HOLD -> {
-                    item.forEachIndexed { index, it ->
-                        if (it in hold) {
-                            showBigOrSmallCards(holder.cardFronts[index], it)
+                    hand.cards.forEachIndexed { idx, card ->
+                        if(card in hand.held){
+                            showBigOrSmallCards(holder.cardFronts[idx], card)
                         } else {
-                            showBigOrSmallCardBack(holder.cardFronts[index])
+                            showBigOrSmallCardBack(holder.cardFronts[idx])
                         }
                     }
                 }
-
                 State.FLIP -> {
                     showBigOrSmallCardBack(holder.cardFronts)
-                    item.forEachIndexed { index, it ->
-                        showBigOrSmallCards(holder.cardFronts[index], it)
+                    hand.cards.forEachIndexed { idx, card ->
+                        showBigOrSmallCards(holder.cardFronts[idx], card)
                     }
 
-                    if (position < evals.size && evals[position] != Evaluate.Hand.NOTHING) {
-                        holder.handEvalPay.text = "${PayOutHelper.calculatePayout(bet, evals[position])}"
-
+                    if(hand.eval != Evaluate.Hand.NOTHING){
+                        holder.handEvalPay.text = "${PayOutHelper.calculatePayout(hand.bet, hand.eval)}"
                         if (itemCount > LITTLE_CARD_THRESHOLD) {
-                            holder.handEval.text = evals[position].littleName
+                            holder.handEval.text = hand.eval.littleName
                         } else {
-                            holder.handEval.text = evals[position].readableName
+                            holder.handEval.text = hand.eval.readableName
                         }
-
                         showEval(holder.handEvalLayout)
                     } else {
                         holder.handEvalLayout.visibility = View.INVISIBLE
                     }
                 }
             }
-            holder.betText.text = "$bet"
+            holder.betText.text = "${hand.bet}"
         }
         Timber.d("onBindViewHolder() took $timeInMillis ms")
-    }
-
-    override fun getItemCount() : Int{
-        return values.size
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -118,14 +195,9 @@ class HandAdapter(
         val handEvalLayout: ConstraintLayout = view.findViewById(R.id.winningLayout)
     }
 
-    private fun resizeEvalText(
-        handEval: TextView,
-        handEvalPay: TextView,
-        handEvalLayout: ConstraintLayout,
-        betTextView: TextView
-    ) {
+    private fun resizeEvalText(handEval: TextView, handEvalPay: TextView, handEvalLayout: ConstraintLayout, betTextView: TextView) {
         when(itemCount){
-            0,1 -> {
+            0, 1 -> {
                 handEval.textSize = 16F
                 handEvalPay.textSize = 20F
                 handEval.layoutParams.width = densityToPx(150F)
@@ -159,7 +231,8 @@ class HandAdapter(
                 betTextView.textSize = 12F
                 betTextView.layoutParams.width = densityToPx(15F)
                 betTextView.layoutParams.height = densityToPx(15F)
-            } 5,6,7,8,9 -> {
+            }
+            5, 6, 7, 8, 9 -> {
                 handEval.textSize = 10F
                 handEvalPay.textSize = 12F
                 handEval.layoutParams.width = densityToPx(70F)
@@ -169,7 +242,8 @@ class HandAdapter(
                 betTextView.textSize = 12F
                 betTextView.layoutParams.width = densityToPx(15F)
                 betTextView.layoutParams.height = densityToPx(15F)
-            } 10, 11, 12, 13, 14, 15, 16 -> {
+            }
+            10, 11, 12, 13, 14, 15, 16 -> {
                 handEval.textSize = 9F
                 handEvalPay.textSize = 11F
                 handEval.layoutParams.width = densityToPx(50F)
@@ -182,7 +256,10 @@ class HandAdapter(
             } else -> {
                 handEval.textSize = 6F
                 handEvalPay.textSize = 8F
-                handEval.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+                handEval.layoutParams = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
                 handEval.layoutParams.height = densityToPx(10F)
                 handEvalPay.layoutParams.height = densityToPx(10F)
                 handEvalLayout.setBackgroundResource(R.color.colorBlueTransparent)
@@ -196,7 +273,7 @@ class HandAdapter(
     private fun resizeImage(imageViews: List<ImageView>) {
         for((i, imageView) in imageViews.withIndex()) {
             when (itemCount) {
-                0,1 -> {
+                0, 1 -> {
                     imageView.layoutParams.height = densityToPx(100F)
                     imageView.layoutParams.width = densityToPx(70F)
                     imageView.setMarginLeft(densityToPx(70F * i))
@@ -210,11 +287,13 @@ class HandAdapter(
                     imageView.layoutParams.height = densityToPx(75F)
                     imageView.layoutParams.width = densityToPx(50F)
                     imageView.setMarginLeft(densityToPx(25F * i))
-                } 5,6,7,8,9 -> {
+                }
+                5, 6, 7, 8, 9 -> {
                     imageView.layoutParams.height = densityToPx(60F)
                     imageView.layoutParams.width = densityToPx(50F)
                     imageView.setMarginLeft(densityToPx(20F * i))
-                } 10, 11, 12, 13, 14, 15, 16 -> {
+                }
+                10, 11, 12, 13, 14, 15, 16 -> {
                     imageView.layoutParams.height = densityToPx(40F)
                     imageView.layoutParams.width = densityToPx(30F)
                     imageView.setMarginLeft(densityToPx(17F * i))
@@ -225,28 +304,6 @@ class HandAdapter(
                 }
             }
         }
-    }
-
-    fun hold(holdCards: List<Card>) {
-        hold = holdCards.toMutableList()
-        setState(State.HOLD)
-    }
-
-    fun setState(s: State) {
-        state = s
-    }
-
-    fun setBetAmount(b: Int) {
-        this.bet = b
-        setState(State.CARD_BACK)
-    }
-
-    fun setEvals(evals: MutableList<Evaluate.Hand>) {
-        this.evals = evals.drop(1).toMutableList()
-    }
-
-    fun setHands(hand: MutableList<MutableList<Card>>) {
-        values = hand
     }
 
     private fun View.setMarginLeft(leftMargin: Int) {
@@ -286,5 +343,9 @@ class HandAdapter(
         } else {
             CardUiUtils.showCardBack(cardView)
         }
+    }
+
+    private fun showEval(evalLayout: ConstraintLayout) {
+        evalLayout.visibility = View.VISIBLE
     }
 }
