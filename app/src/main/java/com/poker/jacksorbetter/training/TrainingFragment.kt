@@ -93,16 +93,14 @@ class TrainingFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModelMain = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-        viewModelTrain = ViewModelProvider(requireActivity()).get(TrainingViewModel::class.java)
+        viewModelMain = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        viewModelTrain = ViewModelProvider(requireActivity())[TrainingViewModel::class.java]
 
-        viewModelMain.handEvals.observe(viewLifecycleOwner, { handEvals ->
-            handEvals?.let {
-                viewModelMain.aiDecision.value?.let {
-                    viewModelMain.lastKeptCards()?.let { it1 ->
-                        updateTrainingView(it.hand, it.sortedRankedHands[0].first,
-                            it1
-                        )
+        viewModelMain.handEvals.observe(viewLifecycleOwner, { evals ->
+            evals?.let {
+                viewModelMain.aiDecision.value?.let { aiDecision ->
+                    viewModelMain.lastKeptCards()?.let { card ->
+                        updateTrainingView(aiDecision.hand, aiDecision.sortedRankedHands[0].first, card)
                     }
                 }
             }

@@ -16,7 +16,7 @@ import timber.log.Timber
 /**
  * A fragment representing a list of Items.
  */
-class HandFragment : Fragment(), HandAdapter.Callback {
+class HandFragment : Fragment(){
 
     private lateinit var viewModel: MainViewModel
 
@@ -36,6 +36,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
         viewModel.gameState.observe(viewLifecycleOwner,  { gameState ->
             if (gameState == MainViewModel.GameState.START){
                 mAdapter?.setState(State.CARD_BACK)
+                mAdapter?.notifyDataSetChanged()
                 payAdapter?.unhighlightEvals()
             }
         })
@@ -44,6 +45,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
             Timber.d("bet: $bet")
             payAdapter?.setBetAmount(bet)
             mAdapter?.setBetAmount(bet)
+            mAdapter?.notifyDataSetChanged()
         })
 
         viewModel.numberOfHands.observe(viewLifecycleOwner,  { numHands ->
@@ -69,6 +71,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
 
         viewModel.cardsHeld.observe(viewLifecycleOwner,  { held ->
             mAdapter?.hold(held)
+            mAdapter?.notifyDataSetChanged()
         })
     }
 
@@ -90,6 +93,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
         layManager2.justifyContent = JustifyContent.CENTER
         layManager2.alignItems = AlignItems.CENTER
 
+        // sets up hand(s) recycler view
         mAdapter =  HandAdapter(adapterHandData, mutableListOf(), adapterEvalData, 1, State.CARD_BACK)
         mAdapter?.setHasStableIds(true)
         val recycler = view.findViewById<RecyclerView>(R.id.list)
@@ -99,6 +103,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
             setItemViewCacheSize(100)
         }
 
+        // sets up paytable recycler view
         payAdapter = HandPayAdapter(requireContext())
         payAdapter?.setHasStableIds(true)
         val recycler2 = view.findViewById<RecyclerView>(R.id.paylist)
@@ -113,6 +118,7 @@ class HandFragment : Fragment(), HandAdapter.Callback {
     private fun setHandData(data: MutableList<MutableList<Card>>) {
         adapterHandData = data
         mAdapter?.setHands(adapterHandData)
+        mAdapter?.notifyDataSetChanged()
     }
 
     private fun setEvalData(evals: MutableList<Evaluate.Hand>) {
@@ -121,21 +127,19 @@ class HandFragment : Fragment(), HandAdapter.Callback {
         payAdapter?.highlightEvals(adapterEvalData.toSet())
         Timber.d("setting eval data: $evals")
         mAdapter?.setState(State.FLIP)
+        mAdapter?.notifyDataSetChanged()
     }
 
     private fun emptyHand(numHands: Int) {
         adapterHandData = MutableList(numHands){mutableListOf(Card(), Card(), Card(), Card(), Card())}
         mAdapter?.setState(State.CARD_BACK)
         mAdapter?.setHands(adapterHandData)
+        mAdapter?.notifyDataSetChanged()
     }
 
     companion object {
 
         @JvmStatic
         fun newInstance() = HandFragment()
-    }
-
-    override fun onComplete() {
-        // todo enable button viewmodel
     }
 }

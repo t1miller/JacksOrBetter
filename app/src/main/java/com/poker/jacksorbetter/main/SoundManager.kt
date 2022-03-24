@@ -29,7 +29,7 @@ object SoundManager {
     private val soundTypeToId = mutableMapOf<SoundType,Int>()
 
     fun load(context: Context) {
-        soundPool = SoundPool.Builder().setMaxStreams(5).build()
+        soundPool = SoundPool.Builder().setMaxStreams(3).build()
         soundTypeToId[SoundType.SHUFFLE] = soundPool?.load(context, R.raw.shuffling,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.FLIP] = soundPool?.load(context, R.raw.card_flip,1) ?: DEFAULT_ID
         soundTypeToId[SoundType.INSERT_COIN] = soundPool?.load(context, R.raw.insert_coin,1) ?: DEFAULT_ID

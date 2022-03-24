@@ -37,11 +37,6 @@ class HandAdapter(
         private const val LITTLE_CARD_THRESHOLD = 9
     }
 
-
-    interface Callback {
-        fun onComplete()
-    }
-
     private fun showEval(evalLayout: ConstraintLayout) {
         evalLayout.visibility = View.VISIBLE
     }
@@ -239,7 +234,6 @@ class HandAdapter(
 
     fun setState(s: State) {
         state = s
-        notifyDataSetChanged()
     }
 
     fun setBetAmount(b: Int) {
@@ -249,12 +243,10 @@ class HandAdapter(
 
     fun setEvals(evals: MutableList<Evaluate.Hand>) {
         this.evals = evals.drop(1).toMutableList()
-        notifyDataSetChanged()
     }
 
     fun setHands(hand: MutableList<MutableList<Card>>) {
         values = hand
-        notifyDataSetChanged()
     }
 
     private fun View.setMarginLeft(leftMargin: Int) {
