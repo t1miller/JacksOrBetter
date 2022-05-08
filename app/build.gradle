@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.poker.jacksorbetter"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 31
         versionCode 17
         versionName "2.5"

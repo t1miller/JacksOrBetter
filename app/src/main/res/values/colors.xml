@@ -3,7 +3,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-
     <color name="colorYellow">#FFFF00</color>
     <color name="colorLightYellow">#FDFD96</color>
     <color name="colorDarkBlue">#000066</color>
@@ -30,8 +29,5 @@
     <color name="goldenYellow">#FFE078</color>
     <color name="yellow">#FFCC00</color>
     <color name="white">#FFFFFF</color>
-
-
     <color name="colorBlueTransparent">#55003399</color>
-
 </resources>

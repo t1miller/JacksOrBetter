@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.poker.jacksorbetter.PokerApplication
 import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Evaluate
 
@@ -28,35 +27,18 @@ class PayTableAdapter (val context: Context) : RecyclerView.Adapter<PayTableAdap
         val item = values[position]
         val handEval = Evaluate.Hand.handFromReadableName(item.first)
 
-        holder.evalName.text = item.first
-        holder.evalAmount.text = "${item.second}"
-
-        if(evals.isNullOrEmpty()) {
-            holder.evalName.setBackgroundColor(
-                PokerApplication.applicationContext().resources.getColor(
-                    R.color.colorBlue
-                ))
-            holder.evalAmount.setBackgroundColor(
-                PokerApplication.applicationContext().resources.getColor(
-                    R.color.goldenYellow
-                ))
-            holder.evalContainer.setBackgroundColor(
-                PokerApplication.applicationContext().resources.getColor(
-                    R.color.red
-                ))
-        } else if(evals?.contains(handEval) == true && handEval != Evaluate.Hand.NOTHING) {
-            holder.evalName.setBackgroundColor(
-                PokerApplication.applicationContext().resources.getColor(
-                    R.color.red
-                ))
-            holder.evalAmount.setBackgroundColor(
-                PokerApplication.applicationContext().resources.getColor(
-                    R.color.red
-                ))
-            holder.evalContainer.setBackgroundColor(
-                PokerApplication.applicationContext().resources.getColor(
-                    R.color.colorYellow
-                ))
+        with(holder){
+            evalName.text = item.first
+            evalAmount.text = "${item.second}"
+            if(evals.isNullOrEmpty()) {
+                evalName.setBackgroundColor(context.resources.getColor(R.color.colorBlue, null))
+                evalAmount.setBackgroundColor(context.resources.getColor(R.color.goldenYellow,null))
+                evalContainer.setBackgroundColor(context.resources.getColor(R.color.red, null))
+            } else if(evals?.contains(handEval) == true && handEval != Evaluate.Hand.NOTHING) {
+                evalName.setBackgroundColor(context.resources.getColor(R.color.red, null))
+                evalAmount.setBackgroundColor(context.resources.getColor(R.color.red, null))
+                evalContainer.setBackgroundColor(context.resources.getColor(R.color.colorYellow, null))
+            }
         }
     }
 
