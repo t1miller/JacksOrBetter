@@ -25,7 +25,7 @@ class HandFragment : Fragment(){
 
     private lateinit var viewModel: MainViewModel
     private var handAdapter: HandsAdapter? = null
-    private var payAdapter: HandPayAdapter? = null
+    private var payTableAdapter: PayTableAdapter? = null
     private var layManager: FlexboxLayoutManager? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,13 +35,13 @@ class HandFragment : Fragment(){
         viewModel.gameState.observe(viewLifecycleOwner,  { gameState ->
             if (gameState == MainViewModel.GameState.START){
                 handAdapter?.setState(State.CARD_BACK)
-                payAdapter?.unhighlightEvals()
+                payTableAdapter?.unhighlightEvals()
             }
         })
 
         viewModel.bet.observe(viewLifecycleOwner,  { bet ->
             Timber.d("bet: $bet")
-            payAdapter?.setBetAmount(bet)
+            payTableAdapter?.setBetAmount(bet)
             handAdapter?.setBetAmount(bet)
         })
 
@@ -64,7 +64,7 @@ class HandFragment : Fragment(){
             if(evals != null && evals.isNotEmpty()){
                 Timber.d("evals $evals")
                 handAdapter?.setEvals(evals)
-                payAdapter?.highlightEvals(evals.toSet())
+                payTableAdapter?.highlightEvals(evals.toSet())
                 handAdapter?.setState(State.FLIP)
             }
         })
@@ -102,12 +102,12 @@ class HandFragment : Fragment(){
         }
 
         // sets up paytable recycler view
-        payAdapter = HandPayAdapter(requireContext())
-        payAdapter?.setHasStableIds(true)
+        payTableAdapter = PayTableAdapter(requireContext())
+        payTableAdapter?.setHasStableIds(true)
         val payRecycler = view.findViewById<RecyclerView>(R.id.paylist)
         with(payRecycler) {
             layoutManager = layManager2
-            adapter = payAdapter
+            adapter = payTableAdapter
         }
 
         if(SettingsUtils.getNumHands() >= 2){

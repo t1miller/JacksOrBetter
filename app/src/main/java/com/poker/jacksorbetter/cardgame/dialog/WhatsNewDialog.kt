@@ -1,4 +1,4 @@
-package com.poker.jacksorbetter.main
+package com.poker.jacksorbetter.cardgame.dialog
 
 import android.app.Dialog
 import android.content.Context

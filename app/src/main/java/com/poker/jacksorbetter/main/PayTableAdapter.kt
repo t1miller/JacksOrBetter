@@ -12,7 +12,7 @@ import com.poker.jacksorbetter.R
 import com.poker.jacksorbetter.cardgame.Evaluate
 
 
-class HandPayAdapter (val context: Context) : RecyclerView.Adapter<HandPayAdapter.ViewHolder>() {
+class PayTableAdapter (val context: Context) : RecyclerView.Adapter<PayTableAdapter.ViewHolder>() {
 
     var values = populatePayTable(1)
 
