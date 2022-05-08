@@ -19,6 +19,14 @@ import java.lang.Math.abs
  */
 class StatsFragment : Fragment() {
 
+    companion object {
+
+        val NAME = StatsFragment::class.java.simpleName
+
+        @JvmStatic
+        fun newInstance() = StatsFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,25 +70,31 @@ class StatsFragment : Fragment() {
 
 
         val cardViewsOriginal = mutableListOf<ImageView>()
-        cardViewsOriginal.add(view.findViewById(R.id.card1))
-        cardViewsOriginal.add(view.findViewById(R.id.card2))
-        cardViewsOriginal.add(view.findViewById(R.id.card3))
-        cardViewsOriginal.add(view.findViewById(R.id.card4))
-        cardViewsOriginal.add(view.findViewById(R.id.card5))
+        with(cardViewsOriginal){
+            add(view.findViewById(R.id.card1))
+            add(view.findViewById(R.id.card2))
+            add(view.findViewById(R.id.card3))
+            add(view.findViewById(R.id.card4))
+            add(view.findViewById(R.id.card5))
+        }
 
         val cardViewsAfterDiscard = mutableListOf<ImageView>()
-        cardViewsAfterDiscard.add(view.findViewById(R.id.card12))
-        cardViewsAfterDiscard.add(view.findViewById(R.id.card22))
-        cardViewsAfterDiscard.add(view.findViewById(R.id.card32))
-        cardViewsAfterDiscard.add(view.findViewById(R.id.card42))
-        cardViewsAfterDiscard.add(view.findViewById(R.id.card52))
+        with(cardViewsAfterDiscard){
+            add(view.findViewById(R.id.card12))
+            add(view.findViewById(R.id.card22))
+            add(view.findViewById(R.id.card32))
+            add(view.findViewById(R.id.card42))
+            add(view.findViewById(R.id.card52))
+        }
 
         val cardHeldViews = mutableListOf<TextView>()
-        cardHeldViews.add(view.findViewById(R.id.card1Hold))
-        cardHeldViews.add(view.findViewById(R.id.card2Hold))
-        cardHeldViews.add(view.findViewById(R.id.card3Hold))
-        cardHeldViews.add(view.findViewById(R.id.card4Hold))
-        cardHeldViews.add(view.findViewById(R.id.card5Hold))
+        with(cardHeldViews){
+            add(view.findViewById(R.id.card1Hold))
+            add(view.findViewById(R.id.card2Hold))
+            add(view.findViewById(R.id.card3Hold))
+            add(view.findViewById(R.id.card4Hold))
+            add(view.findViewById(R.id.card5Hold))
+        }
 
         // set last game stats
         CardUiUtils.showCards(cardViewsOriginal, StatisticsManager.getStatistics()?.lastGame?.handOriginal)
@@ -95,13 +109,5 @@ class StatsFragment : Fragment() {
         }
 
         return view
-    }
-
-    companion object {
-
-        val NAME = StatsFragment::class.java.simpleName
-
-        @JvmStatic
-        fun newInstance() = StatsFragment()
     }
 }

@@ -14,7 +14,6 @@ import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,18 +39,20 @@ class SimulatorFragment : Fragment() {
 
         fun randomSuprisedExpression() : String {
             val expressions = mutableListOf<String>()
-            expressions.add("Holly cannoli")
-            expressions.add("Gee willikers")
-            expressions.add("Gee whiz")
-            expressions.add("Holy toledo")
-            expressions.add("Gosh almighty")
-            expressions.add("Holy pretzel")
-            expressions.add("I'll be jitterBugged")
-            expressions.add("Zookers")
-            expressions.add("Holy pretzel")
-            expressions.add("Hot diggity")
-            expressions.add("Jeepers creepers")
-            expressions.add("Well call me a biscuit")
+            with(expressions){
+                add("Holly cannoli")
+                add("Gee willikers")
+                add("Gee whiz")
+                add("Holy toledo")
+                add("Gosh almighty")
+                add("Holy pretzel")
+                add("I'll be jitterBugged")
+                add("Zookers")
+                add("Holy pretzel")
+                add("Hot diggity")
+                add("Jeepers creepers")
+                add("Well call me a biscuit")
+            }
             return expressions.random()
         }
     }
@@ -146,9 +147,9 @@ class SimulatorFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        viewModel.aiDecision.observe(viewLifecycleOwner, Observer { aiDecision ->
+        viewModel.aiDecision.observe(viewLifecycleOwner, { aiDecision ->
             adapter.updateData(aiDecision.sortedRankedHands, viewModel.hands.value?.get(0))
             dismissSimulationLoadingDialog()
             showAiCardsToHold(aiDecision.sortedRankedHands.first().first)
